@@ -5,6 +5,47 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
+const {UserModel} = require('./models')
+const bcrypt = require('bcryptjs')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+
+//----------------------------------------------//
+
+// passport.use(
+//   new LocalStrategy((username, password, cb) => {
+//     UserModel.findOne({ user_name:username }, (err, user) => {
+//       if (err) {
+//         return cb(err);
+//       }
+//       if (!user) {
+//         return cb(null, false);
+//       }
+
+//       if (bcrypt.compareSync(password, user.user_password)) {
+//         return cb(null, user);
+//       }
+//       return cb(null, false);
+//     })
+//   })
+// )
+
+//----------------------------------------------//
+
+// passport.serializeUser((user, cb) => {
+//   cb(null, user._id);
+// });
+
+// passport.deserializeUser((id, cb) => {
+//   UserModel.findById(id, (err, user) => {
+//     if (err) {
+//       return cb(err);
+//     }
+//     cb(null, user);
+//   });
+// });
+
+//----------------------------------------------//
 
 require('./db');
 
@@ -15,8 +56,8 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+// app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,10 +1,8 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 const bcrypt = require('bcryptjs')
 
 const {UserModel} = require('../models')
-
-var session;
 
 /* GET users listing. */
 router.post('/register', async (req, res) => {
@@ -37,12 +35,23 @@ router.post('/login', async (req, res) => {
   if(user){
     const isCorrect = bcrypt.compareSync(password, user.user_password)
     if(isCorrect){
-      session = req.session;
-      session.userid = req.body.username;
-      console.log(req.session)
+      req.session.user = req.body.username;
       res.redirect('../main')
     }
   }
 })
+
+// router.post(
+//   '/login',
+//   passport.authenticate('local', {
+//     failureRedirect: '/login',
+//     successRedirect: '../main'
+//   }),
+//   async (req, res) => {
+//     const { username, password } = req.body;
+
+//     return res.redirect('../main')
+//   }
+// )
 
 module.exports = router;
