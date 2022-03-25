@@ -5,52 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
-const {UserModel} = require('./models')
-const bcrypt = require('bcryptjs')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
 
-//----------------------------------------------//
-
-// passport.use(
-//   new LocalStrategy((username, password, cb) => {
-//     UserModel.findOne({ user_name:username }, (err, user) => {
-//       if (err) {
-//         return cb(err);
-//       }
-//       if (!user) {
-//         return cb(null, false);
-//       }
-
-//       if (bcrypt.compareSync(password, user.user_password)) {
-//         return cb(null, user);
-//       }
-//       return cb(null, false);
-//     })
-//   })
-// )
-
-//----------------------------------------------//
-
-// passport.serializeUser((user, cb) => {
-//   cb(null, user._id);
-// });
-
-// passport.deserializeUser((id, cb) => {
-//   UserModel.findById(id, (err, user) => {
-//     if (err) {
-//       return cb(err);
-//     }
-//     cb(null, user);
-//   });
-// });
-
-//----------------------------------------------//
 
 require('./db');
 
+
 var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -82,7 +43,7 @@ app.use(session({
 }))
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

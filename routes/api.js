@@ -36,6 +36,7 @@ router.post('/login', async (req, res) => {
     const isCorrect = bcrypt.compareSync(password, user.user_password)
     if(isCorrect){
       req.session.user = req.body.username;
+      req.session.isLogin = true
       res.redirect('../main')
     }
   }
