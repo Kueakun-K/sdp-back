@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 
 const {UserModel, BookModel} = require('../models')
 
-/* GET users listing. */
+
 router.post('/register', async (req, res) => {
   const { username, password, repassword, email } = req.body;
 
@@ -45,16 +45,28 @@ router.post('/login', async (req, res) => {
 router.get('/book', async (req, res) => {
   const book_id = req.query.id
   console.log(book_id)
-  const book = await BookModel.findOne({_id: book_id})
+  const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
   res.render('book',{book:book})
+})
+
+router.post('/book', async (req, res) => {
+  const book = new BookModel(req.body)
+  await book.save()
+  res.redirect('../main')
 })
 
 router.put('/book', async (req, res) => {
   const book_id = req.body.id
   const {book_name, book_tag, book_description, book_price} = req.body
   const data = {book_name, book_tag, book_description, book_price}
-  const book = await BookModel.findOneAndUpdate({_id: book_id},data)
+  await BookModel.findOneAndUpdate({_id: book_id},data)
   res.redirect('../main')
-  // res.render('book', {book:book})
 })
+
+router.delete('/book', async (req, res) => {
+  const book_id = req.body.id
+  await BookModel.findOneAndDelete({_id:book_id})
+  res.redirect('../main')
+})
+
 module.exports = router;

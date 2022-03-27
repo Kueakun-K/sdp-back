@@ -12,12 +12,14 @@
     <button><a href="/register">Register</a></button>
     <br>
     <table>
-        <% for(var i = 0;i < 3;i++){ %>
+        <% for(var i = 0;i < book.length;i++){ %>
             <tr>
             <%= book[i].book_name %>
             <%= book[i].book_tag %>
             <%= book[i].book_description %>
             <%= book[i].book_price %>
+            rate : <%= book[i].book_rate %>
+            view : <%= book[i].book_view %>
             <br>
             </tr>
         <% } %>

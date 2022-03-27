@@ -9,14 +9,17 @@
 
     <h1>สวัสดีจ้า <%= user %></h1>
     <button><a href="/logout">Logout</a></button>
+    <button><a href="/addbook">Add Book</a></button>
     <br>
     <table>
-        <% for(var i = 0;i < 3;i++){ %>
+        <% for(var i = 0;i < book.length;i++){ %>
             <tr>
             <%= book[i].book_name %>
             <%= book[i].book_tag %>
             <%= book[i].book_description %>
             <%= book[i].book_price %>
+            rate : <%= book[i].book_rate %>
+            view : <%= book[i].book_view %>
             <form action="/api/book" method="get">
                 <input type="hidden" name='id' value="<%= book[i]._id %>">
                 <button type="submit">get</button>

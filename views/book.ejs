@@ -1,9 +1,12 @@
 <html>
 <body>
+    <p>
     <%= book.book_name %>
     <%= book.book_tag %>
     <%= book.book_description %>
     <%= book.book_price %>
+    rate :<%= book.book_rate %>
+    view :<%= book.book_view %></p>
     <form action="/api/book?_method=put" method="post">
         <input type="hidden" name="_method" value="put">
         <input type="hidden" name="id" value="<%= book._id %>">
@@ -13,6 +16,11 @@
         <input type="text" name="book_price" value="<%= book.book_price %>">
         <br>
         <button type="submit">UPDATE</button>
+    </form>
+    <form action="/api/book?_method=delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="id" value="<%= book._id %>">
+        <button type="submit">DELETE</button>
     </form>
 </body>
 </html>
