@@ -69,4 +69,10 @@ router.delete('/book', async (req, res) => {
   res.redirect('../main')
 })
 
+router.get('/search', async (req, res) => {
+  const bookname = req.query.bookname
+  const result = await BookModel.find({book_name: {$regex: bookname}})
+  res.render('search',{book: result})
+})
+
 module.exports = router;

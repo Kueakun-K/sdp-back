@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<html>
 <body>
-
-    <h1>สวัสดีจ้า <%= user %></h1>
-    <button><a href="/logout">Logout</a></button>
-    <button><a href="/addbook">Add Book</a></button>
-    <form action="/api/search" method="get">
-        <input type="text" name="bookname" >
-        <button type="submit">Search</button>
-    </form>
+    <button><a href="/main">Home</a></button>
     <br>
     <table>
         <% for(var i = 0;i < book.length;i++){ %>
@@ -32,6 +19,5 @@
             </tr>
         <% } %>
     </table>
-    
 </body>
 </html>
