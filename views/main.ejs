@@ -18,6 +18,8 @@
     <table>
         <% for(var i = 0;i < book.length;i++){ %>
             <tr>
+            <img src="data:book[i]/<%= book[i].book_img.contentType %>;base64,
+                <%= book[i].book_img.data.toString('base64') %>">
             <%= book[i].book_name %>
             <%= book[i].book_tag %>
             <%= book[i].book_description %>

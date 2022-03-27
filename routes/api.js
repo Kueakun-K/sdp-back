@@ -4,6 +4,23 @@ const bcrypt = require('bcryptjs')
 
 const {UserModel, BookModel} = require('../models')
 
+var fs = require('fs');
+var path = require('path')
+
+
+var multer = require('multer');
+  
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, (__dirname,'./public/images') )
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+var upload = multer({ storage: storage });
+
 
 router.post('/register', async (req, res) => {
   const { username, password, repassword, email } = req.body;
@@ -49,11 +66,36 @@ router.get('/book', async (req, res) => {
   res.render('book',{book:book})
 })
 
-router.post('/book', async (req, res) => {
-  const book = new BookModel(req.body)
-  await book.save()
-  res.redirect('../main')
+router.post('/book', upload.single('img'), async (req, res) => {
+  // const book = new BookModel(req.body)
+  // console.log("/book ",req.body.img)
+  // await book.save()
+  // res.redirect('../main')
+  console.log(req.file.filename)
+  var obj = {
+    book_name: req.body.book_name,
+    book_tag: req.body.book_tag,
+    book_description: req.body.book_description,
+    book_price: req.body.book_price,
+    book_img: {
+          data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.file.filename)),
+          contentType: 'image/png'
+      }
+  }
+  BookModel.create(obj, (err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('../main');
+      }
+  });
 })
+
+// router.post('/upload', async (req, res) => {
+//   console.log("/upload ",req.body.img)
+// })
 
 router.put('/book', async (req, res) => {
   const book_id = req.body.id
@@ -74,5 +116,6 @@ router.get('/search', async (req, res) => {
   const result = await BookModel.find({book_name: {$regex: bookname}})
   res.render('search',{book: result})
 })
+
 
 module.exports = router;

@@ -5,6 +5,10 @@ const BookSchema = mongoose.Schema({
     book_tag: String,
     book_description: String,
     book_price: Number,
+    book_img:{
+        data: Buffer,
+        contentType: String
+    },
     book_rate:{
         type: Number,
         default:0
