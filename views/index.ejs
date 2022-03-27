@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/Stylesheets/style.css" rel="stylesheet" type="text/css">
     <title>web test</title>
 </head>
 <body>
-    <button><a href="/login"/>Login</button>
-    <button><a href="/register"/>Register</button>
-   
+    <button><a href="/login">Login</a></button>
+    <button><a href="/register">Register</a></button>
+    <br>
+    <table>
+        <% for(var i = 0;i < 3;i++){ %>
+            <tr>
+            <%= book[i].book_name %>
+            <%= book[i].book_tag %>
+            <%= book[i].book_description %>
+            <%= book[i].book_price %>
+            <br>
+            </tr>
+        <% } %>
+    </table>
 </body>
 </html>

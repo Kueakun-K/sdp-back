@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
+const methodOverride = require('method-override')
 
 
 require('./db');
@@ -24,7 +25,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'))
+app.use(methodOverride('_method'))
 
 const oneDay = 1000 * 60 * 60 * 24
 

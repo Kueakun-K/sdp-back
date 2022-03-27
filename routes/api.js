@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 const bcrypt = require('bcryptjs')
 
-const {UserModel} = require('../models')
+const {UserModel, BookModel} = require('../models')
 
 /* GET users listing. */
 router.post('/register', async (req, res) => {
@@ -42,17 +42,19 @@ router.post('/login', async (req, res) => {
   }
 })
 
-// router.post(
-//   '/login',
-//   passport.authenticate('local', {
-//     failureRedirect: '/login',
-//     successRedirect: '../main'
-//   }),
-//   async (req, res) => {
-//     const { username, password } = req.body;
+router.get('/book', async (req, res) => {
+  const book_id = req.query.id
+  console.log(book_id)
+  const book = await BookModel.findOne({_id: book_id})
+  res.render('book',{book:book})
+})
 
-//     return res.redirect('../main')
-//   }
-// )
-
+router.put('/book', async (req, res) => {
+  const book_id = req.body.id
+  const {book_name, book_tag, book_description, book_price} = req.body
+  const data = {book_name, book_tag, book_description, book_price}
+  const book = await BookModel.findOneAndUpdate({_id: book_id},data)
+  res.redirect('../main')
+  // res.render('book', {book:book})
+})
 module.exports = router;

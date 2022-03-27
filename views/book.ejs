@@ -1,0 +1,18 @@
+<html>
+<body>
+    <%= book.book_name %>
+    <%= book.book_tag %>
+    <%= book.book_description %>
+    <%= book.book_price %>
+    <form action="/api/book?_method=put" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="id" value="<%= book._id %>">
+        <input type="text" name="book_name" value="<%= book.book_name %>">
+        <input type="text" name="book_tag" value="<%= book.book_tag %>">
+        <input type="text" name="book_description" value="<%= book.book_description %>">
+        <input type="text" name="book_price" value="<%= book.book_price %>">
+        <br>
+        <button type="submit">UPDATE</button>
+    </form>
+</body>
+</html>

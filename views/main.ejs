@@ -8,8 +8,23 @@
 <body>
 
     <h1>สวัสดีจ้า <%= user %></h1>
-    <button><a href="/logout"/>Logout</button>
-    
+    <button><a href="/logout">Logout</a></button>
+    <br>
+    <table>
+        <% for(var i = 0;i < 3;i++){ %>
+            <tr>
+            <%= book[i].book_name %>
+            <%= book[i].book_tag %>
+            <%= book[i].book_description %>
+            <%= book[i].book_price %>
+            <form action="/api/book" method="get">
+                <input type="hidden" name='id' value="<%= book[i]._id %>">
+                <button type="submit">get</button>
+            </form>
+            <br>
+            </tr>
+        <% } %>
+    </table>
     
 </body>
 </html>
