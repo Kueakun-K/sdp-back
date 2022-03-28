@@ -67,11 +67,6 @@ router.get('/book', async (req, res) => {
 })
 
 router.post('/book', upload.single('img'), async (req, res) => {
-  // const book = new BookModel(req.body)
-  // console.log("/book ",req.body.img)
-  // await book.save()
-  // res.redirect('../main')
-  console.log(req.file.filename)
   var obj = {
     book_name: req.body.book_name,
     book_tag: req.body.book_tag,
@@ -87,15 +82,10 @@ router.post('/book', upload.single('img'), async (req, res) => {
           console.log(err);
       }
       else {
-          // item.save();
           res.redirect('../main');
       }
   });
 })
-
-// router.post('/upload', async (req, res) => {
-//   console.log("/upload ",req.body.img)
-// })
 
 router.put('/book', async (req, res) => {
   const book_id = req.body.id
