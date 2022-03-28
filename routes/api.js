@@ -24,9 +24,9 @@ var upload = multer({ storage: storage });
 
 
 router.post('/register', async (req, res) => {
-  const { username, password, repassword, email } = req.body;
+  const { username, password, repassword, email, tel } = req.body;
 
-  if (!username || !password || !repassword || !email ){
+  if (!username || !password || !repassword || !email || !tel ){
     return res.render('register', { message: 'Please try again' });
   }
 
@@ -35,7 +35,8 @@ router.post('/register', async (req, res) => {
     const user = new UserModel({
       user_name: username,
       user_password: passwordHash,
-      user_email: email
+      user_email: email,
+      user_tel: tel
     })
     await user.save()
     res.redirect('../')

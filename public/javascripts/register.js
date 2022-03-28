@@ -26,8 +26,10 @@ $(function(){
                     email:true
                 },
                 tel:{
-                    required:true,
-                    tel:true
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    
                 }
             },
             messages:{
@@ -52,7 +54,8 @@ $(function(){
                 },
                 tel:{
                     required:'กรุณาป้อนเบอร์โทร',
-                    tel:'เบอร์โทรไม่ถูกต้อง'
+                    minlength:'เบอร์โทรต้องมี 10 ตัว',
+                    maxlength:'เบอร์โทรต้องมี 10 ตัว',
                 }
             }
         })
