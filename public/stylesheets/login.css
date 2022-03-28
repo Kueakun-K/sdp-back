@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'KMITLGO_Bold_ver_1.00';
-    src: url('../font/KMITLGO_Bold_ver_1.00.ttf')format("truetype");
+    src: url('./font/KMITLGO_Bold_ver_1.00.ttf')format("truetype");
 }
 body{
     padding: 0;
@@ -149,9 +149,8 @@ body{
     left: 199px;
     position: absolute;
     background-size: contain;
-    background-image: url("../img/__ia_thumb.jpg");
+    background-image: url("../images/__ia_thumb.jpg");
     
-  
 }
 .label-username{
     /* margin-right: 44px; */

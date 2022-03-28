@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'KMITLGO_Bold_ver_1.00';
-    src: url('../font/KMITLGO_Bold_ver_1.00.ttf')format("truetype");
+    src: url('./font/KMITLGO_Bold_ver_1.00.ttf')format("truetype");
 }
 body{
     padding: 0;
@@ -17,7 +17,6 @@ body{
     box-shadow: 1px 1px 10px ;
     transform: translateY(-85%);
     transition: transform .5s cubic-bezier(.4,0,.2,1);
-    
 }
 .navbar:hover{
     transform: translateY(0);
@@ -34,16 +33,17 @@ body{
     text-shadow:2px 2px  #00000036;
 
 }
-.form-control{
+#spform-control{
     margin-left: 210px;
     height: 22px;
     background-color: #FFF172;
-    padding-bottom: 5px;
+    padding-bottom: 0;
     padding-left: 2px;
     border-radius: 5px;
     font-family:'KMITLGO_Bold_ver_1.00';
     font-size: large;
     font-weight: 200;
+    width: 189px;
     
     /* padding: 2px; */
 }
@@ -65,61 +65,73 @@ body{
 #login-link{
     margin-left: 302px;
 }
+
+.form-control{
+    width: 350px;
+    padding: 0;
+    padding-left: 7px;
+    font-size: 25px;
+    
+}
+input.form-control::placeholder{
+    opacity: 0.3;
+}
 .container{
-    background-color: white;
-    margin-top: 0;
-    height: 100vh;
-    width: 800px;
-    display: block;
-    padding-top: 70px;
-    font-family: 'KMITLGO_Bold_ver_1.00';
+    background-color: rgb(255, 255, 255);
+    padding-top: 40px;
+    padding-left: 280px;
+    padding-right: 0;
+    /* text-align: center; */
+    width: 900px;
+    height: 700px;
     border-radius: 10px;
-    
-}
-.txt-alert{
-    color: green;
-    font-weight: bold ;
-    font-size: 1.5em;
-    font-family:inherit;
-    text-shadow:1px 1px  #00000036;
-    margin-left: 50px;
-}
-#confirm-email{
-    margin-left: 0;
-    width: 250px;
-    height: 30px;
-    background-color: white;
+    border-style: groove;
     border-width: 1px;
-    border-style: solid;
-    font-family: inherit;
-    border-color:#FD6F1F;
-    font-size: large;
-    
-  
-}
-.label-email{
-    margin-left: 220px;
-    margin-right: 5px;
-    font-weight: bold ;
-    font-size: 1.5em;
-    color: green;
-}
-.label-email,#confirm-email{
-    margin-top: 60px;
-    display: inline;
-}
-#button-forgot{
-    margin-top: 25px;
-   
+    font-family: 'KMITLGO_Bold_ver_1.00';
+    font-size: 20px;
 }
 .spacebtnregis{
-    text-align: center;
+    margin-left: 77px;
+   
 }
-#button-forgot{
+#buttonregis{
+    width: 200px;
     font-size: larger;
     border-radius: 10px;
     transition: all 0.25s ease;
 }
-#button-forgot:hover{
+#buttonregis:hover{
     transform: translate(0px,-5px);
+}
+.col-sm-2{
+    color: green;
+    font-size: large;
+    width: 150px;
+    font-size: 21px;
+    
+}
+/* .message small{
+    color: red;
+    visibility: hidden;
+    margin: 0;
+}
+.message.erorr small{
+    visibility: visible;
+}
+.message.erorr input{
+    border-color: red;
+}
+.message.success small{
+    color: green;
+}
+.message.success input{
+    border-color: green;
+} */
+.error{
+    color: red;
+    font-family: inherit;
+
+}
+input.error{
+    border-color: red;
 }

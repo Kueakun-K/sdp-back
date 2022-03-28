@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahey Libary-ลงทะเบียน</title>
-    <link rel="stylesheet" href="/stylesheets/cssframework/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/stylesheets/css/style2.css" type="text/css">
+    <title>Ahey Library-ลงทะเบียน</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/register.css" type="text/css">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <li class="navbar-brand" href="#">Ahey Libary</li>
+      <li class="navbar-brand" href="#">Ahey Library</li>
        <form class="d-flex">
           <input class="form-control me-2" id="spform-control" type="search" placeholder="ค้นหา" aria-label="Search" style="background-color: #FFF172;color: red;">
           <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
@@ -71,7 +71,7 @@
             </div>
             </div>
           </div>
-        <div class="row mb-5">
+        <div class="row mb-3">
             <label for="inputEmail3" class="col-sm-2 col-form-label">อีเมลล์</label>
             <div class="col-sm-10">
                 <div class="message">
@@ -80,6 +80,18 @@
               </div>
             </div>
         </div>
+        
+        <div class="row mb-5">
+          <label for="inputtel" class="col-sm-2 col-form-label">เบอร์โทร</label>
+          <div class="col-sm-10">
+              <div class="message">
+              <input type="tel" class="form-control" id="inputtel" name="tel" placeholder="0800000000" style="color: orange;" >
+              <!-- <small>error message</small> -->
+            </div>
+          </div>
+      </div>
+
+
         <div class="spacebtnregis">
         <button type="submit" class="btn btn-primary" id="buttonregis" >ลงทะเบียน</button>
         </div>
@@ -87,7 +99,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-    <script src="/javascripts/js/bootstrap.min.js"></script>
-    <script src="/javascripts/custom_js/custom1.js"></script>
+    <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
+    <script src="/javascripts/register.js"></script>
 </body>
 </html>

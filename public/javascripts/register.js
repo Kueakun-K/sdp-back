@@ -17,13 +17,17 @@ $(function(){
                     maxlength:10
 
                 },
-                confirmpassword:{
+                repassword:{
                     required:true,
                     equalTo:'#inputPassword3'
                 },
                 email:{
                     required:true,
                     email:true
+                },
+                tel:{
+                    required:true,
+                    tel:true
                 }
             },
             messages:{
@@ -38,13 +42,17 @@ $(function(){
                     minlength:'รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร',
                     maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 10 ตัวอักษร'
                 },
-                confirmpassword:{
+                repassword:{
                     required:'กรุณาป้อนรหัสผ่านอีกครั้ง',
                     equalTo:'รหัสผ่านไม่เหมือนกัน'
                 },
                 email:{
                     required:'กรุณาป้อนอีเมลล์',
                     email:'อีเมลล์ไม่ถูกต้อง'
+                },
+                tel:{
+                    required:'กรุณาป้อนเบอร์โทร',
+                    tel:'เบอร์โทรไม่ถูกต้อง'
                 }
             }
         })
