@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
       user_email: email
     })
     await user.save()
-    res.render('index')
+    res.redirect('../')
   }
 })
 

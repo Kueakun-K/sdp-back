@@ -11,11 +11,15 @@ router.get('/', Authorize('main',false), async (req, res) => {
 })
 
 router.get('/login', Authorize('main',false), (req, res) =>{
-  res.render('login')
+  res.render('index_login')
 })
 
 router.get('/register', (req, res) =>{
-  res.render('register')
+  res.render('index_register')
+})
+
+router.get('/forgotpassword', (req, res) => {
+  res.render('index_forgotpassword')
 })
 
 router.get('/main', Authorize('/login',true), async (req, res) => {
@@ -31,4 +35,10 @@ router.get('/logout', (req, res) => {
 router.get('/addbook', (req, res) => [
   res.render('addbook')
 ])
+
+router.get('/test', (req, res) => {
+  res.render('index_login')
+})
+
+
 module.exports = router;
