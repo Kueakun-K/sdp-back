@@ -13,7 +13,7 @@ var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
                 // __dirname,
-        cb(null, ('./public/images') )
+        cb(null, (__dirname,'./public/images') )
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now())
@@ -75,7 +75,7 @@ router.post('/book', upload.single('img'), async (req, res) => {
     book_price: req.body.book_price,
     book_img: {
                                       // __dirname,
-          data: fs.readFileSync(path.join('../public/images/' + req.file.filename)),
+          data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.file.filename)),
           contentType: 'image/png'
       }
   }
