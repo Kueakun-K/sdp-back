@@ -7,7 +7,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         unique: true
       },
-    user_tel: String,
+    // user_tel: String,
     user_Role: {
         type:String,
         default:"User"

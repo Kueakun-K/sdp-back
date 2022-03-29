@@ -24,13 +24,13 @@ $(function(){
                 email:{
                     required:true,
                     email:true
-                },
-                tel:{
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10,
-                    
                 }
+                // tel:{
+                //     required: true,
+                //     minlength: 10,
+                //     maxlength: 10,
+                    
+                // }
             },
             messages:{
                 username:{
@@ -51,12 +51,12 @@ $(function(){
                 email:{
                     required:'กรุณาป้อนอีเมลล์',
                     email:'อีเมลล์ไม่ถูกต้อง'
-                },
-                tel:{
-                    required:'กรุณาป้อนเบอร์โทร',
-                    minlength:'เบอร์โทรต้องมี 10 ตัว',
-                    maxlength:'เบอร์โทรต้องมี 10 ตัว',
                 }
+                // tel:{
+                //     required:'กรุณาป้อนเบอร์โทร',
+                //     minlength:'เบอร์โทรต้องมี 10 ตัว',
+                //     maxlength:'เบอร์โทรต้องมี 10 ตัว',
+                // }
             }
         })
     }
