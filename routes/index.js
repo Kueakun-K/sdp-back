@@ -19,7 +19,7 @@ router.get('/register', (req, res) =>{
 })
 
 router.get('/forgotpassword', (req, res) => {
-  res.render('index_forgotpassword')
+  res.render('index_forgotpassword',{ message: '' })
 })
 
 router.get('/main', Authorize('/login',true), async (req, res) => {

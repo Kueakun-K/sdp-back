@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 const bcrypt = require('bcryptjs')
+const nodemailer = require("nodemailer")
 
 const {UserModel, BookModel} = require('../models')
 
@@ -71,6 +72,43 @@ router.post('/login', async (req, res) => {
   }
   else{
     return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
+  }
+})
+
+router.get('/mail', async (req, res) => {
+  const email = req.query.email
+  
+  const checkemail = await UserModel.findOne({user_email: email})
+  if(!checkemail){
+    return res.render('index_forgotpassword',{ message: 'ไม่มี Email นี้' })
+  }
+  else{
+    let transporter = nodemailer.createTransport({
+      host: 'gmail',
+      service: 'Gmail',
+      auth: {
+          user: 'aheylibrary@gmail.com',
+          pass: 'Ahey_123456789',
+      }
+    })
+
+    const mailOptions = {
+      from: 'Ahey Library <aheylibrary@gmail.com>',   
+      to: `คุณ ${checkemail.user_name} <${email}>`,
+      subject: "สวัสดีจ้า",                     
+      html: "<b>Test Test</b>"
+    }
+
+    transporter.sendMail(mailOptions, function (err, info) {
+      if(err){
+        console.log(err)
+        return res.render('index_forgotpassword',{ message: 'Error' })
+      }
+      else{
+        console.log(info);
+        return res.render('index_forgotpassword',{ message: 'ส่งไปที่ Email เรียบร้อย' })
+      }
+    })
   }
 })
 
