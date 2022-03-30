@@ -11,11 +11,11 @@ router.get('/', Authorize('main',false), async (req, res) => {
 })
 
 router.get('/login', Authorize('main',false), (req, res) =>{
-  res.render('index_login')
+  res.render('index_login',{ message: '' })
 })
 
 router.get('/register', (req, res) =>{
-  res.render('index_register')
+  res.render('index_register',{ message: '' })
 })
 
 router.get('/forgotpassword', (req, res) => {

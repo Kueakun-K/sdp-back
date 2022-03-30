@@ -27,7 +27,17 @@ router.post('/register', async (req, res) => {
   const { username, password, repassword, email} = req.body;
 
   if (!username || !password || !repassword || !email){
-    return res.render('register', { message: 'Please try again' });
+    return res.render('index_register', { message: 'Please try again' });
+  }
+
+  const checkusername = await UserModel.findOne({user_name:username})
+  if(checkusername){
+    return res.render('index_register', { message: 'Username ซ้ำ' });
+  }
+
+  const checkemail = await UserModel.findOne({user_email:email})
+  if(checkemail){
+    return res.render('index_register', { message: 'Email ซ้ำ' });
   }
 
   if( password == repassword){
@@ -47,7 +57,7 @@ router.post('/login', async (req, res) => {
   const {username , password} = req.body
 
   if(!username || !password){
-    return res.render('login')
+    return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
   }
 
   const user = await UserModel.findOne({user_name: username})
@@ -58,6 +68,9 @@ router.post('/login', async (req, res) => {
       req.session.isLogin = true
       res.redirect('../main')
     }
+  }
+  else{
+    return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
   }
 })
 

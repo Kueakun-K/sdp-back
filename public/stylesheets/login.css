@@ -254,3 +254,8 @@ body{
     margin-left: 140px;
     color: red;
 }
+
+.error{
+    color: red;
+    font-family: inherit;
+}
