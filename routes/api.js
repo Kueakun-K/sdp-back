@@ -2,8 +2,9 @@ var express = require('express')
 var router = express.Router()
 const bcrypt = require('bcryptjs')
 const nodemailer = require("nodemailer")
+const crypto = require('crypto')
 
-const {UserModel, BookModel} = require('../models')
+const {UserModel, BookModel, TokenModel} = require('../models')
 
 var fs = require('fs');
 var path = require('path')
@@ -13,7 +14,6 @@ var multer = require('multer');
   
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-                // __dirname,
         cb(null, (__dirname,'./public/images') )
     },
     filename: (req, file, cb) => {
@@ -69,6 +69,9 @@ router.post('/login', async (req, res) => {
       req.session.isLogin = true
       res.redirect('../main')
     }
+    else{
+      return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
+    }
   }
   else{
     return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
@@ -83,6 +86,14 @@ router.get('/mail', async (req, res) => {
     return res.render('index_forgotpassword',{ message: 'ไม่มี Email นี้' })
   }
   else{
+    let token = await TokenModel.findOne({user_id: checkemail._id})
+    if(!token){
+      token = await new TokenModel({
+        user_id: checkemail._id,
+        token: crypto.randomBytes(32).toString("hex"),
+      }).save()
+    }
+
     let transporter = nodemailer.createTransport({
       host: 'gmail',
       service: 'Gmail',
@@ -96,19 +107,28 @@ router.get('/mail', async (req, res) => {
       from: 'Ahey Library <aheylibrary@gmail.com>',   
       to: `คุณ ${checkemail.user_name} <${email}>`,
       subject: "สวัสดีจ้า",                     
-      html: "<b>Test Test</b>"
+      html: "<b>Test Test</b>" + 
+            `<a href='http://localhost:3000/password-reset/${checkemail._id}/${token.token}'>Cilck Here</a>`
     }
 
     transporter.sendMail(mailOptions, function (err, info) {
       if(err){
-        console.log(err)
         return res.render('index_forgotpassword',{ message: 'Error' })
       }
       else{
-        console.log(info);
         return res.render('index_forgotpassword',{ message: 'ส่งไปที่ Email เรียบร้อย' })
       }
     })
+  }
+})
+
+router.post('/reset-password', async (req, res) => {
+  const {user_id, password, repassword} = req.body
+
+  if( password == repassword){
+    const passwordHash = bcrypt.hashSync(password, 10)
+    await UserModel.findByIdAndUpdate(user_id,{user_password: passwordHash})
+    res.redirect('../login')
   }
 })
 
@@ -126,7 +146,6 @@ router.post('/book', upload.single('img'), async (req, res) => {
     book_description: req.body.book_description,
     book_price: req.body.book_price,
     book_img: {
-                                      // __dirname,
           data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.file.filename)),
           contentType: 'image/png'
       }
