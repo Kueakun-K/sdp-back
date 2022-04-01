@@ -50,8 +50,9 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.get('/test', (req, res) => {
-  res.render('HOME')
+router.get('/test', async (req, res) => {
+  const time = await BookModel.findOne({book_name: "time"})
+  res.render('error',{error: Date.now(), time:time.createdAt, result:Date.now() - time.createdAt})
 })
 
 

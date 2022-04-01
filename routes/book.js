@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-const {BookModel} = require('../models')
+const {BookModel, UserModel, RentModel} = require('../models')
 
-var multer = require('multer');
+var fs = require('fs')
+var path = require('path')
+var multer = require('multer')
   
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -28,7 +30,7 @@ router.get('/addbook', (req, res) => {
     res.render('addbook')
 })
 
-router.post('/addbook', upload.single('img'), async (req, res) => {
+router.post('/postbook', upload.single('img'), async (req, res) => {
     var obj = {
       book_name: req.body.book_name,
       book_tag: req.body.book_tag,
@@ -70,6 +72,21 @@ router.get('/search', async (req, res) => {
     res.render('search',{book: result})
 })
 
+router.post('/rent', async (req, res) => {
+    const user = await UserModel.findOne({user_name: req.session.user})
+    const {book_id, week} = req.body
+
+    const oneWeek = 7 * 24 * 60 * 60 * 1000
+    
+    const rent = new RentModel({
+        user_id: user._id,
+        book_id,
+        createdAt: Date.now(),
+        endAt: Date.now() + (week * oneWeek)
+    })
+    await rent.save()
+    res.redirect('../')
+})
 
 
 module.exports = router;

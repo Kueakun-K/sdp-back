@@ -22,5 +22,10 @@
         <input type="hidden" name="id" value="<%= book._id %>">
         <button type="submit">DELETE</button>
     </form>
+    <form action="/book/rent" method="post">
+        <input type="hidden" name="book_id" value="<%= book._id %>">
+        <input type="number" name="week">
+        <button type="submit">RENT</button>
+    </form>
 </body>
 </html>

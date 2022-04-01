@@ -6,9 +6,6 @@ const crypto = require('crypto')
 
 const {UserModel, BookModel, TokenModel} = require('../models')
 
-var fs = require('fs');
-var path = require('path')
-
 
 router.post('/register', async (req, res) => {
   const { username, password, repassword, email} = req.body;
