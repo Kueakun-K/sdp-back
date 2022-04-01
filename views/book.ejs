@@ -7,7 +7,7 @@
     Price : <%= book.book_price %>
     rate :<%= book.book_rate %>
     view :<%= book.book_view %></p>
-    <form action="/api/book?_method=put" method="post">
+    <form action="/book/update?_method=put" method="post">
         <input type="hidden" name="_method" value="put">
         <input type="hidden" name="id" value="<%= book._id %>">
         <input type="text" name="book_name" value="<%= book.book_name %>">
@@ -17,7 +17,7 @@
         <br>
         <button type="submit">UPDATE</button>
     </form>
-    <form action="/api/book?_method=delete" method="post">
+    <form action="/book/delete?_method=delete" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="id" value="<%= book._id %>">
         <button type="submit">DELETE</button>

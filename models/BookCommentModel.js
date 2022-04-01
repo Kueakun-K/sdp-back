@@ -1,10 +1,21 @@
 const mongoose = require("mongoose")
 
 const BookCommentSchema = mongoose.Schema({
-    book_id: String,
-    user_name: String,
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    book_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    rate:{ 
+        type: Number,
+        min: 1, 
+        max: 5 
+    },
     comment: String,
-    date:{
+    createdAt:{
         type:Date,
         default:Date.now()
     }

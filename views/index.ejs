@@ -142,10 +142,10 @@
             <div class="row my-2">
                 <% for(var i = 0;i < book.length;i++){ %>
                 <div class="col-md-2">
-                    <form action="/book" method="get" id="book<%= i %>">
+                    <!-- <form action="/book" method="get" id="book<%= i %>">
                         <input type="hidden" name='id' value="<%= book[i]._id %>">
-                    </form>
-                    <a href="javascript:document.getElementById('book<%= i %>').submit()"><img
+                    </form> -->
+                    <a href="/book/<%= book[i]._id %>"><img
                             src="data:book[i]/<%= book[i].book_img.contentType %>;base64,
                             <%= book[i].book_img.data.toString('base64') %>"
                             class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
