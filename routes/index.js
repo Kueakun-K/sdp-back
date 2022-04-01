@@ -49,9 +49,6 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/addbook', (req, res) => [
-  res.render('addbook')
-])
 
 router.get('/test', (req, res) => {
   res.render('HOME')
