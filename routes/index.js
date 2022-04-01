@@ -5,13 +5,19 @@ const Authorize = require('../authorize')
 const {BookModel, UserModel, TokenModel} = require('../models')
 
 /* GET home page. */
-router.get('/', Authorize('main',false), async (req, res) => {
+router.get('/', async (req, res) => {
   const book = await BookModel.find().sort({book_name: 1})
-  res.render('index', {book: book})
+  res.render('index', {
+    book: book, 
+    user: req.session.user
+  })
 })
 
-router.get('/login', Authorize('main',false), (req, res) =>{
-  res.render('index_login',{ message: '' })
+router.get('/login', Authorize('/',false), (req, res) =>{
+  res.render('index_login',{ 
+    username: req.session.username,
+    message: req.session.message_login 
+  })
 })
 
 router.get('/register', (req, res) =>{
@@ -33,10 +39,10 @@ router.get('/password-reset/:user_id/:token', async (req, res) => {
   res.render('reset-password',{user_id: user._id})
 })
 
-router.get('/main', Authorize('/login',true), async (req, res) => {
-  const book = await BookModel.find().sort({book_name: 1})
-  res.render('main', {user: req.session.user, book: book})
-})
+// router.get('/main', Authorize('/login',true), async (req, res) => {
+//   const book = await BookModel.find().sort({book_name: 1})
+//   res.render('main', {user: req.session.user, book: book})
+// })
 
 router.get('/logout', (req, res) => {
   req.session.destroy()
@@ -48,7 +54,7 @@ router.get('/addbook', (req, res) => [
 ])
 
 router.get('/test', (req, res) => {
-  res.render('index_login')
+  res.render('HOME')
 })
 
 

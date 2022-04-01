@@ -7,14 +7,11 @@ $(function(){
                     required: true,
                     minlength:3,
                     maxlength:12,
-                    // remote:{
-                    //     url:"mock_checkexist.php"
-                    // }
                 },
                 password:{
                     required:true,
                     minlength:4,
-                    maxlength:10
+                    maxlength:20
 
                 },
                 repassword:{
@@ -25,12 +22,6 @@ $(function(){
                     required:true,
                     email:true
                 }
-                // tel:{
-                //     required: true,
-                //     minlength: 10,
-                //     maxlength: 10,
-                    
-                // }
             },
             messages:{
                 username:{
@@ -42,7 +33,7 @@ $(function(){
                 password:{
                     required:'กรุณาป้อนรหัสผ่าน',
                     minlength:'รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร',
-                    maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 10 ตัวอักษร'
+                    maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 20 ตัวอักษร'
                 },
                 repassword:{
                     required:'กรุณาป้อนรหัสผ่านอีกครั้ง',
@@ -52,11 +43,6 @@ $(function(){
                     required:'กรุณาป้อนอีเมลล์',
                     email:'อีเมลล์ไม่ถูกต้อง'
                 }
-                // tel:{
-                //     required:'กรุณาป้อนเบอร์โทร',
-                //     minlength:'เบอร์โทรต้องมี 10 ตัว',
-                //     maxlength:'เบอร์โทรต้องมี 10 ตัว',
-                // }
             }
         })
     }

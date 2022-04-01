@@ -50,7 +50,7 @@ router.post('/register', async (req, res) => {
      
     })
     await user.save()
-    res.redirect('../')
+    res.redirect('../login')
   }
 })
 
@@ -58,23 +58,31 @@ router.post('/login', async (req, res) => {
   const {username , password} = req.body
 
   if(!username || !password){
-    return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
+    // req.session.username = username
+    req.session.message_login = "Username or Password invalid"
+    res.redirect('../login')
   }
 
   const user = await UserModel.findOne({user_name: username})
   if(user){
     const isCorrect = bcrypt.compareSync(password, user.user_password)
     if(isCorrect){
-      req.session.user = req.body.username;
+      delete req.session.username
+      delete req.session.message_login
+      req.session.user = username
       req.session.isLogin = true
-      res.redirect('../main')
+      res.redirect('../')
     }
     else{
-      return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
+      req.session.username = username
+      req.session.message_login = "Username or Password invalid"
+      res.redirect('../login')
     }
   }
   else{
-    return res.render('index_login',{ message: 'Username หรือ Password ไม่ถูกต้อง' })
+    req.session.username = username
+    req.session.message_login = "Username or Password invalid"
+    res.redirect('../login')
   }
 })
 
