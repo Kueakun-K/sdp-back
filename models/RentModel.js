@@ -13,9 +13,12 @@ const RentSchema = mongoose.Schema({
         type:Date
     },
     endAt:{
-        type: Date
+        type: Date,
+        default: null 
     }
 })
+
+RentSchema.index({ endAt: 1 }, { expireAfterSeconds: 0 })
 
 const RentModel = mongoose.model("Rent",RentSchema) 
 

@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+
 
 const {BookModel, UserModel, RentModel} = require('../models')
 
@@ -21,13 +22,12 @@ var upload = multer({ storage: storage })
 
 router.get('/:id', async (req, res) => {
     const book_id = req.params.id
-    console.log(book_id)
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
-    res.render('book',{book:book})
+    return res.render('book',{book:book})
 })
 
 router.get('/addbook', (req, res) => {
-    res.render('addbook')
+    return res.render('addbook')
 })
 
 router.post('/postbook', upload.single('img'), async (req, res) => {
@@ -46,7 +46,7 @@ router.post('/postbook', upload.single('img'), async (req, res) => {
             console.log(err);
         }
         else {
-            res.redirect('../');
+            return res.redirect('../');
         }
     })
 })
@@ -56,14 +56,14 @@ router.put('/update', async (req, res) => {
     const {book_name, book_tag, book_description, book_price} = req.body
     const data = {book_name, book_tag, book_description, book_price}
     await BookModel.findOneAndUpdate({_id: book_id},data)
-    res.redirect('../')
+    return res.redirect('../')
 })
   
 router.delete('/delete', async (req, res) => {
     const book_id = req.body.id
     console.log(book_id)
     await BookModel.findOneAndDelete({_id:book_id})
-    res.redirect('../')
+    return res.redirect('../')
 })
   
 router.get('/search', async (req, res) => {
@@ -73,9 +73,14 @@ router.get('/search', async (req, res) => {
 })
 
 router.post('/rent', async (req, res) => {
-    const user = await UserModel.findOne({user_name: req.session.user})
     const {book_id, week} = req.body
 
+    if(!req.session.isLogin){
+        req.session.book = book_id
+        return res.redirect('../login')
+    }
+
+    const user = await UserModel.findOne({user_name: req.session.user})
     const oneWeek = 7 * 24 * 60 * 60 * 1000
     
     const rent = new RentModel({
@@ -84,8 +89,9 @@ router.post('/rent', async (req, res) => {
         createdAt: Date.now(),
         endAt: Date.now() + (week * oneWeek)
     })
+    
     await rent.save()
-    res.redirect('../')
+    return res.redirect('../')
 })
 
 

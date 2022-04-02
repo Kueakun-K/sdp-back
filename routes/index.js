@@ -39,20 +39,13 @@ router.get('/password-reset/:user_id/:token', async (req, res) => {
   res.render('reset-password',{user_id: user._id})
 })
 
-// router.get('/main', Authorize('/login',true), async (req, res) => {
-//   const book = await BookModel.find().sort({book_name: 1})
-//   res.render('main', {user: req.session.user, book: book})
-// })
-
 router.get('/logout', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
 
-
 router.get('/test', async (req, res) => {
-  const time = await BookModel.findOne({book_name: "time"})
-  res.render('error',{error: Date.now(), time:time.createdAt, result:Date.now() - time.createdAt})
+  res.render('error')
 })
 
 

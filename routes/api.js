@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const nodemailer = require("nodemailer")
 const crypto = require('crypto')
 
-const {UserModel, BookModel, TokenModel} = require('../models')
+const {UserModel, TokenModel} = require('../models')
 
 
 router.post('/register', async (req, res) => {
@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
      
     })
     await user.save()
-    res.redirect('../login')
+    return res.redirect('../login')
   }
 })
 
@@ -50,22 +50,33 @@ router.post('/login', async (req, res) => {
   if(user){
     const isCorrect = bcrypt.compareSync(password, user.user_password)
     if(isCorrect){
-      delete req.session.username
-      delete req.session.message_login
+      if(req.session.username){
+        delete req.session.username
+      }
+        
+      if(req.session.message_login){
+        delete req.session.message_login
+      }   
       req.session.user = username
       req.session.isLogin = true
-      res.redirect('../')
+      if(!req.session.book){
+        return res.redirect('../')
+      }
+      const bookid = req.session.book
+      delete req.session.book
+      return res.redirect(`../book/${bookid}`)
+      
     }
     else{
       req.session.username = username
       req.session.message_login = "Username or Password invalid"
-      res.redirect('../login')
+      return res.redirect('../login')
     }
   }
   else{
     req.session.username = username
     req.session.message_login = "Username or Password invalid"
-    res.redirect('../login')
+    return res.redirect('../login')
   }
 })
 
@@ -119,7 +130,7 @@ router.post('/reset-password', async (req, res) => {
   if( password == repassword){
     const passwordHash = bcrypt.hashSync(password, 10)
     await UserModel.findByIdAndUpdate(user_id,{user_password: passwordHash})
-    res.redirect('../login')
+    return res.redirect('../login')
   }
 })
 
