@@ -26,9 +26,7 @@ router.get('/:id', async (req, res) => {
     return res.render('book',{book:book})
 })
 
-router.get('/addbook', (req, res) => {
-    return res.render('addbook')
-})
+
 
 router.post('/postbook', upload.single('img'), async (req, res) => {
     var obj = {
@@ -93,6 +91,9 @@ router.post('/rent', async (req, res) => {
     await rent.save()
     return res.redirect('../')
 })
+
+
+
 
 
 module.exports = router;

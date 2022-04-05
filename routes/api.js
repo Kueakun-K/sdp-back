@@ -53,9 +53,11 @@ router.post('/login', async (req, res) => {
       if(req.session.username){
         delete req.session.username
       }
-        
       if(req.session.message_login){
         delete req.session.message_login
+      }   
+      if(req.session.sort){
+        delete req.session.sort
       }   
       req.session.user = username
       req.session.isLogin = true
@@ -134,5 +136,17 @@ router.post('/reset-password', async (req, res) => {
   }
 })
 
+router.post('/sort', async (req, res) => {
+  const {sort, page} = req.body
+
+  if(req.session.user){
+    await UserModel.findOneAndUpdate({user_name: req.session.user},{book_sort: sort})
+    return res.redirect(`../${page}`)
+  }
+  else{
+    req.session.sort = sort
+    return res.redirect(`../${page}`)
+  }
+})
 
 module.exports = router;

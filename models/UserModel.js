@@ -11,9 +11,13 @@ const UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    book_sort:{
+        type: String,
+        default: "new"
+    },
     user_Role: {
         type:String,
-        default:"User"
+        default: "User"
     }
 })
 
