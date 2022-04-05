@@ -6,9 +6,9 @@ const {BookModel, UserModel, TokenModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
-  const book = await BookModel.find().sort({book_name: 1})
+  const newbook = await BookModel.find().sort({createdAt: -1})
   res.render('index', {
-    book: book, 
+    newbook: newbook, 
     user: req.session.user
   })
 })
@@ -55,7 +55,6 @@ router.get('/addbook', (req, res) => {
 
 
 router.get('/manga', async (req, res) => {
-
   if(req.session.user){
     const user = await UserModel.findOne({user_name: req.session.user})
     const sort = user.book_sort
