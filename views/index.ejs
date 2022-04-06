@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
             <div class="p-5">
-                <a href="/" class="navbar-brand fs-3 fw-normal">AHEEY LIBRARY</a>
+                <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
             </div>
             <div class="p-5 justify-content-center">
                 <form>
@@ -38,11 +38,6 @@
                     <a href="#" class="btn btn-dark"><%= user %></a>
                     <a href="/logout" class="btn btn-dark">LOGOUT</a>
                 <% } %>
-                <!-- <a href="#" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                        fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                        <path
-                            d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                    </svg></a> -->
             </div>
         </div>
     </nav>
@@ -155,7 +150,6 @@
                             <% for(var nonstar = 5;nonstar > newbook[i].book_rate;nonstar--){ %>
                             <i class="bi bi-star"></i> 
                             <% } %>
-                            
                         </div>
                         <div>
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
@@ -198,275 +192,54 @@
         <div class="container">
             <div class="border-dark border-bottom fs-4 fw-normal py-2">ยอดนิยม</div>
             <div class="row my-2">
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">แบบฝึกปฏิบัติ:
-                        เริ่มเรียนเขียนโปรแกรมด้วย Python</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
+                <% for(var i = 0;i < 6;i++){ %>
+                    <div class="col-md-2">
+                        <a href="/book/<%= viewbook[i]._id %>"><img
+                                src="data:viewbook[i]/<%= viewbook[i].book_img.contentType %>;base64,
+                                <%= viewbook[i].book_img.data.toString('base64') %>"
+                                class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
+                        <a href="/book/<%= viewbook[i]._id %>" class="text-black text-start text-decoration-none"><%= viewbook[i].book_name %></a>
+                        <div class="d-flex justify-content-between my-2">
+                            <div>
+                                <% for(var star = 0;star < viewbook[i].book_rate;star++){ %>
+                                <i class="bi bi-star-fill" style='color: yellow'></i>
+                                <% } %>
+                                <% for(var nonstar = 5;nonstar > viewbook[i].book_rate;nonstar--){ %>
+                                <i class="bi bi-star"></i> 
+                                <% } %>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">GET RENT
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
+                                            <div class="modal-body">
+                                                <div class="d-flex justify-content-center">
+                                                    <i class="bi bi-check2-circle"
+                                                        style="font-size: 5rem; color: mediumseagreen;"></i>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
+                                                <a href="/"><button type="button"
+                                                        class="btn btn-primary">ไปยังตะกร้า</button></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/Datastructure-vjjv-2.0.2-cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">โครงสร้างข้อมูล: ฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/JavaProg-vjjv-3.0.1-cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">เริ่มเรียนเขียนโปรแกรม:
-                        ฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="http://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/01/java101_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">แบบฝึกปฏิบัติ:
-                        เริ่มเรียนเขียนโปรแกรมด้วย JAVA</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/java101_labbook_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">การเขียนโปรแกรม:
-                        แบบฝึกปฏิบัติฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/03/ai_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">ปัญญาประดิษฐ์ (Artificial
-                        Intelligence)</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <% } %>
             </div>
         </div>
     </section>
@@ -475,275 +248,54 @@
         <div class="container">
             <div class="border-dark border-bottom fs-4 fw-normal py-2">แนะนำ</div>
             <div class="row my-2">
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">แบบฝึกปฏิบัติ:
-                        เริ่มเรียนเขียนโปรแกรมด้วย Python</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
+                <% for(var i = 0;i < 6;i++){ %>
+                    <div class="col-md-2">
+                        <a href="/book/<%= ratebook[i]._id %>"><img
+                                src="data:ratebook[i]/<%= ratebook[i].book_img.contentType %>;base64,
+                                <%= ratebook[i].book_img.data.toString('base64') %>"
+                                class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
+                        <a href="/book/<%= ratebook[i]._id %>" class="text-black text-start text-decoration-none"><%= ratebook[i].book_name %></a>
+                        <div class="d-flex justify-content-between my-2">
+                            <div>
+                                <% for(var star = 0;star < ratebook[i].book_rate;star++){ %>
+                                <i class="bi bi-star-fill" style='color: yellow'></i>
+                                <% } %>
+                                <% for(var nonstar = 5;nonstar > ratebook[i].book_rate;nonstar--){ %>
+                                <i class="bi bi-star"></i> 
+                                <% } %>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">GET RENT
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
+                                            <div class="modal-body">
+                                                <div class="d-flex justify-content-center">
+                                                    <i class="bi bi-check2-circle"
+                                                        style="font-size: 5rem; color: mediumseagreen;"></i>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
+                                                <a href="/"><button type="button"
+                                                        class="btn btn-primary">ไปยังตะกร้า</button></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/Datastructure-vjjv-2.0.2-cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">โครงสร้างข้อมูล: ฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/JavaProg-vjjv-3.0.1-cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">เริ่มเรียนเขียนโปรแกรม:
-                        ฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="http://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/01/java101_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">แบบฝึกปฏิบัติ:
-                        เริ่มเรียนเขียนโปรแกรมด้วย JAVA</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2022/01/java101_labbook_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">การเขียนโปรแกรม:
-                        แบบฝึกปฏิบัติฉบับวาจาจาวา</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img
-                            src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/03/ai_cover.png"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="#" class="text-black text-start text-decoration-none">ปัญญาประดิษฐ์ (Artificial
-                        Intelligence)</a>
-                    <div class="d-flex justify-content-between my-2">
-                        <div>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="HOME.html"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <% } %>
             </div>
         </div>
     </section>

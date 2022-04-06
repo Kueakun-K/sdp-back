@@ -7,8 +7,12 @@ const {BookModel, UserModel, TokenModel} = require('../models')
 /* GET home page. */
 router.get('/', async (req, res) => {
   const newbook = await BookModel.find().sort({createdAt: -1})
+  const viewbook = await BookModel.find().sort({book_view: -1})
+  const ratebook = await BookModel.find().sort({book_rate: -1})
   res.render('index', {
-    newbook: newbook, 
+    newbook: newbook,
+    viewbook: viewbook,
+    ratebook: ratebook, 
     user: req.session.user
   })
 })

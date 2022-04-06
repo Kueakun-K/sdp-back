@@ -7,13 +7,14 @@ const {BookModel, UserModel, RentModel} = require('../models')
 var fs = require('fs')
 var path = require('path')
 var multer = require('multer')
+var sharp = require('sharp')
   
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, (__dirname,'./public/images') )
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 });
   
@@ -29,13 +30,19 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/postbook', upload.single('img'), async (req, res) => {
+
+    await sharp(path.resolve(__dirname,'../public/images/' + req.file.filename)).resize({
+        width: 350,
+        height: 700,
+    }).toFile(path.resolve(__dirname,'../public/resize/' + req.file.filename))
+
     var obj = {
       book_name: req.body.book_name,
       book_tag: req.body.book_tag,
       book_description: req.body.book_description,
       book_price: req.body.book_price,
       book_img: {
-            data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.file.filename)),
+            data: fs.readFileSync(path.join(__dirname,'../public/resize/' + req.file.filename)),
             contentType: 'image/png'
         }
     }
