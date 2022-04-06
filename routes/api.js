@@ -50,23 +50,28 @@ router.post('/login', async (req, res) => {
   if(user){
     const isCorrect = bcrypt.compareSync(password, user.user_password)
     if(isCorrect){
-      if(req.session.username){
-        delete req.session.username
-      }
-      if(req.session.message_login){
-        delete req.session.message_login
-      }   
-      if(req.session.sort){
-        delete req.session.sort
-      }   
+      // if(req.session.username){
+      //   delete req.session.username
+      // }
+      // if(req.session.message_login){
+      //   delete req.session.message_login
+      // }   
+       
       req.session.user = username
       req.session.isLogin = true
+      
+      if(req.session.sort){
+        delete req.session.sort
+      }  
+
       if(!req.session.book){
         return res.redirect('../')
       }
-      const bookid = req.session.book
-      delete req.session.book
-      return res.redirect(`../book/${bookid}`)
+      else{
+        const bookid = req.session.book
+        delete req.session.book
+        return res.redirect(`../book/${bookid}`)
+      }
       
     }
     else{

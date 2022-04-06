@@ -9,12 +9,145 @@
     <link rel="stylesheet" href="/stylesheets/register.css" type="text/css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container">
+        <div class="p-5">
+            <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
+        </div>
+        <div class="p-5 justify-content-center">
+            <form>
+                <input type="text" class="form-control" id="search-input" placeholder="Search" style="width: 480px;" />
+            </form>
+        </div>
+        <div class="p-5 justify-content-end">
+            <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg></a>
+            <!-- <a href="#" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                    fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                    <path
+                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                </svg></a> -->
+        </div>
+  </nav>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
+    <div class="container">
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbar1" class="collapse navbar-collapse">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item me-5">
+                    <a href="/" class="nav-link">หน้าแรก</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">นิยาย</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="West_Fiction.html" class="dropdown-item">วรรณกรรมตะวันตก</a></li>
+                        <li><a href="#" class="dropdown-item">วรรณกรรมตะวันออก</a></li>
+                        <li><a href="#" class="dropdown-item">วรรณกรรมเยาวชน</a></li>
+                        <li><a href="#" class="dropdown-item">เรื่องสั้น</a></li>
+                        <li><a href="#" class="dropdown-item">บทกวี</a></li>
+                        <li><a href="#" class="dropdown-item">นิยายวาย</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">หนังสือ</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Arts_And_Design.html" class="dropdown-item">ARTS & DESIGN</a></li>
+                        <li><a href="#" class="dropdown-item">BUSINESS & MANAGEMAENT</a></li>
+                        <li><a href="#" class="dropdown-item">REFERENCE, LANGUAGE & TEST PREP</a></li>
+                        <li><a href="#" class="dropdown-item">FOOD & DRINKS</a></li>
+                        <li><a href="#" class="dropdown-item">ENTERTAINMENT, HOBBIES & LEISURE</a></li>
+                        <li><a href="#" class="dropdown-item">FAMILY & HEALTH</a></li>
+                        <li><a href="#" class="dropdown-item">SELF-IMPROVEMENT</a></li>
+                        <li><a href="#" class="dropdown-item">TRAVEL</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a href="CHILDREN.html" class="nav-link">หนังสือเด็ก</a>
+                </li>
+                <li class="nav-item me-5">
+                    <a href="/manga" class="nav-link">การ์ตูน</a>
+                </li>
+                <li class="nav-item me-5">
+                    <a href="#" class="nav-link">กระดาน</a>
+                </li>
+                <li class="nav-item me-5">
+                    <a href="#" class="nav-link">กระทู้</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+  <br>
+  <br>
+
+    <div class="container" id="container">
+    <form id="formregister" action="/api/register" method="post">
+        <div class="row mb-3">
+          <label for="inputUsername" class="col-sm-2 col-form-label">ชื่อผู้ใช้</label>
+          <div class="col-sm-10">
+            <div class="message">
+            <input type="text" class="form-control" id="inputUsername3" name="username" placeholder="Example1234" style="color: orange;">
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">รหัสผ่าน</label>
+          <div class="col-sm-10">
+            <div class="message">
+            <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="example1234" style="color: orange;">
+            
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">ยืนยันรหัสผ่าน</label>
+            <div class="col-sm-10">
+              <div class="message">
+              <input type="password" class="form-control" id="inputPasswordConfirm" name="repassword" style="color: orange;">
+              
+            </div>
+            </div>
+          </div>
+        <div class="row mb-5">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">อีเมลล์</label>
+            <div class="col-sm-10">
+                <div class="message">
+                <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Example@gmail.com" style="color: orange;" >
+                
+              </div>
+            </div>
+        </div>
+        <div class="spacebtnregis">
+        <button type="submit" class="btn btn-primary" id="buttonregis" >ลงทะเบียน</button>
+        </div>
+        <span><%= message %></span>
+    </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
+    <script src="/javascripts/register.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <li class="navbar-brand" href="#">Ahey Library</li>
+      <li class="navbar-brand" href="#">Ahey Libary</li>
        <form class="d-flex">
           <input class="form-control me-2" id="spform-control" type="search" placeholder="ค้นหา" aria-label="Search" style="background-color: #FFF172;color: red;">
-          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+          
         </form>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -22,7 +155,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">หน้าหลัก</a>
+            <a class="nav-link active" aria-current="page" href="#">หน้าหลัก</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">วิธีการเช่า</a>
@@ -34,61 +167,11 @@
             <a class="nav-link active" aria-current="page" href="#">กระทู้</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" id="login-link" aria-current="page" href="/login">เข้าสู่ระบบ</a>
+            <a class="nav-link active" id="login-link" aria-current="page" href="index_login.html">เข้าสู่ระบบ</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
     <br>
-    <br>
-    <div class="container">
-    <form id="formregister" action="/api/register" method="post">
-        <div class="row mb-3">
-          <label for="inputUsername" class="col-sm-2 col-form-label">ชื่อผู้ใช้</label>
-          <div class="col-sm-10">
-            <div class="message">
-            <input type="text" class="form-control" id="inputUsername3" name="username" placeholder="Example1234" style="color: orange;">
-            <!-- <small>error message</small> -->
-            </div>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">รหัสผ่าน</label>
-          <div class="col-sm-10">
-            <div class="message">
-            <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="example1234" style="color: orange;">
-            <!-- <small>error message</small> -->
-            </div>
-          </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">ยืนยันรหัสผ่าน</label>
-            <div class="col-sm-10">
-              <div class="message">
-              <input type="password" class="form-control" id="inputPasswordConfirm" name="repassword" style="color: orange;">
-              <!-- <small>error message</small> -->
-            </div>
-            </div>
-          </div>
-        <div class="row mb-5">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">อีเมลล์</label>
-            <div class="col-sm-10">
-                <div class="message">
-                <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Example@gmail.com" style="color: orange;" >
-                <!-- <small>error message</small> -->
-              </div>
-            </div>
-        </div>
-        <div class="spacebtnregis">
-        <button type="submit" class="btn btn-primary" id="buttonregis" >ลงทะเบียน</button>
-        </div>
-    </form>
-    <div class="error"><%= message %></div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-    <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
-    <script src="/javascripts/register.js"></script>
-</body>
-</html>
+    <br> -->

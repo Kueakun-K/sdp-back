@@ -1,71 +1,23 @@
 @font-face {
     font-family: 'KMITLGO_Bold_ver_1.00';
-    src: url('./font/KMITLGO_Bold_ver_1.00.ttf')format("truetype");
+    src: url('./font/KMITLGO_Bold_ver_1.00.ttf')format("truetype")
 }
 body{
     padding: 0;
     margin: 0;
     background: #FFE3E3;
-    box-sizing: border-box;
+    height: 1000px;
     
 }
-.navbar{
-    position: fixed;
-    width: 2000px; /*random idk*/
-    background-color: #FD6F1F;
-    height: 49px;
-    box-shadow: 1px 1px 10px ;
-    transform: translateY(-85%);
-    transition: transform .5s cubic-bezier(.4,0,.2,1);
+#search-input{
+    height: 38px;
+    font-size: 16px;
+    padding: 12px;
+    padding-bottom:13px ;
 }
-.navbar:hover{
-    transform: translateY(0);
+input#search-input::placeholder{
+    opacity: 1.0;
 }
-.container-fluid{
-    padding-left: 45px;
-}
-.navbar-brand{
-    list-style: none;
-    color: #FFF172;
-    font-weight: 800;
-    font-size: 35px;
-    font-family:'KMITLGO_Bold_ver_1.00';
-    text-shadow:2px 2px  #00000036;
-
-}
-#spform-control{
-    margin-left: 210px;
-    height: 22px;
-    background-color: #FFF172;
-    padding-bottom: 0;
-    padding-left: 2px;
-    border-radius: 5px;
-    font-family:'KMITLGO_Bold_ver_1.00';
-    font-size: large;
-    font-weight: 200;
-    width: 189px;
-    
-    /* padding: 2px; */
-}
-.collapse{
-    padding-left: 2px ;
-}
-.nav-link{
-    color: #FFE3E3;
-    font-weight: bold ;
-    font-size: 1.5em;
-    font-family:'KMITLGO_Bold_ver_1.00';
-    text-shadow:2px 2px  #00000036;
-    transition: all 0.25s ease;
-    margin-left: 13px;
-}
-.nav-link:hover{
-    color:  #FFF172;
-}
-#login-link{
-    margin-left: 302px;
-}
-
 .form-control{
     width: 350px;
     padding: 0;
@@ -76,7 +28,7 @@ body{
 input.form-control::placeholder{
     opacity: 0.3;
 }
-.container{
+#container{
     background-color: rgb(255, 255, 255);
     padding-top: 40px;
     padding-left: 280px;
@@ -130,13 +82,80 @@ input.form-control::placeholder{
 .error{
     color: red;
     font-family: inherit;
+
 }
 input.error{
     border-color: red;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.navbar{
+    position: fixed;
+    width: 2000px; 
+    background-color: #FD6F1F;
+    height: 49px;
+    box-shadow: 1px 1px 10px ;
+    transform: translateY(-85%);
+    transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
+.navbar:hover{
+    transform: translateY(0);
+}
+.container-fluid{
+    padding-left: 45px;
+}
+.navbar-brand{
+    list-style: none;
+    color: #FFF172;
+    font-weight: 800;
+    font-size: 35px;
+    font-family:'KMITLGO_Bold_ver_1.00';
+    text-shadow:2px 2px  #00000036;
+
+}
+#spform-control{
+    margin-left: 210px;
+    height: 22px;
+    background-color: #FFF172;
+    padding-bottom: 0;
+    padding-left: 2px;
+    border-radius: 5px;
+    font-family:'KMITLGO_Bold_ver_1.00';
+    font-size: large;
+    font-weight: 200;
+    width: 189px;
+    
+}
+.collapse{
+    padding-left: 2px ;
+}
+.nav-link{
+    color: #FFE3E3;
+    font-weight: bold ;
+    font-size: 1.5em;
+    font-family:'KMITLGO_Bold_ver_1.00';
+    text-shadow:2px 2px  #00000036;
+    transition: all 0.25s ease;
+    margin-left: 13px;
+}
+.nav-link:hover{
+    color:  #FFF172;
+}
+#login-link{
+    margin-left: 302px;
+} */
