@@ -2,14 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel} = require('../models')
+const {BookModel, UserModel, TokenModel, RentModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
+  const rentbook = []
+  if(req.session.user){
+    const user = await UserModel.findOne({user_name: req.session.user})
+    const rent = await RentModel.find({user_id: user._id})
+    if(rent.length != 0){
+      for(var i = 0 ; i < rent.length ; i++){
+        rentbook[i] = await BookModel.findById(rent[i].book_id)
+      }
+    }
+  }
+
   const newbook = await BookModel.find().sort({createdAt: -1})
   const viewbook = await BookModel.find().sort({book_view: -1})
   const ratebook = await BookModel.find().sort({book_rate: -1})
   res.render('index', {
+    rentbook: rentbook,
     newbook: newbook,
     viewbook: viewbook,
     ratebook: ratebook, 
