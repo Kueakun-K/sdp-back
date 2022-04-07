@@ -24,9 +24,11 @@ var upload = multer({ storage: storage })
 router.get('/:id', async (req, res) => {
     const book_id = req.params.id
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
-    return res.render('book',{book:book})
+    return res.render('book',{
+        user: req.session.user,
+        book:book
+    })
 })
-
 
 
 router.post('/postbook', upload.single('img'), async (req, res) => {
