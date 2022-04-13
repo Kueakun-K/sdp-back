@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 
-const {BookModel, UserModel, RentModel} = require('../models')
+const {BookModel, UserModel, RentModel, BookCommentModel} = require('../models')
 
 var fs = require('fs')
 var path = require('path')
@@ -24,9 +24,13 @@ var upload = multer({ storage: storage })
 router.get('/:id', async (req, res) => {
     const book_id = req.params.id
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
+    const comment = await BookCommentModel.find({book_id: book_id})
+    const rate = Math.round(book.book_rate)
     return res.render('book',{
         user: req.session.user,
-        book:book
+        book:book,
+        book_comment: comment,
+        rate: rate
     })
 })
 
@@ -101,6 +105,31 @@ router.post('/rent', async (req, res) => {
     return res.redirect('../')
 })
 
+router.post('/comment', async (req, res) => {
+    const {user_id, book_id, rate, comment} = req.body
+
+    const user = await UserModel.findById(user_id)
+
+    const comment_book = new BookCommentModel({
+        user_id,
+        book_id,
+        user_name: user.user_name,
+        rate,
+        comment
+    })
+    await comment_book.save()
+
+    const rate_book = await BookCommentModel.find({book_id:book_id})
+    var rate_sum = 0
+    for(i = 0;i < rate_book.length; i++){
+        rate_sum += rate_book[i].rate
+    }
+    const rate_result = rate_sum / rate_book.length
+    const rate_round = Math.round(rate_result * 10) /10
+    await BookModel.findOneAndUpdate({_id: book_id},{book_rate: rate_round})
+
+    res.redirect(req.get('referer'))
+})
 
 
 

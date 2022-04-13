@@ -101,10 +101,10 @@
                         class="d-block w-100 h-100 img-thumbnail img-fluid mb-2">
                     <div class="d-flex justify-content-center">
                         <div>
-                            <% for(var star = 0;star < book.book_rate;star++){ %>
+                            <% for(var star = 0;star < rate;star++){ %>
                             <i class="bi bi-star-fill" style='color: yellow;font-size: 32px;'"></i>
                             <% } %>
-                            <% for(var nonstar = 5;nonstar > book.book_rate;nonstar--){ %>
+                            <% for(var nonstar = 5;nonstar > rate;nonstar--){ %>
                             <i class="bi bi-star" style="font-size: 32px;"></i> 
                             <% } %>
                         </div>
@@ -124,7 +124,7 @@
                 <div class="col-6">
                     <p class="fs-2 fw-bolder"><%= book.book_name %></p>
                     <p class="border-dark border-bottom fs-4 fw-bolder">ราคา</p>
-                    <p class="fs-4 fw-normal">00.00฿</p>
+                    <p class="fs-4 fw-normal"><%= book.book_price %>.00฿</p>
                     <div class="d-flex">
                         <div>
                             <a>
@@ -184,23 +184,25 @@
                     </div>
                     <br><br>
                     <p class="border-dark border-bottom fs-4 fw-bolder">รีวิวทั้งหมด</p>
+                    <% for(var i = 0;i < book_comment.length;i++){ %>
                     <div class="card mt-2">
                         <a href="#" class="text-decoration-none text-black">
-                            <h5 class="card-header">ชื่อผู้ใช้</h5>
+                            <h5 class="card-header"><%= book_comment[i].user_name %></h5>
                         </a>
                         <div class="card-body">
-                            <p class="card-text">ขอให้สุขกับการเรียนสิ่งใหม่ และสุขกับการเขียนโปรแกรม Happy Coding จ้า
+                            <p class="card-text"><%= book_comment[i].comment %>
                             </p>
                             <button class="btn btn-outline-success">
                                 <i class="bi bi-hand-thumbs-up" style="font-size: 16px;"></i>
                             </button>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
     </section>
-    <section id="page">
+    <!-- <section id="page">
         <div class="d-flex justify-content-center mt-5">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group me-2" role="group" aria-label="First group">
@@ -215,7 +217,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </body>
 
 </html>

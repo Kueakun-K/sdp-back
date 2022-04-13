@@ -10,7 +10,7 @@ const BookSchema = mongoose.Schema({
         contentType: String
     },
     book_rate:{
-        type: Number,
+        type:mongoose.Types.Decimal128,
         default:0
     } , 
     book_view:{

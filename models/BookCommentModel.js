@@ -9,12 +9,16 @@ const BookCommentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    user_name:String,
     rate:{ 
         type: Number,
         min: 1, 
         max: 5 
     },
-    comment: String,
+    comment: {
+        type: String,
+        default: ""
+    },
     createdAt:{
         type:Date,
         default:Date.now()
