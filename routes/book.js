@@ -106,12 +106,17 @@ router.post('/rent', async (req, res) => {
 })
 
 router.post('/comment', async (req, res) => {
-    const {user_id, book_id, rate, comment} = req.body
+    const {book_id, rate, comment} = req.body
 
-    const user = await UserModel.findById(user_id)
+    if(!req.session.isLogin){
+        req.session.book = book_id
+        return res.redirect('../login')
+    }
+
+    const user = await UserModel.findOne({user_name: req.session.user})
 
     const comment_book = new BookCommentModel({
-        user_id,
+        user_id: user._id,
         book_id,
         user_name: user.user_name,
         rate,
