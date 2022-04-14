@@ -35,6 +35,9 @@ router.get('/:id', async (req, res) => {
 })
 
 
+
+
+
 router.post('/postbook', upload.single('img'), async (req, res) => {
 
     await sharp(path.resolve(__dirname,'../public/images/' + req.file.filename)).resize({
@@ -84,7 +87,7 @@ router.get('/search', async (req, res) => {
 })
 
 router.post('/rent', async (req, res) => {
-    const {book_id, week} = req.body
+    const {book_id, day} = req.body
 
     if(!req.session.isLogin){
         req.session.book = book_id
@@ -92,13 +95,13 @@ router.post('/rent', async (req, res) => {
     }
 
     const user = await UserModel.findOne({user_name: req.session.user})
-    const oneWeek = 7 * 24 * 60 * 60 * 1000
+    const oneDay = 24 * 60 * 60 * 1000
     
     const rent = new RentModel({
         user_id: user._id,
         book_id,
         createdAt: Date.now(),
-        endAt: Date.now() + (week * oneWeek)
+        endAt: Date.now() + (day * oneDay)
     })
     
     await rent.save()

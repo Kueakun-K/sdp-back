@@ -1,19 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var createError = require('http-errors')
+var express = require('express')
+var path = require('path')
+var cookieParser = require('cookie-parser')
+var logger = require('morgan')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const methodOverride = require('method-override')
 
 
-require('./db');
+require('./db')
 
 
 var indexRouter = require('./routes/index')
 var apiRouter = require('./routes/api')
 var bookRouter = require('./routes/book')
+var threadRouter = require('./routes/thread')
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use(session({
 app.use('/', indexRouter)
 app.use('/api', apiRouter)
 app.use('/book', bookRouter)
+app.use('/thread', threadRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

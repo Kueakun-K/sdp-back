@@ -124,8 +124,8 @@
                 <div class="col-6">
                     <p class="fs-2 fw-bolder"><%= book.book_name %></p>
                     <p class="border-dark border-bottom fs-4 fw-bolder">ราคา</p>
-                    <!-- <p class="fs-4 fw-normal"><%= book.book_price %>.00฿</p> -->
-                    <div class="col-3">
+                    <%= dayLeft %>
+                    <!-- <div class="col-3">
                         <div class="mb-3">
                             <form action="/book/rent" method="post">
                             <input type="hidden" name="book_id" value="<%= book._id %>">
@@ -151,7 +151,7 @@
                                 </button>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
 
                     <p class="border-dark border-bottom fs-4 fw-bolder">เกี่ยวกับ</p>
                     <p class="fs-6 fw-normal">Python ๑๐๑ หนังสือสอนเขียนโปรแกรมภาษา Python ใช้ประกอบการเรียนวิชา 2110101

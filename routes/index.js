@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, RentModel} = require('../models')
+const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
@@ -111,6 +111,29 @@ router.get('/manga', async (req, res) => {
       })
     }
   }
+})
+
+router.get('/thread', async (req, res) =>{
+  res.render('Thread')
+})
+
+router.get('/bookrent/:id', async (req, res) => {
+  const book_id = req.params.id
+  const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
+  const comment = await BookCommentModel.find({book_id: book_id})
+  const user = await UserModel.findOne({user_name: req.session.user})
+  const rent = await RentModel.findOne({book_id: book_id, user_id: user._id})
+  const rate = Math.round(book.book_rate)
+  const dayLeft = ((rent.endAt - Date.now()) / (24 * 60 * 60 * 1000))
+  return res.render('book_rent',{
+      user: req.session.user,
+      book:book,
+      book_comment: comment,
+      rate: rate,
+      rent: rent,
+      dayLeft: dayLeft
+      // dateNow: Date.now()
+  })
 })
 
 module.exports = router;
