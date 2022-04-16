@@ -1,0 +1,15 @@
+<html>
+<body>
+    <h1>ADD THREAD</h1>
+    <form action="/thread/postthread" method="POST" >
+        <input type="hidden" name="book_id" value="<%= book_id %>">
+        <label>section</label>
+        <input type="text" name="section">
+        <br/><br/>
+        <label>content</label>
+        <input type="text" name="content">
+        <br/><br/>
+        <button type="submit">ADD THREAD</button>
+    </form>
+</body>
+</html>

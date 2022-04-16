@@ -35,7 +35,7 @@
                     </svg></a>
                 <% } %>
                 <% if( user != undefined) { %>
-                    <a href="#" class="btn btn-dark"><%= user %></a>
+                    <a href="#" class="btn btn-dark"><%= user.user_name %></a>
                     <a href="/logout" class="btn btn-dark">LOGOUT</a>
                 <% } %>
                 
@@ -146,8 +146,8 @@
                             </a>
                         </div>
                         <div>
-                            <a href="Go_Thread.html">
-                                <button type="button" class="btn btn-outline-success btn-lg mb-5">กระทู้เกี่ยวข้อง
+                            <a href="../postthread/<%= book._id %>">
+                                <button type="button" class="btn btn-outline-success btn-lg mb-5">สร้างกระทู้
                                 </button>
                             </a>
                         </div>
@@ -172,6 +172,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <% if( user != undefined) { %>
                     <p class="border-dark border-bottom fs-4 fw-bolder">เขียนรีวิวและให้เรตติ้ง</p>
                     <form action="/book/comment" method="post">
                         <input type="hidden" name="book_id" value="<%= book._id %>">
@@ -196,6 +197,7 @@
                     </div>
                     </form>
                     <br><br>
+                    <% } %>
                     <p class="border-dark border-bottom fs-4 fw-bolder">รีวิวทั้งหมด</p>
                     <% for(var i = 0;i < book_comment.length;i++){ %>
                     <div class="card mt-2">
@@ -205,9 +207,19 @@
                         <div class="card-body">
                             <p class="card-text"><%= book_comment[i].comment %>
                             </p>
-                            <button class="btn btn-outline-success">
-                                <i class="bi bi-hand-thumbs-up" style="font-size: 16px;"></i>
-                            </button>
+                            <% if( usercomment != undefined) { %>
+                                <% if( usercomment.user_name === book_comment[i].user_name) { %>
+                                <form action="/book/deletecomment?_method=delete" method="post">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="id" value="<%= book_comment[i]._id %>">
+                                    <input type="hidden" name="book_id" value="<%= book._id %>">
+                                    <button class="btn btn-outline-danger" type="submit">
+                                        <i class="bi bi-trash" style="font-size: 16px;"></i>
+                                    </button>
+                                </form>
+                                <% } %>
+                            <% } %>
+
                         </div>
                     </div>
                     <% } %>

@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel} = require('../models')
+const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel, ThreadModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
   const rentbook = []
   if(req.session.user){
-    const user = await UserModel.findOne({user_name: req.session.user})
+    var user = await UserModel.findOne({user_name: req.session.user})
     const rent = await RentModel.find({user_id: user._id})
     if(rent.length != 0){
       for(var i = 0 ; i < rent.length ; i++){
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
     newbook: newbook,
     viewbook: viewbook,
     ratebook: ratebook, 
-    user: req.session.user
+    user: user
   })
 })
 
@@ -114,7 +114,16 @@ router.get('/manga', async (req, res) => {
 })
 
 router.get('/thread', async (req, res) =>{
-  res.render('Thread')
+  const thread = await ThreadModel.find()
+  res.render('thread',{
+    user: req.session.user,
+    thread: thread
+  })
+})
+
+router.get('/postthread/:id', async (req, res) => {
+  const book_id = req.params.id
+  res.render('addthread',{book_id: book_id})
 })
 
 router.get('/bookrent/:id', async (req, res) => {
@@ -133,6 +142,15 @@ router.get('/bookrent/:id', async (req, res) => {
       rent: rent,
       dayLeft: dayLeft
       // dateNow: Date.now()
+  })
+})
+
+router.get('/profile/:id', async (req, res) => {
+  const user_id = req.params.id
+  const user = await UserModel.findById(user_id)
+
+  res.render('index_profile',{
+    user: user
   })
 })
 

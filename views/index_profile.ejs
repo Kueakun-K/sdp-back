@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahey Library-Profile</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" type="text/css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/profile.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
+        integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <div class="p-5">
+                <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
+            </div>
+            <div class="p-5 justify-content-center">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search" style="width: 480px;" />
+                </form>
+            </div>
+            <div class="p-5 justify-content-end">
+                <% if( user == undefined) { %>
+                <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                        fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    </svg></a>
+                <% } %>
+                <% if( user != undefined) { %>
+                    <a href="/profile/<%= user._id %>" class="btn btn-dark"><%= user.user_name %></a>
+                    <a href="/logout" class="btn btn-dark">LOGOUT</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
+        <div class="container">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar1" class="collapse navbar-collapse">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item me-5">
+                        <a href="/" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item dropdown me-5">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">นิยาย</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="West_Fiction.html" class="dropdown-item">วรรณกรรมตะวันตก</a></li>
+                            <li><a href="#" class="dropdown-item">วรรณกรรมตะวันออก</a></li>
+                            <li><a href="#" class="dropdown-item">วรรณกรรมเยาวชน</a></li>
+                            <li><a href="#" class="dropdown-item">เรื่องสั้น</a></li>
+                            <li><a href="#" class="dropdown-item">บทกวี</a></li>
+                            <li><a href="#" class="dropdown-item">นิยายวาย</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown me-5">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">หนังสือ</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Arts_And_Design.html" class="dropdown-item">ARTS & DESIGN</a></li>
+                            <li><a href="#" class="dropdown-item">BUSINESS & MANAGEMAENT</a></li>
+                            <li><a href="#" class="dropdown-item">REFERENCE, LANGUAGE & TEST PREP</a></li>
+                            <li><a href="#" class="dropdown-item">FOOD & DRINKS</a></li>
+                            <li><a href="#" class="dropdown-item">ENTERTAINMENT, HOBBIES & LEISURE</a></li>
+                            <li><a href="#" class="dropdown-item">FAMILY & HEALTH</a></li>
+                            <li><a href="#" class="dropdown-item">SELF-IMPROVEMENT</a></li>
+                            <li><a href="#" class="dropdown-item">TRAVEL</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="CHILDREN.html" class="nav-link">หนังสือเด็ก</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/manga" class="nav-link">การ์ตูน</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="#" class="nav-link">กระดาน</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/thread" class="nav-link">กระทู้</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <div class="container bootstrap snippets bootdey">
+        <div class="row">
+          <div class="profile-nav col-md-3">
+              <div class="panel">
+                  <div class="user-heading round">
+                      <a href="#">
+                          <img src="/images/__ia_thumb.jpg" alt="">
+                      </a>
+                      <h1 id="user_profile"><%= user.user_name %></h1>
+                      <p id="email_profile"><%= user.user_email %></p>
+                  </div>
+              </div>
+          </div>
+          <div class="profile-info col-md-9">
+              <div class="panel">
+                  <div class="panel-body bio-graph-info">
+                      <h1>About</h1>
+                      <div class="row" style="background-color: #fbc02d;padding: 25px;border-radius: 5px; height: 15rem;">
+                          <div class="bio-row">
+                              <p style="color: white; font-size: 15px;" id="fname"></p>
+                              <p style="color: white; font-size: 15px;" id="pword"></p>
+                              <p style="color: white; font-size: 15px;" id="cpword"></p>
+                              <p style="color: white; font-size: 15px;" id="e_mail"></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br>
+              <br>
+          </div>
+        </div>
+        </div>
+        <span style="margin-left:7.5vw ; font-size: 21px;">Read On</span>
+        <div style="height: 20rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
+            <div id="wrapper">
+                <div class="itembook">
+                    <div class="picture">
+                        <img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px;">
+                    </div>
+                    <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
+                </div>
+                <div class="itembook">
+                    <div class="picture">
+                        <img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px;">
+                    </div>
+                    <button class="btn" id="butt1" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <span style="margin-left:7.5vw ; font-size: 21px;">My Library</span>
+        <div style="height: 32rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
+            <div class="mylibpicture">
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <span style="margin-left:7.5vw ; font-size: 21px;">My Thread</span>
+        <div style="height: 32rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
+            <div id="wrapper2">
+                    <div class="itemthread">
+                        <div>
+                            <img id="t_imger" src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" 
+                            style="width: 150px; height: 200px; margin-left: 30px; vertical-align: top;">
+                            <div id="t_boxtext" style="margin-left: 25px;">
+                                <div class="display_text">555</div>
+                                <button id="t_butt" class="btn">ไปที่กระทู้</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+
+    <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
+    <!-- <script src="custom_js/custom2.js"></script> -->
+</body>
+</html>

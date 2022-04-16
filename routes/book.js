@@ -23,20 +23,21 @@ var upload = multer({ storage: storage })
 
 router.get('/:id', async (req, res) => {
     const book_id = req.params.id
+    if(req.session.user){
+        var user = await UserModel.findOne({user_name: req.session.user})
+        var usercomment = await BookCommentModel.findOne({user_name: req.session.user})
+    }
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
     const comment = await BookCommentModel.find({book_id: book_id})
     const rate = Math.round(book.book_rate)
     return res.render('book',{
-        user: req.session.user,
+        user: user,
+        usercomment: usercomment,
         book:book,
         book_comment: comment,
         rate: rate
     })
 })
-
-
-
-
 
 router.post('/postbook', upload.single('img'), async (req, res) => {
 
@@ -139,6 +140,27 @@ router.post('/comment', async (req, res) => {
     res.redirect(req.get('referer'))
 })
 
+router.delete('/deletecomment', async (req, res) => {
+    const id  = req.body.id
+    const book_id = req.body.book_id
+    await BookCommentModel.findByIdAndDelete(id)
+
+    const rate_book = await BookCommentModel.find({book_id:book_id})
+    if(rate_book == []){
+        var rate_sum = 0
+        for(i = 0;i < rate_book.length; i++){
+            rate_sum += rate_book[i].rate
+        }
+        const rate_result = rate_sum / rate_book.length
+        var rate_round = Math.round(rate_result * 10) /10
+    }
+    else{
+        var rate_round = 0
+    }
+    await BookModel.findOneAndUpdate({_id: book_id},{book_rate: rate_round})
+
+    res.redirect(req.get('referer'))
+})
 
 
 

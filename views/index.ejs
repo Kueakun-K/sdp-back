@@ -35,7 +35,7 @@
                     </svg></a>
                 <% } %>
                 <% if( user != undefined) { %>
-                    <a href="#" class="btn btn-dark"><%= user %></a>
+                    <a href="/profile/<%= user._id %>" class="btn btn-dark"><%= user.user_name %></a>
                     <a href="/logout" class="btn btn-dark">LOGOUT</a>
                 <% } %>
             </div>

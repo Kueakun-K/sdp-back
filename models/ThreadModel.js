@@ -9,6 +9,10 @@ const ThreadSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    book_img:{
+        data: Buffer,
+        contentType: String
+    },
     user_name: String,
     section: String,
     content: String,
