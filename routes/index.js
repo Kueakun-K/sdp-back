@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel, ThreadModel} = require('../models')
+const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
@@ -148,9 +148,15 @@ router.get('/bookrent/:id', async (req, res) => {
 router.get('/profile/:id', async (req, res) => {
   const user_id = req.params.id
   const user = await UserModel.findById(user_id)
+  const book_rent = await LibraryModel.find({user_id: user_id, isRent: true})
+  const book_notrent = await LibraryModel.find({user_id: user_id, isRent: false})
+  const userthread = await ThreadModel.find({user_id: user_id})
 
   res.render('index_profile',{
-    user: user
+    user: user,
+    book_rent: book_rent,
+    book_notrent: book_notrent,
+    userthread: userthread
   })
 })
 

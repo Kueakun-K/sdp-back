@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 
-const {BookModel, UserModel, RentModel, BookCommentModel} = require('../models')
+const {BookModel, UserModel, RentModel, BookCommentModel, LibraryModel} = require('../models')
 
 var fs = require('fs')
 var path = require('path')
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
     const book_id = req.params.id
     if(req.session.user){
         var user = await UserModel.findOne({user_name: req.session.user})
-        var usercomment = await BookCommentModel.findOne({user_name: req.session.user})
+        var usercomment = await BookCommentModel.findOne({user_name: req.session.user, book_id: book_id})
     }
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
     const comment = await BookCommentModel.find({book_id: book_id})
@@ -96,6 +96,7 @@ router.post('/rent', async (req, res) => {
     }
 
     const user = await UserModel.findOne({user_name: req.session.user})
+    const book = await BookModel.findById(book_id)
     const oneDay = 24 * 60 * 60 * 1000
     
     const rent = new RentModel({
@@ -104,9 +105,24 @@ router.post('/rent', async (req, res) => {
         createdAt: Date.now(),
         endAt: Date.now() + (day * oneDay)
     })
-    
     await rent.save()
-    return res.redirect('../')
+
+    var obj = {
+        user_id: user._id,
+        book_id: book._id,
+        book_img: {
+            data: book.book_img.data,
+            contentType: 'image/png'
+        }
+    }
+    LibraryModel.create(obj, (err, item) =>{
+        if (err) {
+            console.log(err);
+        }
+        else {
+            return res.redirect('../');
+        }
+    })
 })
 
 router.post('/comment', async (req, res) => {

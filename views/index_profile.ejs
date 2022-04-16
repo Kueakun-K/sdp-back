@@ -100,7 +100,7 @@
           <div class="profile-nav col-md-3">
               <div class="panel">
                   <div class="user-heading round">
-                      <a href="#">
+                      <a>
                           <img src="/images/__ia_thumb.jpg" alt="">
                       </a>
                       <h1 id="user_profile"><%= user.user_name %></h1>
@@ -130,18 +130,15 @@
         <span style="margin-left:7.5vw ; font-size: 21px;">Read On</span>
         <div style="height: 20rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
             <div id="wrapper">
+                <% for(var i = 0;i < book_rent.length;i++){ %>
                 <div class="itembook">
                     <div class="picture">
-                        <img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px;">
+                        <img src="data:book_rent[i]/<%= book_rent[i].book_img.contentType %>;base64,
+                        <%= book_rent[i].book_img.data.toString('base64') %>" style="width: 150px; height: 200px;">
                     </div>
                     <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
                 </div>
-                <div class="itembook">
-                    <div class="picture">
-                        <img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px;">
-                    </div>
-                    <button class="btn" id="butt1" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
-                </div>
+                <% } %>
             </div>
         </div>
         <br>
@@ -149,13 +146,16 @@
         <span style="margin-left:7.5vw ; font-size: 21px;">My Library</span>
         <div style="height: 32rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
             <div class="mylibpicture">
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
-                <a href="#"><img src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" style="width: 150px; height: 200px; margin-left: 5rem; margin-bottom: 5rem;"></a>
+                <% for(var i = 0;i < book_rent.length;i++){ %>
+                <a href="/book/<%= book_rent[i].book_id %>"><img src="data:book_rent[i]/<%= book_rent[i].book_img.contentType %>;base64,
+                                    <%= book_rent[i].book_img.data.toString('base64') %>" 
+                                    style="width: 150px; height: 200px; margin-left: 3.5rem; margin-bottom: 3.5rem; margin-top: 1.5rem; "></a>
+                <% } %>
+                <% for(var i = 0;i < book_notrent.length;i++){ %>
+                    <a href="/book/<%= book_notrent[i].book_id %>"><img src="data:book_notrent[i]/<%= book_notrent[i].book_img.contentType %>;base64,
+                                        <%= book_notrent[i].book_img.data.toString('base64') %>" 
+                                        style="width: 150px; height: 200px; margin-left: 3.5rem; margin-bottom: 3.5rem; margin-top: 1.5rem; filter: grayscale(100%);"></a>
+                <% } %>
             </div>
         </div>
         <br>
@@ -163,16 +163,21 @@
         <span style="margin-left:7.5vw ; font-size: 21px;">My Thread</span>
         <div style="height: 32rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
             <div id="wrapper2">
+                <% for(var i = 0;i < userthread.length;i++){ %>
                     <div class="itemthread">
                         <div>
-                            <img id="t_imger" src="https://www.cp.eng.chula.ac.th/books/wp-content/uploads/sites/5/2018/08/python_cover_v2.png" 
+                            <img id="t_imger" src="data:userthread[i]/<%= userthread[i].book_img.contentType %>;base64,
+                            <%= userthread[i].book_img.data.toString('base64') %>" 
                             style="width: 150px; height: 200px; margin-left: 30px; vertical-align: top;">
                             <div id="t_boxtext" style="margin-left: 25px;">
-                                <div class="display_text">555</div>
+                                <div class="display_text"><%= userthread[i].content %></div>
+                                <a href="/thread/<%= userthread[i]._id %>">
                                 <button id="t_butt" class="btn">ไปที่กระทู้</button>
+                                </a>
                             </div>
                         </div>
                     </div>
+                <% } %>
             </div>
         </div>
 

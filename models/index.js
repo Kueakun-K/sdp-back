@@ -5,6 +5,7 @@ const TokenModel = require("./TokenModel")
 const RentModel = require('./RentModel')
 const ThreadModel = require('./ThreadModel')
 const ThreadCommentModel = require('./ThreadCommentModel')
+const LibraryModel = require('./LibraryModel')
 
 module.exports = {
     UserModel,
@@ -13,5 +14,6 @@ module.exports = {
     TokenModel,
     RentModel,
     ThreadModel,
-    ThreadCommentModel
+    ThreadCommentModel,
+    LibraryModel
 }
