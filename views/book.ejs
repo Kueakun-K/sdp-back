@@ -112,14 +112,14 @@
                             <p class="fs-6 fw-normal fst-italic">Ratings(<%= book.book_rate %>)</p>
                         </div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <a href="#" class="text-decoration-none">
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <button type="button" class="btn btn-outline-success mt-1">เพิ่มไปรายการที่ชอบ
                                 </button>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-6">
                     <p class="fs-2 fw-bolder"><%= book.book_name %></p>
@@ -173,6 +173,7 @@
             <div class="row">
                 <div class="col-12">
                     <% if( user != undefined) { %>
+                        <% if(  usercomment == undefined ) { %>
                     <p class="border-dark border-bottom fs-4 fw-bolder">เขียนรีวิวและให้เรตติ้ง</p>
                     <form action="/book/comment" method="post">
                         <input type="hidden" name="book_id" value="<%= book._id %>">
@@ -197,11 +198,12 @@
                     </div>
                     </form>
                     <br><br>
+                        <% } %>
                     <% } %>
                     <p class="border-dark border-bottom fs-4 fw-bolder">รีวิวทั้งหมด</p>
                     <% for(var i = 0;i < book_comment.length;i++){ %>
                     <div class="card mt-2">
-                        <a href="#" class="text-decoration-none text-black">
+                        <a  class="text-decoration-none text-black">
                             <h5 class="card-header"><%= book_comment[i].user_name %></h5>
                         </a>
                         <div class="card-body">
