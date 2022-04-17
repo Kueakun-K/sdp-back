@@ -27,17 +27,20 @@
                 </form>
             </div>
             <div class="p-5 justify-content-end">
-                    <% if( user == undefined) { %>
+                <% if( user == undefined) { %>
                     <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
                             fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                             <path
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                        </svg></a>
-                    <% } %>
-                    <% if( user != undefined) { %>
-                        <a href="#" class="btn btn-dark"><%= user %></a>
-                        <a href="/logout" class="btn btn-dark">LOGOUT</a>
-                    <% } %>
+                    </svg></a>
+                <% } %>
+                <% if( user != undefined) { %>
+                    <a href="../profile/<%= user._id %>" class="btn btn-dark"><%= user.user_name %></a>
+                    <a href="/logout" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"></path>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
+                      </svg></a>
+                <% } %>
             </div>
     </nav>
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
@@ -101,24 +104,20 @@
                         Sort By
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><form action="api/sort" method="post" id="newbook">
+                        <li><form action="../api/sort" method="post" id="newbook">
                             <input type="hidden" name="sort" value="new">
-                            <input type="hidden" name="page" value="manga">
                             <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('newbook').submit()">New Arrivals</a>
                         </form></li>       
-                        <li><form action="api/sort" method="post" id="view">
+                        <li><form action="../api/sort" method="post" id="view">
                             <input type="hidden" name="sort" value="view">
-                            <input type="hidden" name="page" value="manga">
                             <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('view').submit()">Most Viewed</a>
                         </form></li>  
-                        <li><form action="api/sort" method="post" id="TopRated">
+                        <li><form action="../api/sort" method="post" id="TopRated">
                             <input type="hidden" name="sort" value="rate">
-                            <input type="hidden" name="page" value="manga">
                             <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('TopRated').submit()">Top Rated</a>
                         </form></li> 
-                        <li><form action="api/sort" method="post" id="Name">
+                        <li><form action="../api/sort" method="post" id="Name">
                             <input type="hidden" name="sort" value="name">
-                            <input type="hidden" name="page" value="manga">
                             <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('Name').submit()">Name</a>
                         </form></li> 
                     </ul>

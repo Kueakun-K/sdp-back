@@ -142,15 +142,15 @@ router.post('/reset-password', async (req, res) => {
 })
 
 router.post('/sort', async (req, res) => {
-  const {sort, page} = req.body
+  const sort = req.body.sort
 
   if(req.session.user){
     await UserModel.findOneAndUpdate({user_name: req.session.user},{book_sort: sort})
-    return res.redirect(`../${page}`)
+    res.redirect(req.get('referer'))
   }
   else{
     req.session.sort = sort
-    return res.redirect(`../${page}`)
+    res.redirect(req.get('referer'))
   }
 })
 

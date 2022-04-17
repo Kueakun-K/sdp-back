@@ -7,8 +7,11 @@ router.get('/:id', async (req, res) => {
     const thread_id = req.params.id
     const thread = await ThreadModel.findOneAndUpdate({_id: thread_id}, { $inc: { thread_view : 1 }})
     const comment = await ThreadCommentModel.find({thread_id: thread_id})
+    if(req.session.user){
+        var user = await UserModel.findOne({user_name: req.session.user})
+      }
     return res.render('thread_book',{
-        user: req.session.user,
+        user: user,
         thread: thread,
         thread_comment: comment
     })

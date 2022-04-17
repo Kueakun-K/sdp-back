@@ -60,63 +60,17 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/test', async (req, res) => {
-  res.render('error')
-})
-
-
 router.get('/addbook', (req, res) => {
   return res.render('addbook')
 })
 
-
-router.get('/manga', async (req, res) => {
-  if(req.session.user){
-    const user = await UserModel.findOne({user_name: req.session.user})
-    const sort = user.book_sort
-    if(sort == 'new')
-      var book_manga = await BookModel.find({book_tag: 'manga'}).sort({createdAt: -1})
-    else if(sort == 'view')
-      var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_view: -1})
-    else if(sort == 'rate')
-      var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_rate: -1})
-    else if(sort == 'name')
-      var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_name: 1})
-    return res.render('manga',{
-      book: book_manga,
-      user: req.session.user
-    })
-  }
-  else{
-    if(!req.session.sort){
-      const book_manga = await BookModel.find({book_tag: 'manga'}).sort({createdAt: -1})
-      return res.render('manga',{
-        book: book_manga,
-        user: req.session.user
-      })
-    }
-    else{
-      const sort = req.session.sort
-      if(sort == 'new')
-        var book_manga = await BookModel.find({book_tag: 'manga'}).sort({createdAt: -1})
-      else if(sort == 'view')
-        var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_view: -1})
-      else if(sort == 'rate')
-        var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_rate: -1})
-      else if(sort == 'name')
-        var book_manga = await BookModel.find({book_tag: 'manga'}).sort({book_name: 1})
-      return res.render('manga',{
-        book: book_manga,
-        user: req.session.user
-      })
-    }
-  }
-})
-
 router.get('/thread', async (req, res) =>{
   const thread = await ThreadModel.find()
+  if(req.session.user){
+    var user = await UserModel.findOne({user_name: req.session.user})
+  }
   res.render('thread',{
-    user: req.session.user,
+    user: user,
     thread: thread
   })
 })
@@ -148,10 +102,22 @@ router.get('/bookrent/:id', async (req, res) => {
 router.get('/profile/:id', async (req, res) => {
   const user_id = req.params.id
   const user = await UserModel.findById(user_id)
+  var rent = await LibraryModel.find({user_id: user_id, isRent: true}).sort({book_id: 1})
+  var current_rent = await RentModel.find({user_id: user_id}).sort({book_id: 1})
+  if(rent.length != current_rent.length){
+    if(rent.length > current_rent.length){
+      var i = 0
+      while(rent.length != current_rent.length){
+        if(rent[i].book_id != current_rent[i].book_id){
+          var x = rent.splice(i,1)
+          await LibraryModel.findOneAndUpdate({book_id: x[0].book_id},{isRent: false})
+        }
+      }
+    }
+  }
   const book_rent = await LibraryModel.find({user_id: user_id, isRent: true})
   const book_notrent = await LibraryModel.find({user_id: user_id, isRent: false})
   const userthread = await ThreadModel.find({user_id: user_id})
-
   res.render('index_profile',{
     user: user,
     book_rent: book_rent,

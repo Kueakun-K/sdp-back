@@ -106,23 +106,30 @@ router.post('/rent', async (req, res) => {
         endAt: Date.now() + (day * oneDay)
     })
     await rent.save()
-
-    var obj = {
-        user_id: user._id,
-        book_id: book._id,
-        book_img: {
-            data: book.book_img.data,
-            contentType: 'image/png'
+    
+    const inLibrary = await LibraryModel.findOne({user_id: user._id, book_id: book._id})
+    if(!inLibrary){
+        var obj = {
+            user_id: user._id,
+            book_id: book._id,
+            book_img: {
+                data: book.book_img.data,
+                contentType: 'image/png'
+            }
         }
+        LibraryModel.create(obj, (err, item) =>{
+            if (err) {
+                console.log(err);
+            }
+            else {
+                return res.redirect('../');
+            }
+        })
     }
-    LibraryModel.create(obj, (err, item) =>{
-        if (err) {
-            console.log(err);
-        }
-        else {
-            return res.redirect('../');
-        }
-    })
+    else{
+        await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book._id}, {isRent: true})
+        return res.redirect('../')
+    }
 })
 
 router.post('/comment', async (req, res) => {
