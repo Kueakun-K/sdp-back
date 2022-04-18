@@ -16,6 +16,11 @@ const LibrarySchema = mongoose.Schema({
     book_img:{
         data: Buffer,
         contentType: String
+    },
+    endAt: Date,
+    lastread: {
+        type:Date,
+        default: Date.now()
     }
 })
 

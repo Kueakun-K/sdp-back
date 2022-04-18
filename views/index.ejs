@@ -141,11 +141,11 @@
             <div class="row my-2">
                 <% for(var i = 0;i < rentbook.length;i++){ %>
                 <div class="col-md-2">
-                    <a href="/bookrent/<%= rentbook[i]._id %>"><img
+                    <a href="/book/<%= rentbook[i]._id %>"><img
                             src="data:rentbook[i]/<%= rentbook[i].book_img.contentType %>;base64,
                             <%= rentbook[i].book_img.data.toString('base64') %>"
                             class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <a href="/bookrent/<%= rentbook[i]._id %>" class="text-black text-start text-decoration-none"><%= rentbook[i].book_name %></a>
+                    <a href="/book/<%= rentbook[i]._id %>" class="text-black text-start text-decoration-none"><%= rentbook[i].book_name %></a>
                     <div class="d-flex justify-content-between my-2">
                         <div>
                             <% for(var star = 0;star < rentbook[i].book_rate;star++){ %>

@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 
-const {BookModel, UserModel, RentModel, BookCommentModel, LibraryModel} = require('../models')
+const {BookModel, UserModel, BookCommentModel, LibraryModel} = require('../models')
 
 var fs = require('fs')
 var path = require('path')
@@ -26,6 +26,12 @@ router.get('/:id', async (req, res) => {
     if(req.session.user){
         var user = await UserModel.findOne({user_name: req.session.user})
         var usercomment = await BookCommentModel.findOne({user_name: req.session.user, book_id: book_id})
+        var rent = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
+        if(rent){
+            if(rent.endAt < Date.now() && rent.isRent == true)
+                await LibraryModel.findByIdAndUpdate(rent._id, {isRent: false})
+            var rent_book = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
+        }
     }
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
     const comment = await BookCommentModel.find({book_id: book_id})
@@ -34,6 +40,7 @@ router.get('/:id', async (req, res) => {
         user: user,
         usercomment: usercomment,
         book:book,
+        rent: rent_book,
         book_comment: comment,
         rate: rate
     })
@@ -99,14 +106,6 @@ router.post('/rent', async (req, res) => {
     const book = await BookModel.findById(book_id)
     const oneDay = 24 * 60 * 60 * 1000
     
-    const rent = new RentModel({
-        user_id: user._id,
-        book_id,
-        createdAt: Date.now(),
-        endAt: Date.now() + (day * oneDay)
-    })
-    await rent.save()
-    
     const inLibrary = await LibraryModel.findOne({user_id: user._id, book_id: book._id})
     if(!inLibrary){
         var obj = {
@@ -115,7 +114,8 @@ router.post('/rent', async (req, res) => {
             book_img: {
                 data: book.book_img.data,
                 contentType: 'image/png'
-            }
+            },
+            endAt: Date.now() + (day * oneDay)
         }
         LibraryModel.create(obj, (err, item) =>{
             if (err) {
@@ -127,7 +127,7 @@ router.post('/rent', async (req, res) => {
         })
     }
     else{
-        await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book._id}, {isRent: true})
+        await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book._id}, {isRent: true, endAt: Date.now() + (day * oneDay), lastread: Date.now()})
         return res.redirect('../')
     }
 })
@@ -169,7 +169,8 @@ router.delete('/deletecomment', async (req, res) => {
     await BookCommentModel.findByIdAndDelete(id)
 
     const rate_book = await BookCommentModel.find({book_id:book_id})
-    if(rate_book == []){
+    console.log(rate_book)
+    if(rate_book){
         var rate_sum = 0
         for(i = 0;i < rate_book.length; i++){
             rate_sum += rate_book[i].rate

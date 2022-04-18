@@ -2,21 +2,25 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, RentModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
+const {BookModel, UserModel, TokenModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
 
 /* GET home page. */
 router.get('/', async (req, res) => {
   const rentbook = []
   if(req.session.user){
     var user = await UserModel.findOne({user_name: req.session.user})
-    const rent = await RentModel.find({user_id: user._id})
-    if(rent.length != 0){
-      for(var i = 0 ; i < rent.length ; i++){
-        rentbook[i] = await BookModel.findById(rent[i].book_id)
+    var rent = await LibraryModel.find({user_id: user._id, isRent: true})
+    for(var i = 0; i<rent.length;i++){
+      if(rent[i].endAt < Date.now())
+        await LibraryModel.findByIdAndUpdate(rent[i]._id, {isRent: false})
+    }
+    const book_rent = await LibraryModel.find({user_id: user._id, isRent: true})
+    if(book_rent.length != 0){
+      for(var i = 0 ; i < book_rent.length ; i++){
+        rentbook[i] = await BookModel.findById(book_rent[i].book_id)
       }
     }
   }
-
   const newbook = await BookModel.find().sort({createdAt: -1})
   const viewbook = await BookModel.find().sort({book_view: -1})
   const ratebook = await BookModel.find().sort({book_rate: -1})
@@ -85,7 +89,7 @@ router.get('/bookrent/:id', async (req, res) => {
   const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
   const comment = await BookCommentModel.find({book_id: book_id})
   const user = await UserModel.findOne({user_name: req.session.user})
-  const rent = await RentModel.findOne({book_id: book_id, user_id: user._id})
+  const rent = await LibraryModel.findOne({book_id: book_id, user_id: user._id})
   const rate = Math.round(book.book_rate)
   const dayLeft = ((rent.endAt - Date.now()) / (24 * 60 * 60 * 1000))
   return res.render('book_rent',{
@@ -102,18 +106,10 @@ router.get('/bookrent/:id', async (req, res) => {
 router.get('/profile/:id', async (req, res) => {
   const user_id = req.params.id
   const user = await UserModel.findById(user_id)
-  var rent = await LibraryModel.find({user_id: user_id, isRent: true}).sort({book_id: 1})
-  var current_rent = await RentModel.find({user_id: user_id}).sort({book_id: 1})
-  if(rent.length != current_rent.length){
-    if(rent.length > current_rent.length){
-      var i = 0
-      while(rent.length != current_rent.length){
-        if(rent[i].book_id != current_rent[i].book_id){
-          var x = rent.splice(i,1)
-          await LibraryModel.findOneAndUpdate({book_id: x[0].book_id},{isRent: false})
-        }
-      }
-    }
+  var rent = await LibraryModel.find({user_id: user_id, isRent: true})
+  for(var i = 0; i<rent.length;i++){
+    if(rent[i].endAt < Date.now())
+      await LibraryModel.findByIdAndUpdate(rent[i]._id, {isRent: false})
   }
   const book_rent = await LibraryModel.find({user_id: user_id, isRent: true})
   const book_notrent = await LibraryModel.find({user_id: user_id, isRent: false})
