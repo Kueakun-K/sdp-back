@@ -22,8 +22,9 @@
                 <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
             </div>
             <div class="p-5 justify-content-center">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search" style="width: 480px;" />
+                <form action="/search" method="get">
+                    <input type="text" class="form-control" placeholder="Search" style="width: 480px;" name="bookname" />
+                    <input type="submit" hidden />
                 </form>
             </div>
             <div class="p-5 justify-content-end">

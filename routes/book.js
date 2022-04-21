@@ -30,17 +30,24 @@ router.get('/:id', async (req, res) => {
         if(rent){
             if(rent.endAt < Date.now() && rent.isRent == true)
                 await LibraryModel.findByIdAndUpdate(rent._id, {isRent: false})
-            var rent_book = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
         }
+        var rent_book = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
     }
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
     const comment = await BookCommentModel.find({book_id: book_id})
     const rate = Math.round(book.book_rate)
+    var check 
+    if(rent_book == null){
+        check = false
+    }
+    else{
+        check = rent_book.isRent
+    }
     return res.render('book',{
         user: user,
         usercomment: usercomment,
         book:book,
-        rent: rent_book,
+        rent: check,
         book_comment: comment,
         rate: rate
     })
@@ -88,11 +95,7 @@ router.delete('/delete', async (req, res) => {
     return res.redirect('../')
 })
   
-router.get('/search', async (req, res) => {
-    const bookname = req.query.bookname
-    const result = await BookModel.find({book_name: {$regex: bookname}})
-    res.render('search',{book: result})
-})
+
 
 router.post('/rent', async (req, res) => {
     const {book_id, day} = req.body

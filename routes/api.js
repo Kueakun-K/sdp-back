@@ -154,4 +154,9 @@ router.post('/sort', async (req, res) => {
   }
 })
 
+router.post('/edit', async (req, res) => {
+  const {user_id, username, password, repassword, confirmpassword} = req.body
+  console.log(req.body)
+})
+
 module.exports = router;

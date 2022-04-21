@@ -12,7 +12,10 @@ body {
 }
 
 .profile-nav, .profile-info{
-    margin-top:30px;   
+    margin-top:30px; 
+}
+#con_profile{
+    margin-left: 6.7vw;
 }
 
 .profile-nav .user-heading {
@@ -110,7 +113,60 @@ body {
 .profile-info .panel-footer ul li a {
     color: #7a7a7a;
 }
-
+#btnedit_profile{
+    background-color: rgb(84, 84, 249);
+    color: white;
+}
+#btncancle_profile{
+    background-color: rgb(249, 84, 84);
+    color: white;
+}
+#btncancle_profile2{
+    background-color: rgb(249, 84, 84);
+    color: white;
+}
+#edituserid{
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 0px;
+    height: 25px;
+    padding-left: 5px;
+    font-size: 12px;
+    color: green;
+}
+#edituserpassword{
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 0px;
+    height: 25px;
+    padding-left: 5px;
+    font-size: 12px;
+    color: green;
+}
+#editconfirmpassword{
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 0px;
+    height: 25px;
+    padding-left: 5px;
+    font-size: 12px;
+    color: green;
+}
+#edituserpassword:focus{
+    outline: none;
+}
+#editconfirmpassword:focus{
+    outline: none;
+}
+#edituserid:focus{
+    outline: none;
+}
+#buttpayment{
+    transition: all 0.25s ease;
+}
+#buttpayment:hover{
+    transform: translate(0px,-3px);
+}
 .bio-graph-heading {
     background: #fbc02d;
     color: #fff;
@@ -479,4 +535,56 @@ ul.summary-list > li:last-child  {
     max-width: 950px !important;
     display: block;
     /* overflow-x: scroll; */
+}
+
+.modal_contain{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.modal_body{
+    background-color: rgb(255, 211, 129);
+    width: 600px;
+    max-width: 100%;
+    padding: 30px;
+    border-radius: 5px;
+}
+#popcon_password{
+    width: 18rem;
+}
+#popcon{
+    margin-left: 22.5rem;
+    background-color: green;
+    color: white;
+}
+#popcancle{
+    margin-left: 1rem;
+    background-color: gray;
+    color: white;
+}
+.modal_contain.show
+{
+    opacity: 1;
+    pointer-events: auto;
+}
+#error_messsage{
+    /* opacity: 1; */
+    color: red;
+    font-weight: bold;
+    margin-top: 4px;
+}
+.popcon_header{
+    font-size: large;
+    font-weight: bold;
+    color: green;
+    /* background-color: #90b4e6; */
 }

@@ -117,10 +117,92 @@
                       <h1>About</h1>
                       <div class="row" style="background-color: #fbc02d;padding: 25px;border-radius: 5px; height: 15rem;">
                           <div class="bio-row">
-                              <p style="color: white; font-size: 15px;" id="fname"></p>
-                              <p style="color: white; font-size: 15px;" id="pword"></p>
-                              <p style="color: white; font-size: 15px;" id="cpword"></p>
-                              <p style="color: white; font-size: 15px;" id="e_mail"></p>
+                            <form id="edit_info" action="../api/edit" method="post">
+                                <input type="hidden" name="user_id" value="<%= user._id %>">
+                                <p style="color: white; font-size: 15px;display: inline; word-spacing:0.5rem;" ><i class="fa-solid fa-user"></i> Username<p style="color: white; font-size: 15px;display: inline; word-spacing:4.2rem;"> :</p><p style="color: white; font-size: 15px; display: inline;" id="fname"> <%= user.user_name %></p></p>
+                                <p style="color: white; font-size: 15px;display: inline; word-spacing:0.5rem;" ><i class="fa-solid fa-key"></i> Password<p style="color: white; font-size: 15px;display: inline; word-spacing:4.4rem;"> :</p><p style="color: white; font-size: 15px; display: inline;" id="pword"> ********</p></p>
+                                <p style="color: white; font-size: 15px;display: inline; word-spacing:0.5rem;" ><i class="fa-solid fa-check"></i> Confirm password :<p style="color: white; font-size: 15px; display: inline;" id="cpword"> ********</p></p>
+                                <p style="color: white; font-size: 15px;display: inline; word-spacing:0.5rem;" ><i class="fa-solid fa-envelope"></i> E-mail<p style="color: white; font-size: 15px;display: inline; word-spacing:5.8rem;"> :</p><p style="color: white; font-size: 15px; display: inline;" id="e_mail"> <%= user.user_email %></p></p>
+                                <!-- <input id="edituserid" name="name" type="text" size="20"> -->
+                            <button type="button" id="btnedit_profile" class="btn" value="editing"  >Edit</button>
+                            <button type="button" id="btncancle_profile" class="btn" value="cancle" style="display: none;">Cancle</button>
+                            
+                            <div class="modal_contain" id="modal_contain">
+                                <div class="modal_body">
+                                        <p class="popcon_header">กรุณาป้อนรหัสผ่านเก่าเพื่อยืนยัน</p>
+                                    <!-- <form id="form_popcon"> -->
+                                        <input type="password" class="form-control" id="popcon_password" placeholder="Password" name="confirmpassword">
+                                        <div id="error_messsage"></div>
+                                        <button type="submit" class="btn" id="popcon">Confirm</button>
+                                        <button type="button" id="btncancle_profile2" class="btn" value="cancle"">Cancle</button>
+                                    <!-- </form> -->
+                                </div>
+                            </div>
+                            </form>
+                            <script>
+                                var passname = document.getElementById('fname')
+                                var pass_password = document.getElementById('pword')
+                                var pass_confirmpassword = document.getElementById('cpword')
+                                var passemail = document.getElementById('e_mail')
+                                // var cancle = document.getElementById("cancle");
+                                // var hidden = cancle.getAttribute("hidden");
+                                document.getElementById('btnedit_profile').addEventListener('click', function() {
+                                    document.getElementById("btncancle_profile").style.display = "inline";
+                                    // if (hidden) {
+                                    //     cancle.removeAttribute("hidden");
+                                    // }
+                                    if(document.getElementById('btnedit_profile').value === 'editing'){
+                                        document.getElementById('btnedit_profile').value = 'done'   
+                                        // var preusername = document.getElementById('fname')
+                                        // var prepassword = document.getElementById('pword')
+                                        // var preconfirmpassword = document.getElementById('cpword')
+                                        var edit_butt = document.getElementById('btnedit_profile')
+                                        edit_butt.innerHTML = 'Update'
+                                        // edit_butt.setAttribute('type', 'submit')
+
+                                        //---------------เมื่อกดปุ่มให้เปลี่ยนเปน input text เพื่อรับข้อมูลใหม่
+                                        passname.innerHTML = `<input type="text" id="edituserid" name="username" value="<%= user.user_name %>"/>`
+                                        pass_password.innerHTML = `<input type="password" id="edituserpassword" name="password" value=""/>`
+                                        pass_confirmpassword.innerHTML = `<input type="password" id="editconfirmpassword" name="repassword" value=""/>`   
+                                    }
+                                    document.getElementById('btncancle_profile').onclick = function(){//กดปุ่ม Cancle
+                                                // popup.classList.remove('show')
+                                                // popcon_password.value=''
+                                                // error_messsage.innerHTML = ''
+                                                window.location.href = window.location.href;
+                                                
+                                    }
+
+                                    document.getElementById('btnedit_profile').onclick = function(){
+                                            // console.log(newusername.value,newpassword.value,newconpassword.value)
+                                            // var result = checknewusername(newusername.value) //--------เช็คว่า username ถูกต้องหรือไม่
+                                            // var result2 = checknewpassword(newpassword.value) //-------เช็คว่า password ถูกต้องหรือไม่
+                                            // var result3 = checkconpassword(newpassword.value,newconpassword.value) //เช็คว่า password ตรงกันหรือไม่
+                                            // if(result === true && result2 === true && result3 == true){  //ข้อมูลถูกต้องหมด
+                                            //------------------จัดการ popup------------------
+                                            popup = document.getElementById('modal_contain')
+                                            popup.classList.add('show') //แสดง popup จากไฟล์ css style4
+                                            // const popcon_password = document.getElementById('popcon_password')
+                                            // const error_messsage = document.getElementById('error_messsage')
+                                            // document.getElementById('popcon').onclick = function(){ //กดปุ่ม Confirm
+                                            //     if(popcon_password.value === '1234'){ //เช็ครหัสผ่าน
+                                            //         window.location.href = 'index_profile.html'
+                                            //     }
+                                            //     else{
+                                            //         console.log('fail')
+                                            //         error_messsage.innerHTML = 'รหัสผ่านไม่ถูกต้อง'
+                                            //     }
+                                            // }
+                                            document.getElementById('btncancle_profile2').onclick = function(){//กดปุ่ม Cancle
+                                                popup.classList.remove('show')
+                                                // popcon_password.value=''
+                                                error_messsage.innerHTML = ''
+                                                window.location.href = window.location.href;
+                                                
+                                            }
+                                        }
+                                })
+                            </script>
                           </div>
                       </div>
                   </div>
@@ -130,14 +212,16 @@
           </div>
         </div>
         </div>
+
+
         <span style="margin-left:7.5vw ; font-size: 21px;">Read On</span>
         <div style="height: 20rem;width:81.5rem ;margin-left: 7.5vw;margin-top: 20px; background-color: rgb(227, 227, 227); padding: 10px; border-radius: 5px;">
             <div id="wrapper">
-                <% for(var i = 0;i < book_rent.length;i++){ %>
+                <% for(var i = 0;i < read_on.length;i++){ %>
                 <div class="itembook">
                     <div class="picture">
-                        <img src="data:book_rent[i]/<%= book_rent[i].book_img.contentType %>;base64,
-                        <%= book_rent[i].book_img.data.toString('base64') %>" style="width: 150px; height: 200px;">
+                        <img src="data:read_on[i]/<%= read_on[i].book_img.contentType %>;base64,
+                        <%= read_on[i].book_img.data.toString('base64') %>" style="width: 150px; height: 200px;">
                     </div>
                     <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
                 </div>

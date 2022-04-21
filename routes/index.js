@@ -68,16 +68,6 @@ router.get('/addbook', (req, res) => {
   return res.render('addbook')
 })
 
-router.get('/thread', async (req, res) =>{
-  const thread = await ThreadModel.find()
-  if(req.session.user){
-    var user = await UserModel.findOne({user_name: req.session.user})
-  }
-  res.render('thread',{
-    user: user,
-    thread: thread
-  })
-})
 
 router.get('/postthread/:id', async (req, res) => {
   const book_id = req.params.id
@@ -112,14 +102,29 @@ router.get('/profile/:id', async (req, res) => {
       await LibraryModel.findByIdAndUpdate(rent[i]._id, {isRent: false})
   }
   const book_rent = await LibraryModel.find({user_id: user_id, isRent: true})
+  const read_on = await LibraryModel.find({user_id: user_id, isRent: true}).sort({lastread: -1})
   const book_notrent = await LibraryModel.find({user_id: user_id, isRent: false})
   const userthread = await ThreadModel.find({user_id: user_id})
   res.render('index_profile',{
     user: user,
+    read_on: read_on,
     book_rent: book_rent,
     book_notrent: book_notrent,
     userthread: userthread
   })
+})
+
+router.get('/search', async (req, res) => {
+  const bookname = req.query.bookname
+  const result = await BookModel.find({book_name: {$regex: bookname}})
+  if(req.session.user){
+      var user = await UserModel.findOne({user_name: req.session.user})
+  }
+  res.render('book_show',{
+      section: "SEARCH",
+      book: result,
+      user: user
+    })
 })
 
 module.exports = router;
