@@ -97,6 +97,37 @@
     <br><br>
     <section id="books">
         <div class="container">
+            <form action="/thread/postthread" method="post">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">กระทู้ใหม่</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- <form> -->
+                                    <input type="hidden" name="book_id" value="<%= book._id %>">
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">หัวข้อ</label>
+                                        <input type="text" class="form-control"  name="section" id="recipient-name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">ข้อความ</label>
+                                        <textarea class="form-control" id="message-text" name="content"></textarea>
+                                    </div>
+                                <!-- </form> -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">สร้าง</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="row">
                 <div class="col-6">
                     <img src="data:book/<%= book.book_img.contentType %>;base64,
@@ -115,14 +146,6 @@
                             <p class="fs-6 fw-normal fst-italic">Ratings(<%= book.book_rate %>)</p>
                         </div>
                     </div>
-                    <!-- <div>
-                        <a href="#" class="text-decoration-none">
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <button type="button" class="btn btn-outline-success mt-1">เพิ่มไปรายการที่ชอบ
-                                </button>
-                            </div>
-                        </a>
-                    </div> -->
                 </div>
                 <div class="col-6">
                     <p class="fs-2 fw-bolder"><%= book.book_name %></p>
@@ -169,10 +192,11 @@
                             </a>
                         </div>
                         <div>
-                            <a href="../postthread/<%= book._id %>">
-                                <button type="button" class="btn btn-outline-success btn-lg mb-5">สร้างกระทู้
+                            <!-- <a href="../postthread/<%= book._id %>"> -->
+                                <button type="button" class="btn btn-outline-success btn-lg mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                data-bs-whatever="@mdo">สร้างกระทู้
                                 </button>
-                            </a>
+                            <!-- </a> -->
                         </div>
                     </div>
 

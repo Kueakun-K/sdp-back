@@ -22,6 +22,7 @@ router.get('/:id', async (req, res) => {
     if(req.session.user){
         var user = await UserModel.findOne({user_name: req.session.user})
       }
+    console.log(user)
     return res.render('thread_book',{
         user: user,
         thread: thread,
@@ -45,15 +46,17 @@ router.post('/postthread', async (req, res) => {
         section: req.body.section,
         content: req.body.content
     }
-
-    ThreadModel.create(obj, (err, item) =>{
-        if (err) {
-            console.log(err);
-        }
-        else {
-            return res.redirect('../');
-        }
-    })
+    // ThreadModel.create(obj, (err, item) =>{
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         return res.redirect('../');
+    //     }
+    // })
+    ThreadModel.create(obj)
+    const thread = await ThreadModel.findOne({user_id: user._id, book_id: book._id})
+    res.redirect(`../thread/${thread._id}`)
 })
 
 router.get('/search/id/:id', async (req, res) => {
