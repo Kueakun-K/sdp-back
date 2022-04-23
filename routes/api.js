@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs')
 const nodemailer = require("nodemailer")
 const crypto = require('crypto')
 
-const {UserModel, TokenModel} = require('../models')
+
+const {UserModel, TokenModel, LibraryModel, ThreadModel} = require('../models')
 
 
 router.post('/register', async (req, res) => {
@@ -154,9 +155,6 @@ router.post('/sort', async (req, res) => {
   }
 })
 
-router.post('/edit', async (req, res) => {
-  const {user_id, username, password, repassword, confirmpassword} = req.body
-  console.log(req.body)
-})
+
 
 module.exports = router;

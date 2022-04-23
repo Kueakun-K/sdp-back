@@ -93,26 +93,7 @@ router.get('/bookrent/:id', async (req, res) => {
   })
 })
 
-router.get('/profile/:id', async (req, res) => {
-  const user_id = req.params.id
-  const user = await UserModel.findById(user_id)
-  var rent = await LibraryModel.find({user_id: user_id, isRent: true})
-  for(var i = 0; i<rent.length;i++){
-    if(rent[i].endAt < Date.now())
-      await LibraryModel.findByIdAndUpdate(rent[i]._id, {isRent: false})
-  }
-  const book_rent = await LibraryModel.find({user_id: user_id, isRent: true})
-  const read_on = await LibraryModel.find({user_id: user_id, isRent: true}).sort({lastread: -1})
-  const book_notrent = await LibraryModel.find({user_id: user_id, isRent: false})
-  const userthread = await ThreadModel.find({user_id: user_id})
-  res.render('index_profile',{
-    user: user,
-    read_on: read_on,
-    book_rent: book_rent,
-    book_notrent: book_notrent,
-    userthread: userthread
-  })
-})
+
 
 router.get('/search', async (req, res) => {
   const bookname = req.query.bookname

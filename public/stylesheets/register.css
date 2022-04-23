@@ -82,7 +82,6 @@ input.form-control::placeholder{
 .error{
     color: red;
     font-family: inherit;
-
 }
 input.error{
     border-color: red;

@@ -16,6 +16,7 @@ var apiRouter = require('./routes/api')
 var bookRouter = require('./routes/book')
 var threadRouter = require('./routes/thread')
 var categoryRouter = require('./routes/category')
+var profileRouter = require('./routes/profile')
 
 var app = express();
 
@@ -53,6 +54,7 @@ app.use('/api', apiRouter)
 app.use('/book', bookRouter)
 app.use('/thread', threadRouter)
 app.use('/category', categoryRouter)
+app.use('/profile', profileRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
