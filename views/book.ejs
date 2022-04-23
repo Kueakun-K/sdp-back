@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
         integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
+    <style>
+        .star_button{
+        background-color: white;
+        border: none; 
+    }
+    </style>
 </head>
 
 <body style="height: 5000px;">
@@ -224,14 +230,14 @@
                     <p class="border-dark border-bottom fs-4 fw-bolder">เขียนรีวิวและให้เรตติ้ง</p>
                     <form action="/book/comment" method="post">
                         <input type="hidden" name="book_id" value="<%= book._id %>">
-                        <input type="hidden" name="rate" value="3">
+                        <input type="hidden" name="rate" id="rate" value="0">
                     <div class="d-flex justify-content-center">
                         <div>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
+                            <button id="star_button1" type="button" class="star_button"><i class="bi bi-star" style="font-size: 32px;"></i></button>
+                            <button id="star_button2" type="button" class="star_button"><i class="bi bi-star" style="font-size: 32px;"></i></button>
+                            <button id="star_button3" type="button" class="star_button"><i class="bi bi-star" style="font-size: 32px;"></i></button>
+                            <button id="star_button4" type="button" class="star_button"><i class="bi bi-star" style="font-size: 32px;"></i></button>
+                            <button id="star_button5" type="button" class="star_button"><i class="bi bi-star" style="font-size: 32px;"></i></button>
                         </div>
                     </div>
                     <div class="form-floating my-3">
@@ -240,8 +246,7 @@
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success btn-lg mt-2">ส่งรีวิว
-                        </button>
+                        <button type="submit" class="btn btn-success btn-lg mt-2">ส่งรีวิว</button>
                     </div>
                     </form>
                     <br><br>
@@ -254,8 +259,15 @@
                             <h5 class="card-header"><%= book_comment[i].user_name %></h5>
                         </a>
                         <div class="card-body">
-                            <p class="card-text"><%= book_comment[i].comment %>
+                            <p class="card-text">
+                                <% for(var star = 0;star < book_comment[i].rate;star++){ %>
+                                    <i class="bi bi-star-fill" style='color: yellow;font-size: 20px;'"></i>
+                                    <% } %>
+                                    <% for(var nonstar = 5;nonstar > book_comment[i].rate;nonstar--){ %>
+                                    <i class="bi bi-star" style="font-size: 20px;"></i> 
+                                <% } %>
                             </p>
+                            <p class="card-text"><%= book_comment[i].comment %></p>
                             <% if( usercomment != undefined) { %>
                                 <% if( usercomment.user_name === book_comment[i].user_name) { %>
                                 <form action="/book/deletecomment?_method=delete" method="post">
@@ -292,6 +304,7 @@
             </div>
         </div>
     </section> -->
+    <script src="/javascripts/custombook_review.js"></script>
 </body>
 
 </html>

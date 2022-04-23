@@ -12,7 +12,7 @@ const BookCommentSchema = mongoose.Schema({
     user_name:String,
     rate:{ 
         type: Number,
-        min: 1, 
+        min: 0, 
         max: 5 
     },
     comment: {

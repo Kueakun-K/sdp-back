@@ -5,6 +5,9 @@ const star_button4 = document.getElementById('star_button4')
 const star_button5 = document.getElementById('star_button5')
 const submit_review = document.getElementById('submit_review')
 const review_text = document.getElementById('review_text')
+const rate = document.getElementById('rate')
+// const submit = document.getElementById('sendcomment')
+// const form = document.getElementById('postcomment')
 var toggle_bool1 = false
 var toggle_bool2 = false
 var toggle_bool3 = false
@@ -141,13 +144,15 @@ star_button5.addEventListener('click',function(){
 })
 
 submit_review.addEventListener('click',function(){
-    console.log(review_text.value)
-    console.log(ratings)
+    // console.log(review_text.value)
+    // console.log(ratings)
 })
 
 
 
 function getrating(event){
     ratings = event
-    console.log(ratings)
+    // console.log(ratings)
+    rate.value = ratings
+    // console.log(rate.value)
  }
