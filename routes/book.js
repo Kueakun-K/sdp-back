@@ -173,7 +173,7 @@ router.delete('/deletecomment', async (req, res) => {
 
     const rate_book = await BookCommentModel.find({book_id:book_id})
     console.log(rate_book)
-    if(rate_book){
+    if(rate_book.length > 0){
         var rate_sum = 0
         for(i = 0;i < rate_book.length; i++){
             rate_sum += rate_book[i].rate
@@ -184,6 +184,7 @@ router.delete('/deletecomment', async (req, res) => {
     else{
         var rate_round = 0
     }
+    console.log(rate_round)
     await BookModel.findOneAndUpdate({_id: book_id},{book_rate: rate_round})
 
     res.redirect(req.get('referer'))
