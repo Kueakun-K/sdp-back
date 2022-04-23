@@ -22,7 +22,6 @@ router.get('/:id', async (req, res) => {
     if(req.session.user){
         var user = await UserModel.findOne({user_name: req.session.user})
       }
-    console.log(user)
     return res.render('thread_book',{
         user: user,
         thread: thread,

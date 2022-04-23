@@ -55,32 +55,14 @@
                     <li class="nav-item me-5">
                         <a href="/" class="nav-link">หน้าแรก</a>
                     </li>
-                    <li class="nav-item dropdown me-5">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">นิยาย</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="West_Fiction.html" class="dropdown-item">วรรณกรรมตะวันตก</a></li>
-                            <li><a href="#" class="dropdown-item">วรรณกรรมตะวันออก</a></li>
-                            <li><a href="#" class="dropdown-item">วรรณกรรมเยาวชน</a></li>
-                            <li><a href="#" class="dropdown-item">เรื่องสั้น</a></li>
-                            <li><a href="#" class="dropdown-item">บทกวี</a></li>
-                            <li><a href="#" class="dropdown-item">นิยายวาย</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown me-5">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">หนังสือ</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="Arts_And_Design.html" class="dropdown-item">ARTS & DESIGN</a></li>
-                            <li><a href="#" class="dropdown-item">BUSINESS & MANAGEMAENT</a></li>
-                            <li><a href="#" class="dropdown-item">REFERENCE, LANGUAGE & TEST PREP</a></li>
-                            <li><a href="#" class="dropdown-item">FOOD & DRINKS</a></li>
-                            <li><a href="#" class="dropdown-item">ENTERTAINMENT, HOBBIES & LEISURE</a></li>
-                            <li><a href="#" class="dropdown-item">FAMILY & HEALTH</a></li>
-                            <li><a href="#" class="dropdown-item">SELF-IMPROVEMENT</a></li>
-                            <li><a href="#" class="dropdown-item">TRAVEL</a></li>
-                        </ul>
+                    <li class="nav-item me-5">
+                        <a href="/category/novel" class="nav-link">นิยาย</a>
                     </li>
                     <li class="nav-item me-5">
-                        <a href="CHILDREN.html" class="nav-link">หนังสือเด็ก</a>
+                        <a href="/category/general" class="nav-link">หนังสือทั่วไป</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/category/children" class="nav-link">หนังสือเด็ก</a>
                     </li>
                     <li class="nav-item me-5">
                         <a href="/category/manga" class="nav-link">การ์ตูน</a>
@@ -149,42 +131,13 @@
                     <a href="/book/<%= rentbook[i]._id %>" class="text-black text-start text-decoration-none"><%= rentbook[i].book_name %></a>
                     <div class="d-flex justify-content-between my-2">
                         <div>
-                            <% for(var star = 0;star < rentbook[i].book_rate;star++){ %>
+                            <% for(var star = 0;star < Math.round(rentbook[i].book_rate);star++){ %>
                             <i class="bi bi-star-fill" style='color: yellow'></i>
                             <% } %>
-                            <% for(var nonstar = 5;nonstar > rentbook[i].book_rate;nonstar--){ %>
+                            <% for(var nonstar = 5;nonstar > Math.round(rentbook[i].book_rate);nonstar--){ %>
                             <i class="bi bi-star"></i> 
                             <% } %>
                         </div>
-                        <!-- <div>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="/"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <% } %>
@@ -207,41 +160,17 @@
                     <a href="/book/<%= newbook[i]._id %>" class="text-black text-start text-decoration-none"><%= newbook[i].book_name %></a>
                     <div class="d-flex justify-content-between my-2">
                         <div>
-                            <% for(var star = 0;star < newbook[i].book_rate;star++){ %>
+                            <% for(var star = 0;star < Math.round(newbook[i].book_rate);star++){ %>
                             <i class="bi bi-star-fill" style='color: yellow'></i>
                             <% } %>
-                            <% for(var nonstar = 5;nonstar > newbook[i].book_rate;nonstar--){ %>
+                            <% for(var nonstar = 5;nonstar > Math.round(newbook[i].book_rate);nonstar--){ %>
                             <i class="bi bi-star"></i> 
                             <% } %>
                         </div>
                         <div>
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">GET RENT
+                                data-bs-target="#exampleModal"><%= newbook[i].book_price %> ฿
                             </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="bi bi-check2-circle"
-                                                    style="font-size: 5rem; color: mediumseagreen;"></i>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                            <a href="/"><button type="button"
-                                                    class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,41 +193,17 @@
                         <a href="/book/<%= viewbook[i]._id %>" class="text-black text-start text-decoration-none"><%= viewbook[i].book_name %></a>
                         <div class="d-flex justify-content-between my-2">
                             <div>
-                                <% for(var star = 0;star < viewbook[i].book_rate;star++){ %>
+                                <% for(var star = 0;star < Math.round(viewbook[i].book_rate);star++){ %>
                                 <i class="bi bi-star-fill" style='color: yellow'></i>
                                 <% } %>
-                                <% for(var nonstar = 5;nonstar > viewbook[i].book_rate;nonstar--){ %>
+                                <% for(var nonstar = 5;nonstar > Math.round(viewbook[i].book_rate);nonstar--){ %>
                                 <i class="bi bi-star"></i> 
                                 <% } %>
                             </div>
                             <div>
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">GET RENT
+                                    data-bs-target="#exampleModal"><%= viewbook[i].book_price %> ฿
                                 </button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="d-flex justify-content-center">
-                                                    <i class="bi bi-check2-circle"
-                                                        style="font-size: 5rem; color: mediumseagreen;"></i>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                                <a href="/"><button type="button"
-                                                        class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -320,41 +225,17 @@
                         <a href="/book/<%= ratebook[i]._id %>" class="text-black text-start text-decoration-none"><%= ratebook[i].book_name %></a>
                         <div class="d-flex justify-content-between my-2">
                             <div>
-                                <% for(var star = 0;star < ratebook[i].book_rate;star++){ %>
+                                <% for(var star = 0;star < Math.round(ratebook[i].book_rate);star++){ %>
                                 <i class="bi bi-star-fill" style='color: yellow'></i>
                                 <% } %>
-                                <% for(var nonstar = 5;nonstar > ratebook[i].book_rate;nonstar--){ %>
+                                <% for(var nonstar = 5;nonstar > Math.round(ratebook[i].book_rate);nonstar--){ %>
                                 <i class="bi bi-star"></i> 
                                 <% } %>
                             </div>
                             <div>
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">GET RENT
+                                    data-bs-target="#exampleModal"><%= ratebook[i].book_price %> ฿
                                 </button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังเสือแล้ว</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="d-flex justify-content-center">
-                                                    <i class="bi bi-check2-circle"
-                                                        style="font-size: 5rem; color: mediumseagreen;"></i>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">เลือกหนังสือต่อ</button>
-                                                <a href="/"><button type="button"
-                                                        class="btn btn-primary">ไปยังตะกร้า</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -362,77 +243,6 @@
             </div>
         </div>
     </section>
-    <br><br>
-    <!-- <section id="board">
-        <div class="container">
-            <div class="border-dark border-bottom fs-4 fw-normal py-2">กระดาน</div>
-            <div class="row my-2">
-                <div class="col-md-3">
-                    <a href="#"><img
-                            src="https://cdn.majorcineplex.com/uploads/content/images/1%28119%29.JPG"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <div class="d-flex justify-content-center"><a href="#"
-                            class="text-black text-decoration-none fw-bolder fs-3">LUFFY</a></div>
-                    <div class="d-flex justify-content-center my-2">
-                        <div>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <a href="#"><img
-                            src="https://cdn.majorcineplex.com/uploads/content/images/2%28112%29.JPG"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <div class="d-flex justify-content-center"><a href="#"
-                            class="text-black text-decoration-none fw-bolder fs-3">ZORO</a></div>
-                    <div class="d-flex justify-content-center my-2">
-                        <div>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <a href="#"><img
-                            src="https://cdn.majorcineplex.com/uploads/content/images/5%2874%29.JPG"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <div class="d-flex justify-content-center"><a href="#"
-                            class="text-black text-decoration-none fw-bolder fs-3">SANJI</a></div>
-                    <div class="d-flex justify-content-center my-2">
-                        <div>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <a href="#"><img
-                            src="https://cdn.majorcineplex.com/uploads/content/images/3%2897%29.JPG"
-                            class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                    <div class="d-flex justify-content-center"><a href="#"
-                            class="text-black text-decoration-none fw-bolder fs-3">NAMI</a></div>
-                    <div class="d-flex justify-content-center my-2">
-                        <div>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                            <i class="bi bi-star" style="font-size: 32px;"></i>
-                        </div>
-                    </div>
-                </div>
-    </section> -->
-    <br>
 </body>
 
 </html>

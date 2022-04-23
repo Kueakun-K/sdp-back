@@ -15,24 +15,17 @@
             <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
         </div>
         <div class="p-5 justify-content-center">
-            <form>
-                <input type="text" class="form-control" id="search-input" placeholder="Search" style="width: 480px;" />
-            </form>
         </div>
         <div class="p-5 justify-content-end">
-            <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                    <path
-                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                        fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                 </svg></a>
-            <!-- <a href="#" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                    <path
-                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                </svg></a> -->
         </div>
-  </nav>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
+    </div>
+</nav>
+<nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
     <div class="container">
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar1">
             <span class="navbar-toggler-icon"></span>
@@ -42,46 +35,28 @@
                 <li class="nav-item me-5">
                     <a href="/" class="nav-link">หน้าแรก</a>
                 </li>
-                <li class="nav-item dropdown me-5">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">นิยาย</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="West_Fiction.html" class="dropdown-item">วรรณกรรมตะวันตก</a></li>
-                        <li><a href="#" class="dropdown-item">วรรณกรรมตะวันออก</a></li>
-                        <li><a href="#" class="dropdown-item">วรรณกรรมเยาวชน</a></li>
-                        <li><a href="#" class="dropdown-item">เรื่องสั้น</a></li>
-                        <li><a href="#" class="dropdown-item">บทกวี</a></li>
-                        <li><a href="#" class="dropdown-item">นิยายวาย</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown me-5">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">หนังสือ</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Arts_And_Design.html" class="dropdown-item">ARTS & DESIGN</a></li>
-                        <li><a href="#" class="dropdown-item">BUSINESS & MANAGEMAENT</a></li>
-                        <li><a href="#" class="dropdown-item">REFERENCE, LANGUAGE & TEST PREP</a></li>
-                        <li><a href="#" class="dropdown-item">FOOD & DRINKS</a></li>
-                        <li><a href="#" class="dropdown-item">ENTERTAINMENT, HOBBIES & LEISURE</a></li>
-                        <li><a href="#" class="dropdown-item">FAMILY & HEALTH</a></li>
-                        <li><a href="#" class="dropdown-item">SELF-IMPROVEMENT</a></li>
-                        <li><a href="#" class="dropdown-item">TRAVEL</a></li>
-                    </ul>
+                <li class="nav-item me-5">
+                    <a href="/category/novel" class="nav-link">นิยาย</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a href="CHILDREN.html" class="nav-link">หนังสือเด็ก</a>
+                    <a href="/category/general" class="nav-link">หนังสือทั่วไป</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a href="/manga" class="nav-link">การ์ตูน</a>
+                    <a href="/category/children" class="nav-link">หนังสือเด็ก</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a href="#" class="nav-link">กระดาน</a>
+                    <a href="/category/manga" class="nav-link">การ์ตูน</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a href="#" class="nav-link">กระทู้</a>
+                    <a href="/board" class="nav-link">กระดาน</a>
+                </li>
+                <li class="nav-item me-5">
+                    <a href="/thread" class="nav-link">กระทู้</a>
                 </li>
             </ul>
         </div>
     </div>
-  </nav>
+</nav>
   <br>
   <br>
 
