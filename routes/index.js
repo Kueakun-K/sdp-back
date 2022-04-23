@@ -93,7 +93,16 @@ router.get('/bookrent/:id', async (req, res) => {
   })
 })
 
-
+router.get('/board', async (req, res) =>{
+  const board = await UserModel.find().sort({user_point: -1})
+  if(req.session.user){
+    var user = await UserModel.findOne({user_name: req.session.user})
+  }
+  res.render('board',{
+    user: user,
+    board: board
+  })
+})
 
 router.get('/search', async (req, res) => {
   const bookname = req.query.bookname
