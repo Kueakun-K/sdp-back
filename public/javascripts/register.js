@@ -1,3 +1,17 @@
+// var lettersNumbersOnlyMinMaxCharactersRegex  = /^[a-z0-9{7,20}]$/ig;
+$.validator.addMethod(
+    "regex",
+    function(value, element, regexp) 
+    {
+        console.log(value, regexp, regexp.test(value))
+        if (regexp.constructor != RegExp)
+            regexp = new RegExp(regexp);
+        else if (regexp.global)
+            regexp.lastIndex = 0;
+        return regexp.test(value);
+    },
+    "Please check your input."
+);
 $(function(){
     var $Form = $("#formregister");
     if($Form.length){
@@ -6,13 +20,13 @@ $(function(){
                 username:{
                     required: true,
                     minlength:3,
-                    maxlength:12,
+                    maxlength:10,
                 },
                 password:{
                     required:true,
-                    minlength:4,
-                    maxlength:20
-
+                    minlength:7,
+                    maxlength:20,
+                    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{7,20}$/
                 },
                 repassword:{
                     required:true,
@@ -20,20 +34,23 @@ $(function(){
                 },
                 email:{
                     required:true,
-                    email:true
+                    email:true,
+                    regex: /^[A-Za-z0-9_]+\@[A-Za-z0-9_]+\.[A-Za-z0-9_]+/,
                 }
             },
             messages:{
                 username:{
                     required:'กรุณาป้อนชื่อผู้ใช้งาน',
                     minlength:'ต้องมีอย่างน้อย 3 ตัวอักษร',
-                    maxlength:'ต้องมีอย่างมากไม่เกิน 12 ตัวอักษร',
+                    maxlength:'ต้องมีอย่างมากไม่เกิน 10 ตัวอักษร',
                     remote:'ชื่อนี้มีผู้ใช้งานแล้ว'
                 },
                 password:{
                     required:'กรุณาป้อนรหัสผ่าน',
-                    minlength:'รหัสผ่านต้องมีอย่างน้อย 4 ตัวอักษร',
-                    maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 20 ตัวอักษร'
+                    minlength:'รหัสผ่านต้องมีอย่างน้อย 7 ตัวอักษร',
+                    maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 20 ตัวอักษร',
+                    regex:'รหัสผ่านต้องประกอบไปด้วย ตัวเลข, ตัวอักษรภาษาอังกฤษพิมเล็ก และพิมใหญ่, อักขระพิเศษ'
+                    
                 },
                 repassword:{
                     required:'กรุณาป้อนรหัสผ่านอีกครั้ง',
@@ -41,7 +58,8 @@ $(function(){
                 },
                 email:{
                     required:'กรุณาป้อนอีเมลล์',
-                    email:'อีเมลล์ไม่ถูกต้อง'
+                    email:'อีเมลล์ไม่ถูกต้อง',
+                    regex:'อีเมลล์ไม่ถูกต้อง'
                 }
             }
         })
