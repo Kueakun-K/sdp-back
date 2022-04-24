@@ -7,6 +7,22 @@ const crypto = require('crypto')
 
 const {UserModel, TokenModel, LibraryModel, ThreadModel} = require('../models')
 
+// var fs = require('fs')
+var path = require('path')
+var multer = require('multer')
+// var sharp = require('sharp')
+  
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, (__dirname,'./public/images') )
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+  
+var upload = multer({ storage: storage })
+
 
 router.post('/register', async (req, res) => {
   const { username, password, repassword, email} = req.body;
@@ -146,6 +162,47 @@ router.post('/sort', async (req, res) => {
     req.session.sort = sort
     res.redirect(req.get('referer'))
   }
+})
+
+router.post('/payment', upload.single('img'), async (req, res) => {
+  const {user_id, bank, date, hour, minute, money, img} = req.body
+  console.log(req.file.filename)
+
+  let transporter = nodemailer.createTransport({
+    host: 'gmail',
+    service: 'Gmail',
+    auth: {
+        user: 'aheylibrary@gmail.com',
+        pass: 'Ahey_123456789',
+    }
+  })
+
+  const mailOptions = {
+    from: 'Ahey Library <aheylibrary@gmail.com>',   
+    to: `Ahey Library <aheylibrary@gmail.com>`,
+    subject: "แจ้งชำระเงิน",
+    attachments: [{
+      filename: `${req.file.filename}`,
+      path: path.join(__dirname,`../public/images/${req.file.filename}`),
+      cid: 'img'
+    }],                
+    html: "<h2>แจ้งชำระเงิน</h2><br>" + 
+          "<b>บัญชีที่โอนเงิน : </b>" + `<p>${bank}</p><br>` +
+          "<b>วันที่ชำระเงิน : </b>" + `<p>${date}</p><br>` +
+          "<b>เวลา(โดยประมาณ) : </b>" + `<p>${hour}:${minute}</p><br>` +
+          "<b>จำนวนเงิน : </b>" + `<p>${money}</p><br>` +
+          `<img src='cid:img' alt='img'>` 
+    
+  }
+
+  transporter.sendMail(mailOptions, function (err, info) {
+    if(err){
+      console.log(err)
+    }
+    else{
+      res.redirect(`../profile/${user_id}`)
+    }
+  })
 })
 
 

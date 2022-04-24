@@ -117,4 +117,14 @@ router.get('/search', async (req, res) => {
     })
 })
 
+router.get('/payment/:id', async (req, res) => {
+  const user_id = req.params.id
+  const user = await UserModel.findById(user_id)
+  
+  
+  res.render('payment',{
+    user: user
+  })
+})
+
 module.exports = router;
