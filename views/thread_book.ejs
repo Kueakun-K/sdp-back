@@ -88,8 +88,21 @@
                 </div>
                 <div class="col-10">
                     <div class="card h-100">
-                        <div class="card-header fs-4">
-                            <%= thread.section %>
+                        <div class="card-header fs-4" style="display: flex;">
+                            <div><%= thread.section %></div>
+                            <div>
+                                <% if( user != undefined) { %>
+                                    <% if( user.user_Role == 'Admin' || (user.user_name == thread.user_name)) { %>
+                                <form action="/thread/deletethread?_method=delete" method="post">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="thread_id" value="<%= thread._id %>">
+                                    <button class="btn btn-outline-danger" style="font-size: 10px;margin-left: 10px;" type="submit">
+                                        <i class="bi bi-trash" style="font-size: 12px;"></i>
+                                    </button>
+                                </form>
+                                    <% } %>
+                                <% } %>
+                            </div>
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -142,22 +155,6 @@
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="page">
-        <div class="d-flex justify-content-center mt-5">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                    <a href="#"><button type="button" class="btn btn-primary">1</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">2</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">3</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">4</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">5</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">6</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">7</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">8</button></a>
                 </div>
             </div>
         </div>

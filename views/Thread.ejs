@@ -102,9 +102,12 @@
                                 class="w-100 h-100" alt="...">
                         </div>
                         <div class="col-md-6 p-4 ps-md-0">
-                            <h5 class="mt-0"><%= thread[i].section %></h5>
+                            <h5 class="mt-0" style="display: flex;">
+                                <div><%= thread[i].section %></div>
+                            </h5>
                             <p><%= thread[i].content %></p>
-                            <a href="/thread/<%= thread[i]._id %>" class="stretched-link">ไปหน้ากระทู้</a>
+                            <a href="/thread/<%= thread[i]._id %>" ><button type="button" class="btn btn-success btn-sm">ไปที่กระทู้</button></a>
+                            <!-- class="stretched-link" -->
                         </div>
                     </div>
                     <% } %>
@@ -112,22 +115,6 @@
             </div>
         </div>
     </section>
-    <!-- <section id="page">
-        <div class="d-flex justify-content-center mt-5">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                    <a href="#"><button type="button" class="btn btn-primary">1</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">2</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">3</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">4</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">5</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">6</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">7</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">8</button></a>
-                </div>
-            </div>
-        </div>
-    </section> -->
 </body>
 
 </html>

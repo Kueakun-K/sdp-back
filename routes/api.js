@@ -50,14 +50,7 @@ router.post('/login', async (req, res) => {
   const user = await UserModel.findOne({user_name: username})
   if(user){
     const isCorrect = bcrypt.compareSync(password, user.user_password)
-    if(isCorrect){
-      // if(req.session.username){
-      //   delete req.session.username
-      // }
-      // if(req.session.message_login){
-      //   delete req.session.message_login
-      // }   
-       
+    if(isCorrect){ 
       req.session.user = username
       req.session.isLogin = true
       

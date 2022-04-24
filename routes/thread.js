@@ -45,14 +45,6 @@ router.post('/postthread', async (req, res) => {
         section: req.body.section,
         content: req.body.content
     }
-    // ThreadModel.create(obj, (err, item) =>{
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else {
-    //         return res.redirect('../');
-    //     }
-    // })
     ThreadModel.create(obj)
     const thread = await ThreadModel.findOne({user_id: user._id, book_id: book._id})
     res.redirect(`../thread/${thread._id}`)
@@ -70,16 +62,10 @@ router.get('/search/id/:id', async (req, res) => {
     })
 })
 
-// router.get('search/name/:name', async (req, res) => {
-//     const thread_name = req.params.name
-//     const thread = await ThreadModel.find({book_id: book_id})
-//     if(req.session.user){
-//         var user = await UserModel.findOne({user_name: req.session.user})
-//     }
-//     res.render('thread',{
-//         user: user,
-//         thread: thread
-//     })
-// })
+router.delete('/deletethread', async(req, res) =>{
+    const thread_id = req.body.thread_id
+    await ThreadModel.findByIdAndDelete(thread_id)
+    res.redirect('../thread')
+})
 
 module.exports = router

@@ -242,12 +242,12 @@
                             <h5 class="card-header" style="display: flex;">
                                 <div><%= book_comment[i].user_name %></div>
                                 <% if( user != undefined) { %>
-                                    <% if( user.user_Role == 'Admin') { %>
+                                    <% if( user.user_Role == 'Admin' || (usercomment.user_name === book_comment[i].user_name)) { %>
                                 <div><form action="/book/deletecomment?_method=delete" method="post">
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="hidden" name="id" value="<%= book_comment[i]._id %>">
                                     <input type="hidden" name="book_id" value="<%= book._id %>">
-                                    <button class="btn btn-outline-danger" style="font-size: 10px;margin-left: 1200px;" type="submit">
+                                    <button class="btn btn-outline-danger" style="font-size: 10px;margin-left: 10px;" type="submit">
                                         <i class="bi bi-trash" style="font-size: 12px;"></i>
                                     </button>
                                 </form></div>
@@ -265,7 +265,7 @@
                                 <% } %>
                             </p>
                             <p class="card-text"><%= book_comment[i].comment %></p>
-                            <% if( usercomment != undefined) { %>
+                            <!-- <% if( usercomment != undefined) { %>
                                 <% if( usercomment.user_name === book_comment[i].user_name) { %>
                                 <form action="/book/deletecomment?_method=delete" method="post">
                                     <input type="hidden" name="_method" value="delete">
@@ -276,7 +276,7 @@
                                     </button>
                                 </form>
                                 <% } %>
-                            <% } %>
+                            <% } %> -->
 
                         </div>
                     </div>
