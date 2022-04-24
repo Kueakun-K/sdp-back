@@ -21,6 +21,7 @@ $(function(){
                     required: true,
                     minlength:3,
                     maxlength:10,
+                    regex: /^[A-Za-z_]{3,10}$/
                 },
                 password:{
                     required:true,
@@ -43,7 +44,7 @@ $(function(){
                     required:'กรุณาป้อนชื่อผู้ใช้งาน',
                     minlength:'ต้องมีอย่างน้อย 3 ตัวอักษร',
                     maxlength:'ต้องมีอย่างมากไม่เกิน 10 ตัวอักษร',
-                    remote:'ชื่อนี้มีผู้ใช้งานแล้ว'
+                    regex:'ชื่อผู้ใช้ต้องประกอบไปด้วย ตัวอักษรภาษาอังกฤษพิมเล็กหรือพิมใหญ่ เท่านั้น'
                 },
                 password:{
                     required:'กรุณาป้อนรหัสผ่าน',
