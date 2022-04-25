@@ -103,15 +103,51 @@ router.get('/board', async (req, res) =>{
 
 router.get('/search', async (req, res) => {
   const bookname = req.query.bookname
-  const result = await BookModel.find({book_name: {$regex: bookname}})
+  
   if(req.session.user){
-      var user = await UserModel.findOne({user_name: req.session.user})
+      const user = await UserModel.findOne({user_name: req.session.user})
+      const sort = user.book_sort
+      if(sort == 'new')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({createdAt: -1})
+      else if(sort == 'view')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_view: -1})
+      else if(sort == 'rate')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_rate: -1})
+      else if(sort == 'name')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_name: 1})
+      return res.render('book_show',{
+        section: "SEARCH",
+        book: result,
+        user: user
+      })
   }
-  res.render('book_show',{
-      section: "SEARCH",
-      book: result,
-      user: user
-    })
+  else{
+    if(!req.session.sort){
+      var result = await BookModel.find({book_name: {$regex: bookname}}).sort({createdAt: -1})
+      return res.render('book_show',{
+        section: "SEARCH",
+        book: result,
+        user: user
+      })
+    }
+    else{
+      const sort = req.session.sort
+      if(sort == 'new')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({createdAt: -1})
+      else if(sort == 'view')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_view: -1})
+      else if(sort == 'rate')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_rate: -1})
+      else if(sort == 'name')
+        var result = await BookModel.find({book_name: {$regex: bookname}}).sort({book_name: 1})
+      return res.render('book_show',{
+        section: "SEARCH",
+        book: result,
+        user: user
+      })
+    }
+  }
+  
 })
 
 router.get('/payment/:id', async (req, res) => {
