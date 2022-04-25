@@ -10,11 +10,6 @@ const ThreadCommentSchema = mongoose.Schema({
         required: true
     },
     user_name:String,
-    rate:{ 
-        type: Number,
-        min: 1, 
-        max: 5 
-    },
     comment: {
         type: String,
         default: ""

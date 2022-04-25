@@ -162,10 +162,14 @@
         </div>
     </section>
     <br>
+    <% if( user != undefined) { %>
+        <% if( user.user_Role == 'Admin') { %>
     <div class="d-flex justify-content-center">
     <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     data-bs-whatever="@mdo">เพิ่มหนังสือ</button>
                 </div>
+        <% } %>
+    <% } %>
     <% if( rentbook.length > 0) { %>
     <section id="rent">
         <div class="container">

@@ -50,6 +50,19 @@ router.post('/postthread', async (req, res) => {
     res.redirect(`../thread/${thread._id}`)
 })
 
+router.post('/comment', async (req ,res) => {
+    const {user_id, thread_id, comment} = req.body
+    const user = await UserModel.findById(user_id)
+    const comment_thread = new ThreadCommentModel({
+        user_id: user_id,
+        thread_id: thread_id,
+        user_name: user.user_name,
+        comment: comment
+    })
+    await comment_thread.save()
+    res.redirect(req.get('referer'))
+})
+
 router.get('/search/id/:id', async (req, res) => {
     const book_id = req.params.id
     const thread = await ThreadModel.find({book_id: book_id})
