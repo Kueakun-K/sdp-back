@@ -4,7 +4,6 @@ var router = express.Router();
 const Authorize = require('../authorize')
 const {BookModel, UserModel, TokenModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
 
-/* GET home page. */
 router.get('/', async (req, res) => {
   const rentbook = []
   if(req.session.user){
@@ -28,7 +27,6 @@ router.get('/', async (req, res) => {
   if(newbook.length <6){
     num1 = newbook.length
   }
-  // console.log(num1, num2, num3)
   res.render('index', {
     rentbook: rentbook,
     newbook: newbook,
@@ -72,15 +70,6 @@ router.get('/logout', (req, res) => {
   
 })
 
-router.get('/addbook', (req, res) => {
-  return res.render('addbook')
-})
-
-
-router.get('/postthread/:id', async (req, res) => {
-  const book_id = req.params.id
-  res.render('addthread',{book_id: book_id})
-})
 
 router.get('/bookrent/:id', async (req, res) => {
   const book_id = req.params.id

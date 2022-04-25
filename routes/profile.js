@@ -4,7 +4,7 @@ var router = express.Router();
 const bcrypt = require('bcryptjs')
 
 // const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
+const {BookModel, UserModel, ThreadModel, LibraryModel} = require('../models')
 
 router.get('/:id', async (req, res) => {
     const user_id = req.params.id

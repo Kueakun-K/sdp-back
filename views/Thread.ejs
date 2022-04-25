@@ -78,18 +78,6 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                 <div class="fs-4 fw-bold">กระทู้</div>
-                <div class="dropdown">
-                    <button class="btn btn-link text-decoration-none text-black dropdown-toggle" type="button"
-                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sort By
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">New Arrivals</a></li>
-                        <li><a class="dropdown-item" href="#">Most Viewed</a></li>
-                        <li><a class="dropdown-item" href="#">Top Rated</a></li>
-                        <li><a class="dropdown-item" href="#">Name</a></li>
-                    </ul>
-                </div>
             </div>
             <div class="border-dark border-bottom"></div>
             <div class="row">
@@ -109,7 +97,6 @@
                             </h5>
                             <p><%= thread[i].content %></p>
                             <a href="/thread/<%= thread[i]._id %>" ><button type="button" class="btn btn-success btn-sm">ไปที่กระทู้</button></a>
-                            <!-- class="stretched-link" -->
                         </div>
                     </div>
                     <% } %>
