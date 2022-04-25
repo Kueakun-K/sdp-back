@@ -137,7 +137,20 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <p class="fs-2 fw-bolder"><%= book.book_name %></p>
+                    <div style="display: flex;">
+                    <p class="fs-2 fw-bolder" style="display: flex;"><%= book.book_name %></p>
+                    <% if( user != undefined) { %>
+                        <% if( user.user_Role == 'Admin') { %>
+                        <div><form action="/book/delete?_method=delete" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="id" value="<%= book._id %>">
+                           <button class="btn btn-outline-danger" style="font-size: 10px;margin-left: 10px;margin-top: 10px;" type="submit">
+                                <i class="bi bi-trash" style="font-size: 15px;"></i>
+                         </button>
+                        </form></div>
+                        <% } %>
+                    <% } %>
+                </div>
                     <% if(rent == false){ %>
                         <p class="border-dark border-bottom fs-4 fw-bolder">ราคา</p>
                     <% } else { %>
@@ -149,10 +162,10 @@
                             <form action="/book/rent" method="post">
                             <input type="hidden" name="book_id" value="<%= book._id %>">
                             <select class="form-select btn-outline-success" aria-label="Default select example" name="day">
-                                <option selected value="1">0.00฿ / 1 Day</option>
-                                <option value="3">0.00฿ / 3 Day</option>
-                                <option value="5">0.00฿ / 5 Day</option>
-                                <option value="7">0.00฿ / 7 Day</option>
+                                <option selected value="1"><%= book.book_price %> ฿ / 1 Day</option>
+                                <option value="3"><%= book.book_price*3 %> ฿ / 3 Day</option>
+                                <option value="5"><%= book.book_price*5 %> ฿ / 5 Day</option>
+                                <option value="7"><%= book.book_price*7 %> ฿ / 7 Day</option>
                             </select>
                         </div>
                         <% } %>
@@ -180,6 +193,7 @@
                                 </button>
                             </a>
                         </div>
+                        <% if(thread == true){ %>
                         <div>
                             <!-- <a href="../postthread/<%= book._id %>"> -->
                                 <button type="button" class="btn btn-outline-success btn-lg mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -187,18 +201,18 @@
                                 </button>
                             <!-- </a> -->
                         </div>
+                        <% } %>
                     </div>
 
-                    <p class="border-dark border-bottom fs-4 fw-bolder">เกี่ยวกับ</p>
-                    <p class="fs-6 fw-normal">Python ๑๐๑ หนังสือสอนเขียนโปรแกรมภาษา Python ใช้ประกอบการเรียนวิชา 2110101
-                        Computer Programming</p>
-                    <p class="border-dark border-bottom fs-4 fw-bolder">รายละเอียด</p>
+                    <p class="border-dark border-bottom fs-4 fw-bolder">คำอธิบาย</p>
+                    <p class="fs-6 fw-normal"><%= book.book_description %></p>
+                    <!-- <p class="border-dark border-bottom fs-4 fw-bolder">รายละเอียด</p>
                     <p class="fs-6 fw-normal">168 หน้า</p>
                     <p class="fs-6 fw-normal">ISBN : 978-616-407-189-6</p>
                     <p class="fs-6 fw-normal">พิมพ์ครั้งที่ 1 (สิงหาคม 2560)</p>
                     <p class="fs-6 fw-normal">พิมพ์ครั้งที่ 2 (สิงหาคม 2561)</p>
                     <p class="fs-6 fw-normal">จัดพิมพ์ : ภาควิชาวิศวกรรมคอมพิวเตอร์ จุฬาลงกรณ์มหาวิทยาลัย</p>
-                    <p class="fs-6 fw-normal">MD5 checksum : DFC33A21FE81D55301D17009F0F5EB7C</p>
+                    <p class="fs-6 fw-normal">MD5 checksum : DFC33A21FE81D55301D17009F0F5EB7C</p> -->
                 </div>
             </div>
         </div>
@@ -265,19 +279,6 @@
                                 <% } %>
                             </p>
                             <p class="card-text"><%= book_comment[i].comment %></p>
-                            <!-- <% if( usercomment != undefined) { %>
-                                <% if( usercomment.user_name === book_comment[i].user_name) { %>
-                                <form action="/book/deletecomment?_method=delete" method="post">
-                                    <input type="hidden" name="_method" value="delete">
-                                    <input type="hidden" name="id" value="<%= book_comment[i]._id %>">
-                                    <input type="hidden" name="book_id" value="<%= book._id %>">
-                                    <button class="btn btn-outline-danger" type="submit">
-                                        <i class="bi bi-trash" style="font-size: 16px;"></i>
-                                    </button>
-                                </form>
-                                <% } %>
-                            <% } %> -->
-
                         </div>
                     </div>
                     <% } %>
@@ -285,22 +286,6 @@
             </div>
         </div>
     </section>
-    <!-- <section id="page">
-        <div class="d-flex justify-content-center mt-5">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                    <a href="#"><button type="button" class="btn btn-primary">1</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">2</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">3</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">4</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">5</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">6</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">7</button></a>
-                    <a href="#"><button type="button" class="btn btn-primary">8</button></a>
-                </div>
-            </div>
-        </div>
-    </section> -->
     <script src="/javascripts/custombook_review.js"></script>
 </body>
 

@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 
-const {BookModel, UserModel, BookCommentModel, LibraryModel} = require('../models')
+const {BookModel, UserModel, BookCommentModel, LibraryModel, ThreadModel} = require('../models')
 
 var fs = require('fs')
 var path = require('path')
@@ -23,6 +23,7 @@ var upload = multer({ storage: storage })
 
 router.get('/:id', async (req, res) => {
     const book_id = req.params.id
+    var checkthread = false
     if(req.session.user){
         var user = await UserModel.findOne({user_name: req.session.user})
         var usercomment = await BookCommentModel.findOne({user_name: req.session.user, book_id: book_id})
@@ -32,11 +33,17 @@ router.get('/:id', async (req, res) => {
                 await LibraryModel.findByIdAndUpdate(rent._id, {isRent: false})
         }
         var rent_book = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
+        var thread = await ThreadModel.findOne({user_id: user._id, book_id: book_id})
+        if(thread == null){
+            checkthread = true
+        }
+
     }
     const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
     const comment = await BookCommentModel.find({book_id: book_id})
     const rate = Math.round(book.book_rate)
     var check 
+    
     if(rent_book == null){
         check = false
     }
@@ -48,6 +55,7 @@ router.get('/:id', async (req, res) => {
         usercomment: usercomment,
         book:book,
         rent: check,
+        thread: checkthread,
         book_comment: comment,
         rate: rate
     })

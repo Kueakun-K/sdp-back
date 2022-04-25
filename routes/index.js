@@ -24,11 +24,17 @@ router.get('/', async (req, res) => {
   const newbook = await BookModel.find().sort({createdAt: -1})
   const viewbook = await BookModel.find().sort({book_view: -1})
   const ratebook = await BookModel.find().sort({book_rate: -1})
+  var num1 = 6
+  if(newbook.length <6){
+    num1 = newbook.length
+  }
+  // console.log(num1, num2, num3)
   res.render('index', {
     rentbook: rentbook,
     newbook: newbook,
     viewbook: viewbook,
-    ratebook: ratebook, 
+    ratebook: ratebook,
+    num: num1, 
     user: user
   })
 })
@@ -60,8 +66,10 @@ router.get('/password-reset/:user_id/:token', async (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  req.session.destroy()
-  res.redirect('/')
+  req.session.destroy( (err,g)=>{
+    res.redirect('/')
+  })
+  
 })
 
 router.get('/addbook', (req, res) => {

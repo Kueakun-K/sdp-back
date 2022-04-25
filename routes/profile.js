@@ -29,6 +29,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id/edit', async (req, res) => {
     const {user_id, username, password, repassword, confirmpassword} = req.body
+    console.log(req.body)
     const user = await UserModel.findById(user_id)
     const isCorrect = bcrypt.compareSync(confirmpassword, user.user_password)
     if(isCorrect){

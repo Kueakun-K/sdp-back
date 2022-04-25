@@ -143,9 +143,10 @@ router.get('/mail', async (req, res) => {
 
 router.post('/reset-password', async (req, res) => {
   const {user_id, password, repassword} = req.body
-
+  console.log(req.body)
   if( password == repassword){
     const passwordHash = bcrypt.hashSync(password, 10)
+    
     await UserModel.findByIdAndUpdate(user_id,{user_password: passwordHash})
     return res.redirect('../login')
   }

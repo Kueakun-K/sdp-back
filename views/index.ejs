@@ -80,6 +80,51 @@
     <br>
     <section id="slider">
         <div class="container">
+            <form action="/book/postbook" method="POST" enctype="multipart/form-data">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มหนังสือ</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">ชื่อหนังสือ</label>
+                                            <input type="text" class="form-control"  name="book_name" id="recipient-name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">ประเภท</label>
+                                            <select class="form-select" aria-label="Default select example" name="book_tag">
+                                                <option selected value="general">หนังสือทั่วไป</option>
+                                                <option value="novel">นิยาย</option>
+                                                <option value="children">หนังสือเด็ก</option>
+                                                <option value="manga">การ์ตูน</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">คำอธิบาย</label>
+                                            <input type="text" class="form-control"  name="book_description" id="recipient-name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">ราคา</label>
+                                            <input type="text" class="form-control"  name="book_price" id="recipient-name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">รูปหน้าปก</label>
+                                            <input class="form-control" type="file" id="formFile" name="img">
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">สร้าง</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             <div class="row">
                 <div class="col-12">
                     <div class="carousel slide" data-bs-ride="carousel" id="mySlider">
@@ -117,6 +162,10 @@
         </div>
     </section>
     <br>
+    <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-bs-whatever="@mdo">เพิ่มหนังสือ</button>
+                </div>
     <% if( rentbook.length > 0) { %>
     <section id="rent">
         <div class="container">
@@ -149,9 +198,10 @@
 
     <section id="new">
         <div class="container">
+            
             <div class="border-dark border-bottom fs-4 fw-normal py-2">มาใหม่</div>
             <div class="row my-2">
-                <% for(var i = 0;i < 6;i++){ %>
+                <% for(var i = 0;i < num;i++){ %>
                 <div class="col-md-2">
                     <a href="/book/<%= newbook[i]._id %>"><img
                             src="data:newbook[i]/<%= newbook[i].book_img.contentType %>;base64,
@@ -182,7 +232,7 @@
         <div class="container">
             <div class="border-dark border-bottom fs-4 fw-normal py-2">ยอดนิยม</div>
             <div class="row my-2">
-                <% for(var i = 0;i < 6;i++){ %>
+                <% for(var i = 0;i < num;i++){ %>
                     <div class="col-md-2">
                         <a href="/book/<%= viewbook[i]._id %>"><img
                                 src="data:viewbook[i]/<%= viewbook[i].book_img.contentType %>;base64,
@@ -214,7 +264,7 @@
         <div class="container">
             <div class="border-dark border-bottom fs-4 fw-normal py-2">แนะนำ</div>
             <div class="row my-2">
-                <% for(var i = 0;i < 6;i++){ %>
+                <% for(var i = 0;i < num;i++){ %>
                     <div class="col-md-2">
                         <a href="/book/<%= ratebook[i]._id %>"><img
                                 src="data:ratebook[i]/<%= ratebook[i].book_img.contentType %>;base64,

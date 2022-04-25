@@ -4,7 +4,8 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 const session = require('express-session')
-const MongoDBStore = require('connect-mongodb-session')(session)
+// const MongoDBStore = require('connect-mongodb-session')(session)
+const MongoStore = require('connect-mongo')
 const methodOverride = require('method-override')
 
 
@@ -40,12 +41,12 @@ app.use(session({
   secret: "sdp",
   saveUninitialized: true,
   cookie: { maxAge: oneDay },
-  resave: true,
-  store: new MongoDBStore({
-    uri: 'mongodb+srv://t63010040:kritkuea4095@cluster0.jaj57.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    databaseName: 'myFirstDatabase',
-    collection: 'MySession',
-    expires: oneDay
+  resave: false,
+  store: new MongoStore({
+    mongoUrl: 'mongodb+srv://t63010040:kritkuea4095@cluster0.jaj57.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    dbName: 'myFirstDatabase',
+    collectionName: 'MySession',
+    ttl: oneDay
   })
 }))
 
