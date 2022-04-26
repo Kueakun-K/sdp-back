@@ -126,7 +126,7 @@ router.get('/mail', async (req, res) => {
       from: 'Ahey Library <aheylibrary@gmail.com>',   
       to: `คุณ ${checkemail.user_name} <${email}>`,
       subject: "สวัสดีจ้า",                     
-      html: "<b>Test Test</b>" + 
+      html: "<h2>RESET PASSWORD : </h2><br>" + 
             `<a href='http://localhost:3000/password-reset/${checkemail._id}/${token.token}'>Cilck Here</a>`
     }
 
@@ -207,8 +207,9 @@ router.post('/payment', upload.single('img'), async (req, res) => {
 })
 
 router.post('/save', async (req, res) => {
-  const {user_id, book_id, scroll} = req.body
-  console.log(req.body)
+  const {user_id, book_id, scrollsave} = req.body
+  await LibraryModel.findOneAndUpdate({user_id:user_id, book_id:book_id}, {readOn:scrollsave})
+  res.redirect('../')
 })
 
 module.exports = router;

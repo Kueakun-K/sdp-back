@@ -174,33 +174,35 @@
                         <% if(rent == false){ %>
                             <div>
                                 <a>                           
-                                    <button type="submit" class="btn btn-success btn-lg mb-5 me-2">GET RENT
+                                    <button type="submit" class="btn btn-success btn-lg mb-2 me-2">GET RENT
                                     </button>
                                 </form>
                                 </a>
                             </div>
                         <% } else { %>
                             <div>
-                                <a href="/test1/<%= book._id %>">                           
-                                    <button type="button" class="btn btn-success btn-lg mb-5 me-2">READ ON
+                                <a href="/read/<%= book._id %>">                           
+                                    <button type="button" class="btn btn-success btn-lg mb-2 me-2">READ ON
                                     </button>
                                 </a>
                             </div>
                         <% } %>
                         <div style="margin-right: 5px;">
                             <a href="../thread/search/id/<%= book._id %>">
-                                <button type="button" class="btn btn-outline-success btn-lg mb-5">กระทู้ที่เกี่ยวข้อง
+                                <button type="button" class="btn btn-outline-success btn-lg mb-2">กระทู้ที่เกี่ยวข้อง
                                 </button>
                             </a>
                         </div>
                         <% if(thread == true){ %>
                         <div>
-                                <button type="button" class="btn btn-outline-success btn-lg mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <button type="button" class="btn btn-outline-success btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 data-bs-whatever="@mdo">สร้างกระทู้
                                 </button>
                         </div>
                         <% } %>
+                        
                     </div>
+                    <div style="color: red;font-weight: bold;"><%= message %></div>
                     <p class="border-dark border-bottom fs-4 fw-bolder">คำอธิบาย</p>
                     <p class="fs-6 fw-normal"><%= book.book_description %></p>
                 </div>
@@ -246,7 +248,8 @@
                             <h5 class="card-header" style="display: flex;">
                                 <div><%= book_comment[i].user_name %></div>
                                 <% if( user != undefined) { %>
-                                    <% if( user.user_Role == 'Admin' || (usercomment.user_name === book_comment[i].user_name)) { %>
+                                    <% if( user.user_Role == 'Admin' || usercomment != false ) { %>
+                                        <% if( user.user_Role == 'Admin' || usercomment.user_name === book_comment[i].user_name)  { %>
                                 <div><form action="/book/deletecomment?_method=delete" method="post">
                                     <input type="hidden" name="_method" value="delete">
                                     <input type="hidden" name="id" value="<%= book_comment[i]._id %>">
@@ -255,6 +258,7 @@
                                         <i class="bi bi-trash" style="font-size: 12px;"></i>
                                     </button>
                                 </form></div>
+                                <% } %>
                                     <% } %>
                                 <% } %>
                             </h5>

@@ -71,24 +71,24 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.get('/bookrent/:id', async (req, res) => {
-  const book_id = req.params.id
-  const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
-  const comment = await BookCommentModel.find({book_id: book_id})
-  const user = await UserModel.findOne({user_name: req.session.user})
-  const rent = await LibraryModel.findOne({book_id: book_id, user_id: user._id})
-  const rate = Math.round(book.book_rate)
-  const dayLeft = ((rent.endAt - Date.now()) / (24 * 60 * 60 * 1000))
-  return res.render('book_rent',{
-      user: req.session.user,
-      book:book,
-      book_comment: comment,
-      rate: rate,
-      rent: rent,
-      dayLeft: dayLeft
-      // dateNow: Date.now()
-  })
-})
+// router.get('/bookrent/:id', async (req, res) => {
+//   const book_id = req.params.id
+//   const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
+//   const comment = await BookCommentModel.find({book_id: book_id})
+//   const user = await UserModel.findOne({user_name: req.session.user})
+//   const rent = await LibraryModel.findOne({book_id: book_id, user_id: user._id})
+//   const rate = Math.round(book.book_rate)
+//   const dayLeft = ((rent.endAt - Date.now()) / (24 * 60 * 60 * 1000))
+//   return res.render('book_rent',{
+//       user: req.session.user,
+//       book:book,
+//       book_comment: comment,
+//       rate: rate,
+//       rent: rent,
+//       dayLeft: dayLeft
+//       // dateNow: Date.now()
+//   })
+// })
 
 router.get('/board', async (req, res) =>{
   const board = await UserModel.find().sort({user_point: -1})
@@ -158,6 +158,23 @@ router.get('/payment/:id', async (req, res) => {
   })
 })
 
+router.get('/read/:id', async (req, res) =>{
+  const book_id = req.params.id
+  if(req.session.user){
+    var user = await UserModel.findOne({user_name: req.session.user})
+  }
+  const library = await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book_id},{lastread: Date.now()})
+  const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
+  const dayLeft = Math.floor((library.endAt - Date.now()) / ( 60 * 60 * 1000))
+
+  res.render('read',{
+    user:user,
+    book:book,
+    scroll:library.readOn,
+    dayleft:dayLeft
+  })
+})
+
 
 
 router.get('/test', async (req, res) => {
@@ -165,12 +182,12 @@ router.get('/test', async (req, res) => {
   res.redirect('/test1')
 })
 
-router.get('/test1/:id',  async (req, res) => {
-  const book_id = req.params.id
-  const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
+router.get('/test1',  async (req, res) => {
+  // const book_id = req.params.id
+  // const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
   res.render('test',{
-    message: req.flash('success'),
-    book: book
+    message: req.flash('success')
+    // book: book
   })
 })
 module.exports = router;

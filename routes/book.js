@@ -50,6 +50,10 @@ router.get('/:id', async (req, res) => {
     else{
         check = rent_book.isRent
     }
+    if(usercomment == null){
+        usercomment = false
+    }
+    // console.log(usercomment)
     return res.render('book',{
         user: user,
         usercomment: usercomment,
@@ -58,7 +62,7 @@ router.get('/:id', async (req, res) => {
         thread: checkthread,
         book_comment: comment,
         rate: rate,
-        scroll: 0
+        message: req.flash('error-rent')
     })
 })
 
@@ -125,31 +129,34 @@ router.post('/rent', async (req, res) => {
 
     const user = await UserModel.findOne({user_name: req.session.user})
     const book = await BookModel.findById(book_id)
-    const oneDay = 24 * 60 * 60 * 1000
-    
-    const inLibrary = await LibraryModel.findOne({user_id: user._id, book_id: book._id})
-    if(!inLibrary){
-        var obj = {
-            user_id: user._id,
-            book_id: book._id,
-            book_img: {
-                data: book.book_img.data,
-                contentType: 'image/png'
-            },
-            endAt: Date.now() + (day * oneDay)
-        }
-        LibraryModel.create(obj, (err, item) =>{
-            if (err) {
-                console.log(err);
-            }
-            else {
-                return res.redirect('../');
-            }
-        })
+    const cost = day * book.book_price
+    if(cost > user.user_money){
+        req.flash('error-rent', 'ยอดเงินไม่เพียงพอ')
+        return res.redirect(req.get('referer'))
     }
     else{
-        await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book._id}, {isRent: true, endAt: Date.now() + (day * oneDay), lastread: Date.now()})
-        return res.redirect('../')
+        const oneDay = 24 * 60 * 60 * 1000
+        
+        const inLibrary = await LibraryModel.findOne({user_id: user._id, book_id: book._id})
+        if(!inLibrary){
+            const createlibrary = new LibraryModel({
+                user_id: user._id,
+                book_id: book._id,
+                book_img: {
+                    data: book.book_img.data,
+                    contentType: 'image/png'
+                },
+                endAt: Date.now() + (day * oneDay)
+            })
+            await createlibrary.save()
+            await UserModel.findByIdAndUpdate(user._id, {user_money: user.user_money - cost, user_point: user.user_point + cost})
+            return res.redirect(req.get('referer'))
+        }
+        else{
+            await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book._id}, {isRent: true, endAt: Date.now() + (day * oneDay), lastread: Date.now()})
+            await UserModel.findByIdAndUpdate(user._id, {user_money: user.user_money - cost, user_point: user.user_point + cost})
+            return res.redirect(req.get('referer'))
+        }
     }
 })
 

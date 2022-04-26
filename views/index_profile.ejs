@@ -217,7 +217,9 @@
                         <img src="data:read_on[i]/<%= read_on[i].book_img.contentType %>;base64,
                         <%= read_on[i].book_img.data.toString('base64') %>" style="width: 150px; height: 200px;">
                     </div>
+                    <a href="/read/<%= read_on[i].book_id %>">
                     <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
+                    </a>
                 </div>
                 <% } %>
             </div>

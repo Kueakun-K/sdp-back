@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
+        integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/read.css" type="text/css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <div class="p-5">
+                <a href="/" class="navbar-brand fs-3 fw-normal">AHEY LIBRARY</a>
+            </div>
+            <div class="p-5 justify-content-center">
+                <form action="/search" method="get">
+                    <input type="text" class="form-control" placeholder="Search" style="width: 480px;" name="bookname" />
+                    <input type="submit" hidden />
+                </form>
+            </div>
+            <div class="p-5 justify-content-end">
+                <% if( user == undefined) { %>
+                    <a href="/login" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                            fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    </svg></a>
+                <% } %>
+                <% if( user != undefined) { %>
+                    <a href="../profile/<%= user._id %>" class="btn btn-dark"><%= user.user_name %></a>
+                    <a href="/logout" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"></path>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
+                      </svg></a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top">
+        <div class="container">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar1" class="collapse navbar-collapse">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item me-5">
+                        <a href="/" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/category/novel" class="nav-link">นิยาย</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/category/general" class="nav-link">หนังสือทั่วไป</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/category/children" class="nav-link">หนังสือเด็ก</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/category/manga" class="nav-link">การ์ตูน</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/board" class="nav-link">กระดาน</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="/thread" class="nav-link">กระทู้</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="book-detail-container" class="book-detail-container">
+        <ul class="mother-page-book">
+            <% for(var i=0;i<book.length;i++){  %>
+            <li>
+                <img class="page-book" src="data:book[i]/<%= book[i].book_img.contentType %>;base64,
+                <%= book[i].book_img.data.toString('base64') %>" alt="">
+            </li>
+            <% } %>
+        </ul>
+    </div>
+    <div class="control-user">
+        <ul class="control-button">
+            <li><button id="back" class="btn">เหลือเวลาอีก <br> 
+                <% if(dayleft > 0) { %>
+                <%= dayleft %> 
+                <% } else { %>
+                   < 1 
+                <% } %> 
+                ชั่วโมง</button></li>    
+            <li><form action="/api/save" method="post" id="savescroll">
+                <input type="hidden" value="<%= user._id %>" name="user_id">
+                <input type="hidden" value="<%= book[0].book_id %>" name="book_id">
+                <input type="hidden" value="0" id="scrollsave" name="scrollsave">
+                <button id="save-page" class="btn">คั่นหนังสือและออก</button>
+            </form></li>
+        </ul>
+    </div>   
+
+    <input type="hidden" value="<%= scroll %>" id="scroll">
+    
+    <script>
+        document.documentElement.scrollTop = document.getElementById('scroll').value
+        var savepage = document.getElementById("save-page")
+        var scrollsave = document.getElementById("scrollsave")
+        savepage.addEventListener("click", save)
+
+        function save(){ 
+            console.log(document.documentElement.scrollTop)
+            scrollsave.value = document.documentElement.scrollTop
+            console.log(document.getElementById('scrollsave').value)
+            document.getElementById('savescroll').submit()
+        }
+
+    </script>
+</body>
+</html>
