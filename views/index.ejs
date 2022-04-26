@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
         integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
+    <style>
+        .error{
+            color: red;
+            font-family: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,7 +86,7 @@
     <br>
     <section id="slider">
         <div class="container">
-            <form action="/book/postbook" method="POST" enctype="multipart/form-data">
+            <form action="/book/postbook" method="POST" enctype="multipart/form-data" id="formaddbook">
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -93,7 +99,7 @@
                                 <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">ชื่อหนังสือ</label>
-                                            <input type="text" class="form-control"  name="book_name" id="recipient-name">
+                                            <input type="text" class="form-control"  name="book_name">
                                         </div>
                                         <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">ประเภท</label>
@@ -106,24 +112,20 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">คำอธิบาย</label>
-                                            <input type="text" class="form-control"  name="book_description" id="recipient-name">
+                                            <input type="text" class="form-control"  name="book_description" >
                                         </div>
                                         <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">ราคา</label>
-                                            <input type="text" class="form-control"  name="book_price" id="recipient-name">
+                                            <input type="text" class="form-control"  name="book_price">
                                         </div>
-                                        <!-- <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">รูปหน้าปก</label>
-                                            <input class="form-control" type="file" id="formFile" name="img">
-                                        </div> -->
                                         <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">รูปหนังสือ</label>
-                                            <input class="form-control" type="file" id="formFile" name="multiimg" multiple>
+                                            <input class="form-control" type="file" id="formFile" name="multiimg[]" multiple>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">สร้าง</button>
+                                    <button type="submit" class="btn btn-success" >สร้าง</button>
                                 </div>
                             </div>
                     </form>
@@ -335,6 +337,10 @@
             </footer>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="/javascripts/index.js"></script>
 </body>
 
 </html>

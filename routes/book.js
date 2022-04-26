@@ -66,7 +66,7 @@ router.get('/:id', async (req, res) => {
     })
 })
 
-router.post('/postbook', upload.array('multiimg'), async (req, res) => {
+router.post('/postbook', upload.array('multiimg[]'), async (req, res) => {
     const length = Object.keys(req.files).length
 
     await sharp(path.resolve(__dirname,'../public/images/' + req.files[length-1].filename)).resize({

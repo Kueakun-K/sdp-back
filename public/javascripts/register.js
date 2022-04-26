@@ -1,4 +1,7 @@
-// var lettersNumbersOnlyMinMaxCharactersRegex  = /^[a-z0-9{7,20}]$/ig;
+$.validator.addMethod("noSpace",function(value, element) {
+    return value.indexOf(" ") < 0 && value != "";
+}, "ห้ามใช้ช่องว่าง"
+);
 $.validator.addMethod(
     "regex",
     function(value, element, regexp) 
@@ -21,22 +24,27 @@ $(function(){
                     required: true,
                     minlength:3,
                     maxlength:10,
-                    regex: /^[A-Za-z_]{3,10}$/
+                    regex: /^[A-Za-z_]{3,10}$/,
+                    noSpace:true
                 },
                 password:{
                     required:true,
                     minlength:7,
                     maxlength:20,
-                    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{7,20}$/
+                    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{7,20}$/,
+                    noSpace:true
                 },
                 repassword:{
                     required:true,
-                    equalTo:'#inputPassword3'
+                    equalTo:'#inputPassword3',
+                    noSpace:true
                 },
                 email:{
                     required:true,
                     email:true,
+                    noSpace:true,
                     regex: /^[A-Za-z0-9_]+\@[A-Za-z0-9_]+\.[A-Za-z0-9_]+/,
+                    
                 }
             },
             messages:{

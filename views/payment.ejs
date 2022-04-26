@@ -22,6 +22,12 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js">
     </script>
+    <style>
+        .error{
+            color: red;
+            font-family: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -85,34 +91,33 @@
     <br><br>
     <section id="payment">
         <div class="container">
-            <form action="/api/payment" method="post" enctype="multipart/form-data">
+            <form action="/api/payment" method="post" enctype="multipart/form-data" id="formpayment">
                 <input type="hidden" name="user_id" value="<%= user._id %>">
             <p class="border-3 border-bottom fs-2 fw-bold text-center">แจ้งชำระเงิน</p>
             <p class="fs-5">กรุณากรอกรายละเอียดของคุณ</p>
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">บัญชีที่โอนเงิน</label>
                 <select class="form-select" aria-label="Default select example" name="bank">
-                    <option selected>-- Please select --</option>
-                    <option value="1">ธนาคารกรุงเทพ xxx-x-xxxxx-x</option>
-                    <option value="2">ธนาคารกสิกรไทย xxx-x-xxxxx-x</option>
-                    <option value="3">ธนาคารกรุงไทย xxx-x-xxxxx-x</option>
+                    <option selected value="ธนาคารกรุงเทพ xxx-x-xxxxx-x">ธนาคารกรุงเทพ xxx-x-xxxxx-x</option>
+                    <option value="ธนาคารกสิกรไทย xxx-x-xxxxx-x">ธนาคารกสิกรไทย xxx-x-xxxxx-x</option>
+                    <option value="ธนาคารกรุงไทย xxx-x-xxxxx-x">ธนาคารกรุงไทย xxx-x-xxxxx-x</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label">วันที่ชำระเงิน</label>
+                <label for="formGroupExampleInput" class="form-label">วันที่ชำระเงิน (เดือน-วัน-ปี)</label>
                 <input type="text" class="date form-control" name="date" />
                 <script type="text/javascript">
                     $(".date").datepicker({
-                        format: "dd-mm-yyyy",
+                        format: "mm-dd-yyyy",
                     });
                 </script>
             </div>
             <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label">เวลา(โดยประมาณ)</label>
+                <label for="formGroupExampleInput" class="form-label">เวลา (โดยประมาณ)</label>
                 <div class="row">
                     <div class="col">
                         <select class="form-select" aria-label="Default select example" name="hour">
-                            <option selected>-- ชม --</option>
+                            <option selected value="-1">-- ชม --</option>
                             <option value="00">00</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -141,7 +146,7 @@
                     </div>
                     <div class="col">
                         <select class="form-select" aria-label="Default select example" name="minute">
-                            <option selected>-- นาที --</option>
+                            <option selected value="-1">-- นาที --</option>
                             <option value="00">00</option>
                             <option value="05">05</option>
                             <option value="10">10</option>
@@ -176,5 +181,9 @@
         </form>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="/javascripts/payment.js"></script>
 </body>
 </html>
