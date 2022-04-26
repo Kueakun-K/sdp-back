@@ -39,13 +39,14 @@ router.get('/', async (req, res) => {
 
 router.get('/login', Authorize('/',false), (req, res) =>{
   res.render('index_login',{ 
-    username: req.session.username,
-    message: req.session.message_login 
+    message: req.flash('error-login')
   })
 })
 
 router.get('/register', (req, res) =>{
-  res.render('index_register',{ message: '' })
+  res.render('index_register',{ 
+    message: req.flash('error-register') 
+  })
 })
 
 router.get('/forgotpassword', (req, res) => {

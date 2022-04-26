@@ -28,17 +28,20 @@ router.post('/register', async (req, res) => {
   const { username, password, repassword, email} = req.body;
 
   if (!username || !password || !repassword || !email){
-    return res.render('index_register', { message: 'Please try again' });
+    req.flash('error-register', 'ข้อมูลไม่ถูกต้อง')
+    return res.redirect('../register')
   }
 
   const checkusername = await UserModel.findOne({user_name:username})
   if(checkusername){
-    return res.render('index_register', { message: 'Username ซ้ำ' });
+    req.flash('error-register', 'Username ซ้ำ')
+    return res.redirect('../register')
   }
 
   const checkemail = await UserModel.findOne({user_email:email})
   if(checkemail){
-    return res.render('index_register', { message: 'Email ซ้ำ' });
+    req.flash('error-register', 'Email ซ้ำ')
+    return res.redirect('../register')
   }
 
   if( password == repassword){
@@ -58,9 +61,8 @@ router.post('/login', async (req, res) => {
   const {username , password} = req.body
 
   if(!username || !password){
-    // req.session.username = username
-    req.session.message_login = "Username or Password invalid"
-    res.redirect('../login')
+    req.flash('error-login', 'รหัสผ่านไม่ถูกต้อง')
+    return res.redirect('../login')
   }
 
   const user = await UserModel.findOne({user_name: username})
@@ -85,14 +87,12 @@ router.post('/login', async (req, res) => {
       
     }
     else{
-      req.session.username = username
-      req.session.message_login = "Username or Password invalid"
+      req.flash('error-login', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
       return res.redirect('../login')
     }
   }
   else{
-    req.session.username = username
-    req.session.message_login = "Username or Password invalid"
+    req.flash('error-login', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
     return res.redirect('../login')
   }
 })
