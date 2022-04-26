@@ -85,7 +85,7 @@
         </div>
     </nav>
     <br>
-            <form action="/profile/editusername" method="post">
+            <form action="/profile/editusername" method="post" id="editusername">
                 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </form>
-            <form action="/profile/editpassword" method="post">
+            <form action="/profile/editpassword" method="post" id="editpassword">
                 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </form>
-            <form action="/profile/editemail" method="post">
+            <form action="/profile/editemail" method="post" id="editemail">
                 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -286,8 +286,9 @@
 
 
     <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
-    <!-- <script src="custom_js/custom2.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="/javascripts/profile.js"></script>
 </body>
 </html>
