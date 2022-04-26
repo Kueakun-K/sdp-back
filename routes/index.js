@@ -71,27 +71,8 @@ router.get('/logout', (req, res) => {
 })
 
 
-// router.get('/bookrent/:id', async (req, res) => {
-//   const book_id = req.params.id
-//   const book = await BookModel.findOneAndUpdate({_id: book_id}, { $inc: { book_view : 1 }})
-//   const comment = await BookCommentModel.find({book_id: book_id})
-//   const user = await UserModel.findOne({user_name: req.session.user})
-//   const rent = await LibraryModel.findOne({book_id: book_id, user_id: user._id})
-//   const rate = Math.round(book.book_rate)
-//   const dayLeft = ((rent.endAt - Date.now()) / (24 * 60 * 60 * 1000))
-//   return res.render('book_rent',{
-//       user: req.session.user,
-//       book:book,
-//       book_comment: comment,
-//       rate: rate,
-//       rent: rent,
-//       dayLeft: dayLeft
-//       // dateNow: Date.now()
-//   })
-// })
-
 router.get('/board', async (req, res) =>{
-  const board = await UserModel.find().sort({user_point: -1})
+  const board = await UserModel.find({user_Role: "User"}).sort({user_point: -1})
   if(req.session.user){
     var user = await UserModel.findOne({user_name: req.session.user})
   }

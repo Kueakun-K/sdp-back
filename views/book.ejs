@@ -18,6 +18,12 @@
         background-color: white;
         border: none; 
     }
+    
+    .error{
+        color: red;
+        font-family: inherit;
+    }
+    
     </style>
 </head>
 
@@ -86,7 +92,7 @@
     <br><br>
     <section id="books">
         <div class="container">
-            <form action="/thread/postthread" method="post">
+            <form action="/thread/postthread" method="post" id="formthread">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
@@ -111,7 +117,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">สร้าง</button>
+                                <button type="submit" class="btn btn-success" >สร้าง</button>
                             </div>
                         </div>
                     </div>
@@ -282,6 +288,10 @@
     </section>
     
     <script src="/javascripts/custombook_review.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="/javascripts/thread.js"></script>
     <!-- <script src="/javascripts/scrollTop.js"></script> -->
     
 </body>
