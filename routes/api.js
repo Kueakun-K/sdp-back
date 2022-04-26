@@ -206,6 +206,9 @@ router.post('/payment', upload.single('img'), async (req, res) => {
   })
 })
 
-
+router.post('/save', async (req, res) => {
+  const {user_id, book_id, scroll} = req.body
+  console.log(req.body)
+})
 
 module.exports = router;

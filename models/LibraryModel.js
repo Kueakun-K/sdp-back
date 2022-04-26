@@ -21,6 +21,10 @@ const LibrarySchema = mongoose.Schema({
     lastread: {
         type:Date,
         default: Date.now()
+    },
+    readOn: {
+        type: Number,
+        default: 0
     }
 })
 

@@ -1,0 +1,16 @@
+<html>
+    <head>
+
+</head>
+<body>
+    <% if(message) { %>
+        <div style="color: red;">
+            <%= message %>
+        </div>
+    <% } %>
+    <% for(var i=0; i< book.length;i++){ %>
+    <img src="data:book[i]/<%= book[i].book_img.contentType %>;base64,
+    <%= book[i].book_img.data.toString('base64') %>">
+    <% } %>
+</body>
+</html>

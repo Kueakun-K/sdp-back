@@ -2,6 +2,7 @@ var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
+var flash = require('connect-flash');
 var logger = require('morgan')
 const session = require('express-session')
 // const MongoDBStore = require('connect-mongodb-session')(session)
@@ -30,6 +31,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(flash());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'))
 app.use(methodOverride('_method'))
@@ -57,6 +59,10 @@ app.use('/thread', threadRouter)
 app.use('/category', categoryRouter)
 app.use('/profile', profileRouter)
 
+app.use(function(req, res, next){
+  res.locals.message = req.flash();
+  next();
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

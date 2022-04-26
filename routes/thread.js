@@ -33,8 +33,9 @@ router.post('/postthread', async (req, res) => {
 
     const user = await UserModel.findOne({user_name: req.session.user})
     const book = await BookModel.findById(req.body.book_id)
-
-    var obj = {
+    console.log(user)
+    
+    const  createthread = new ThreadModel({
         user_id: user._id,
         book_id: book._id,
         book_img: {
@@ -44,8 +45,8 @@ router.post('/postthread', async (req, res) => {
         user_name: user.user_name,
         section: req.body.section,
         content: req.body.content
-    }
-    ThreadModel.create(obj)
+    })
+    await createthread.save()
     const thread = await ThreadModel.findOne({user_id: user._id, book_id: book._id})
     res.redirect(`../thread/${thread._id}`)
 })

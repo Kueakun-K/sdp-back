@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const Authorize = require('../authorize')
-const {BookModel, UserModel, TokenModel, BookCommentModel, ThreadModel, LibraryModel} = require('../models')
+const {BookModel, UserModel, TokenModel, BookCommentModel, ThreadModel, LibraryModel, BookContentModel} = require('../models')
 
 router.get('/', async (req, res) => {
   const rentbook = []
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     }
   }
   const newbook = await BookModel.find().sort({createdAt: -1})
-  const viewbook = await BookModel.find().sort({book_view: -1})
+  const pricebook = await BookModel.find().sort({book_price: 1})
   const ratebook = await BookModel.find().sort({book_rate: -1})
   var num1 = 6
   if(newbook.length <6){
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
   res.render('index', {
     rentbook: rentbook,
     newbook: newbook,
-    viewbook: viewbook,
+    pricebook: pricebook,
     ratebook: ratebook,
     num: num1, 
     user: user
@@ -153,11 +153,24 @@ router.get('/search', async (req, res) => {
 router.get('/payment/:id', async (req, res) => {
   const user_id = req.params.id
   const user = await UserModel.findById(user_id)
-  
-  
   res.render('payment',{
     user: user
   })
 })
 
+
+
+router.get('/test', async (req, res) => {
+  req.flash('success', 'Welcome!!')
+  res.redirect('/test1')
+})
+
+router.get('/test1/:id',  async (req, res) => {
+  const book_id = req.params.id
+  const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
+  res.render('test',{
+    message: req.flash('success'),
+    book: book
+  })
+})
 module.exports = router;

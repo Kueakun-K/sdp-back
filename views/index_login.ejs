@@ -7,7 +7,13 @@
     <title>Ahey Libary-เข้าสู่ระบบ</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/login.css" type="text/css">
-  
+    <link rel="stylesheet" href="/stylesheets/register.css" type="text/css">
+    <style>
+        .error{
+          color: red;
+          font-style: italic;
+      }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -60,13 +66,17 @@
     </nav>
     <div class="loginbox">
         <div class="user-login-box">
-        <form action="/api/login" method="post">
+        <form action="/api/login" method="post" id="formlogin">
             <span class="user-icon"></span>
             <div class="label-username">ชื่อผู้ใช้</div>
+            <div class="row mb-1">
             <input type="text" name="username" class="user-username" placeholder="Username" value="<%= username %>">
+            </div>
             <div class="label-password">รหัสผ่าน</div>
+            <div class="row mb-1">
             <input type="password" name="password" class="user-password" placeholder="Password">
-            <br>
+            </div>
+            
             <a href="/forgotpassword" class="forgot">ลืมรหัสผ่าน?</a>
             <br>
             <button type="submit" class="loginbtn" name="login">เข้าสู่ระบบ</button>
@@ -78,6 +88,9 @@
         <hr class="endline">
        
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
+    <script src="/javascripts/login.js"></script>
 </body>
 </html>

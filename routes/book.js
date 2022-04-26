@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 
-const {BookModel, UserModel, BookCommentModel, LibraryModel, ThreadModel} = require('../models')
+const {BookModel, UserModel, BookCommentModel, LibraryModel, ThreadModel, BookContentModel} = require('../models')
 
 var fs = require('fs')
 var path = require('path')
@@ -57,35 +57,43 @@ router.get('/:id', async (req, res) => {
         rent: check,
         thread: checkthread,
         book_comment: comment,
-        rate: rate
+        rate: rate,
+        scroll: 0
     })
 })
 
-router.post('/postbook', upload.single('img'), async (req, res) => {
+router.post('/postbook', upload.array('multiimg'), async (req, res) => {
+    const length = Object.keys(req.files).length
 
-    await sharp(path.resolve(__dirname,'../public/images/' + req.file.filename)).resize({
-        width: 350,
-        height: 700,
-    }).toFile(path.resolve(__dirname,'../public/resize/' + req.file.filename))
-
-    var obj = {
+    await sharp(path.resolve(__dirname,'../public/images/' + req.files[length-1].filename)).resize({
+        width: 300,
+        height: 650,
+    }).toFile(path.resolve(__dirname,'../public/resize/' + req.files[length-1].filename))
+    
+    const postbook = new BookModel({
       book_name: req.body.book_name,
       book_tag: req.body.book_tag,
       book_description: req.body.book_description,
       book_price: req.body.book_price,
       book_img: {
-            data: fs.readFileSync(path.join(__dirname,'../public/resize/' + req.file.filename)),
+            data: fs.readFileSync(path.join(__dirname,'../public/resize/' + req.files[length-1].filename)),
             contentType: 'image/png'
         }
-    }
-    BookModel.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            return res.redirect('../');
-        }
     })
+    await postbook.save()
+    const book = await BookModel.findOne({book_name: req.body.book_name})
+    for(var i = 0; i<length;i++){
+        var content = new BookContentModel({
+            book_id: book._id,
+            index: i,
+            book_img:{
+                data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.files[length-i-1].filename)),
+                contentType: 'image/png'
+            }
+        })
+        await content.save()
+    }
+    return res.redirect('../')
 })
   
 router.put('/update', async (req, res) => {
@@ -100,10 +108,12 @@ router.delete('/delete', async (req, res) => {
     const book_id = req.body.id
     console.log(book_id)
     await BookModel.findOneAndDelete({_id:book_id})
+    await BookCommentModel.deleteMany({book_id: book_id})
+    await BookContentModel.deleteMany({book_id: book_id})
+    await LibraryModel.deleteMany({book_id: book_id})
+    await ThreadModel.deleteMany({book_id: book_id})
     return res.redirect('../')
 })
-  
-
 
 router.post('/rent', async (req, res) => {
     const {book_id, day} = req.body

@@ -15,7 +15,7 @@
         integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
 </head>
 
-<body style="height: 5000px;">
+<body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
             <div class="p-5">
@@ -112,9 +112,13 @@
                                             <label for="recipient-name" class="col-form-label">ราคา</label>
                                             <input type="text" class="form-control"  name="book_price" id="recipient-name">
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">รูปหน้าปก</label>
                                             <input class="form-control" type="file" id="formFile" name="img">
+                                        </div> -->
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">รูปหนังสือ</label>
+                                            <input class="form-control" type="file" id="formFile" name="multiimg" multiple>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -122,9 +126,10 @@
                                     <button type="submit" class="btn btn-success" data-bs-dismiss="modal">สร้าง</button>
                                 </div>
                             </div>
+                    </form>
                         </div>
                     </div>
-                </form>
+                
             <div class="row">
                 <div class="col-12">
                     <div class="carousel slide" data-bs-ride="carousel" id="mySlider">
@@ -234,27 +239,27 @@
 
     <section id="popular">
         <div class="container">
-            <div class="border-dark border-bottom fs-4 fw-normal py-2">ยอดนิยม</div>
+            <div class="border-dark border-bottom fs-4 fw-normal py-2">ราคา</div>
             <div class="row my-2">
                 <% for(var i = 0;i < num;i++){ %>
                     <div class="col-md-2">
-                        <a href="/book/<%= viewbook[i]._id %>"><img
-                                src="data:viewbook[i]/<%= viewbook[i].book_img.contentType %>;base64,
-                                <%= viewbook[i].book_img.data.toString('base64') %>"
+                        <a href="/book/<%= pricebook[i]._id %>"><img
+                                src="data:pricebook[i]/<%= pricebook[i].book_img.contentType %>;base64,
+                                <%= pricebook[i].book_img.data.toString('base64') %>"
                                 class="d-block w-100 h-75 img-thumbnail img-fluid mb-2"></a>
-                        <a href="/book/<%= viewbook[i]._id %>" class="text-black text-start text-decoration-none"><%= viewbook[i].book_name %></a>
+                        <a href="/book/<%= pricebook[i]._id %>" class="text-black text-start text-decoration-none"><%= pricebook[i].book_name %></a>
                         <div class="d-flex justify-content-between my-2">
                             <div>
-                                <% for(var star = 0;star < Math.round(viewbook[i].book_rate);star++){ %>
+                                <% for(var star = 0;star < Math.round(pricebook[i].book_rate);star++){ %>
                                 <i class="bi bi-star-fill" style='color: yellow'></i>
                                 <% } %>
-                                <% for(var nonstar = 5;nonstar > Math.round(viewbook[i].book_rate);nonstar--){ %>
+                                <% for(var nonstar = 5;nonstar > Math.round(pricebook[i].book_rate);nonstar--){ %>
                                 <i class="bi bi-star"></i> 
                                 <% } %>
                             </div>
                             <div>
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"><%= viewbook[i].book_price %> ฿
+                                    data-bs-target="#exampleModal"><%= pricebook[i].book_price %> ฿
                                 </button>
                             </div>
                         </div>
@@ -293,6 +298,41 @@
                     </div>
                     <% } %>
             </div>
+        </div>
+    </section>
+    <section id="footers">
+        <div class="container">
+            <footer class="row row-cols-5 py-5 my-5 border-top">
+                <div class="col">
+                    <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                        <p class="p-0 text-muted fs-4">AHEEY RIBARY</p>
+                    </a>
+                    <p class="text-muted">&copy; 2022</p>
+                </div>
+
+                <div class="col">
+
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col">
+                    <h5>หนังสือ</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="/category/novel" class="nav-link p-0 text-muted">นิยาย</a></li>
+                        <li class="nav-item mb-2"><a href="/category/general" class="nav-link p-0 text-muted">หนังสือทั่วไป</a></li>
+                        <li class="nav-item mb-2"><a href="/category/children" class="nav-link p-0 text-muted">หนังสือเด็ก</a></li>
+                        <li class="nav-item mb-2"><a href="/category/manga" class="nav-link p-0 text-muted">การ์ตูน</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5>อื่นๆ</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="/board" class="nav-link p-0 text-muted">กระดาน</a></li>
+                        <li class="nav-item mb-2"><a href="/thread" class="nav-link p-0 text-muted">กระทู้</a></li>
+                    </ul>
+                </div>
+            </footer>
         </div>
     </section>
 </body>
