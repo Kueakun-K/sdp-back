@@ -53,7 +53,6 @@ router.get('/:id', async (req, res) => {
     if(usercomment == null){
         usercomment = false
     }
-    // console.log(usercomment)
     return res.render('book',{
         user: user,
         usercomment: usercomment,
@@ -70,8 +69,8 @@ router.post('/postbook', upload.array('multiimg[]'), async (req, res) => {
     const length = Object.keys(req.files).length
 
     await sharp(path.resolve(__dirname,'../public/images/' + req.files[length-1].filename)).resize({
-        width: 300,
-        height: 650,
+        width: 450,
+        height: 700,
     }).toFile(path.resolve(__dirname,'../public/resize/' + req.files[length-1].filename))
     
     const postbook = new BookModel({

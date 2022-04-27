@@ -221,7 +221,7 @@
             <div class="row">
                 <div class="col-12">
                     <% if( user != undefined) { %>
-                        <% if(  usercomment == undefined ) { %>
+                        <% if(  usercomment == false ) { %>
                     <p class="border-dark border-bottom fs-4 fw-bolder">เขียนรีวิวและให้เรตติ้ง</p>
                     <form action="/book/comment" method="post">
                         <input type="hidden" name="book_id" value="<%= book._id %>">

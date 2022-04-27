@@ -50,7 +50,9 @@ router.get('/register', (req, res) =>{
 })
 
 router.get('/forgotpassword', (req, res) => {
-  res.render('index_forgotpassword',{ message: '' })
+  res.render('index_forgotpassword',{
+    message: req.flash('error-forgot')  
+  })
 })
 
 router.get('/password-reset/:user_id/:token', async (req, res) => {

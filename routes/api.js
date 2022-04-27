@@ -29,19 +29,19 @@ router.post('/register', async (req, res) => {
 
   if (!username || !password || !repassword || !email){
     req.flash('error-register', 'ข้อมูลไม่ถูกต้อง')
-    return res.redirect('../register')
+    return res.redirect(req.get('referer'))
   }
 
   const checkusername = await UserModel.findOne({user_name:username})
   if(checkusername){
     req.flash('error-register', 'Username ซ้ำ')
-    return res.redirect('../register')
+    return res.redirect(req.get('referer'))
   }
 
   const checkemail = await UserModel.findOne({user_email:email})
   if(checkemail){
     req.flash('error-register', 'Email ซ้ำ')
-    return res.redirect('../register')
+    return res.redirect(req.get('referer'))
   }
 
   if( password == repassword){
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 
   if(!username || !password){
     req.flash('error-login', 'รหัสผ่านไม่ถูกต้อง')
-    return res.redirect('../login')
+    return res.redirect(req.get('referer'))
   }
 
   const user = await UserModel.findOne({user_name: username})
@@ -88,12 +88,12 @@ router.post('/login', async (req, res) => {
     }
     else{
       req.flash('error-login', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-      return res.redirect('../login')
+      return res.redirect(req.get('referer'))
     }
   }
   else{
     req.flash('error-login', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-    return res.redirect('../login')
+    return res.redirect(req.get('referer'))
   }
 })
 
@@ -102,7 +102,8 @@ router.get('/mail', async (req, res) => {
   
   const checkemail = await UserModel.findOne({user_email: email})
   if(!checkemail){
-    return res.render('index_forgotpassword',{ message: 'ไม่มี Email นี้' })
+    req.flash('error-forgot', 'ไม่มี Email นี้')
+    return res.redirect(req.get('referer'))
   }
   else{
     let token = await TokenModel.findOne({user_id: checkemail._id})
@@ -125,17 +126,19 @@ router.get('/mail', async (req, res) => {
     const mailOptions = {
       from: 'Ahey Library <aheylibrary@gmail.com>',   
       to: `คุณ ${checkemail.user_name} <${email}>`,
-      subject: "สวัสดีจ้า",                     
+      subject: "RESET PASSWORD",                     
       html: "<h2>RESET PASSWORD : </h2><br>" + 
             `<a href='http://localhost:3000/password-reset/${checkemail._id}/${token.token}'>Cilck Here</a>`
     }
 
     transporter.sendMail(mailOptions, function (err, info) {
       if(err){
-        return res.render('index_forgotpassword',{ message: 'Error' })
+        req.flash('error-forogt', 'Error')
+        return res.redirect(req.get('referer'))
       }
       else{
-        return res.render('index_forgotpassword',{ message: 'ส่งไปที่ Email เรียบร้อย' })
+        req.flash('error-forogt', 'ส่งไปที่ Email เรียบร้อย')
+        return res.redirect(req.get('referer'))
       }
     })
   }

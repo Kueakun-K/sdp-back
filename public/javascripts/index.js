@@ -45,6 +45,7 @@ $(function(){
                 book_price:{
                     required:true,
                     noSpace:true,
+                    min:1,
                     regex: /[0-9]$/
                 },
                 "multiimg[]":{
@@ -61,7 +62,8 @@ $(function(){
                 },
                 book_price:{
                     required:'กรุณากรอกราคา',
-                    regex: 'กรุณากรอกตัวเลข'
+                    regex: 'กรุณากรอกตัวเลข',
+                    min:"กรุณากรอกตัวเลข"
                 },
                 "multiimg[]":{
                     required:'กรุณาเลือกรูป'

@@ -4,7 +4,7 @@ var router = express.Router()
 const {ThreadModel, ThreadCommentModel, UserModel, BookModel} = require('../models')
 
 router.get('/', async (req, res) =>{
-    const thread = await ThreadModel.find()
+    const thread = await ThreadModel.find().sort({createdAt: -1})
     if(req.session.user){
       var user = await UserModel.findOne({user_name: req.session.user})
     }
