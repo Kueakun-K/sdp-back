@@ -1,3 +1,6 @@
+$.validator.addMethod("notEqual", function(value, element, param) {
+    return this.optional(element) || value != $(param).val();
+   }, "This has to be different...");
 $.validator.addMethod("noSpace",function(value, element) {
     return value.indexOf(" ") < 0 && value != "";
 }, "ห้ามใช้ช่องว่าง"
@@ -25,6 +28,7 @@ $(function(){
                     minlength:3,
                     maxlength:10,
                     regex: /^[A-Za-z_]{3,10}$/,
+                    notEqual: "#user_name",
                     noSpace:true
                 },
                 password:{
@@ -40,7 +44,8 @@ $(function(){
                     required:'กรุณาป้อนชื่อผู้ใช้งาน',
                     minlength:'ต้องมีอย่างน้อย 3 ตัวอักษร',
                     maxlength:'ต้องมีอย่างมากไม่เกิน 10 ตัวอักษร',
-                    regex:'ชื่อผู้ใช้ต้องประกอบไปด้วย ตัวอักษรภาษาอังกฤษพิมเล็กหรือพิมใหญ่ เท่านั้น'
+                    regex:'ชื่อผู้ใช้ต้องประกอบไปด้วย ตัวอักษรภาษาอังกฤษพิมเล็กหรือพิมใหญ่ เท่านั้น',
+                    notEqual:'ชื่อผู้ใช้ซ้ำ'
                 },
                 password:{
                     required:'กรุณาป้อนรหัสผ่าน',
@@ -65,7 +70,7 @@ $(function(){
                 },
                 confirmnewpassword:{
                     required:true,
-                    equalTo:'#inputPassword3',
+                    equalTo:'#newpassword',
                     noSpace:true
                 },
                 password:{
@@ -83,7 +88,7 @@ $(function(){
                     maxlength:'รหัสผ่านต้องมีอย่างมากไม่เกิน 20 ตัวอักษร',
                     regex:'รหัสผ่านต้องประกอบไปด้วย ตัวเลข, ตัวอักษรภาษาอังกฤษพิมเล็ก และพิมใหญ่, อักขระพิเศษ (!@#$%^&*_)'
                 },
-                repassword:{
+                confirmnewpassword:{
                     required:'กรุณาป้อนรหัสผ่านอีกครั้ง',
                     equalTo:'รหัสผ่านไม่เหมือนกัน'
                 },
@@ -107,6 +112,7 @@ $(function(){
                     email:true,
                     noSpace:true,
                     regex: /^[A-Za-z0-9_]+\@[A-Za-z0-9_]+\.[A-Za-z0-9_]+/,
+                    notEqual: "#user_email"
                     
                 },
                 password:{
@@ -118,10 +124,11 @@ $(function(){
                 }
             },
             messages:{
-                email:{
+                newemail:{
                     required:'กรุณาป้อนอีเมลล์',
                     email:'อีเมลล์ไม่ถูกต้อง',
-                    regex:'อีเมลล์ไม่ถูกต้อง'
+                    regex:'อีเมลล์ไม่ถูกต้อง',
+                    notEqual:'อีเมลล์ซ้ำ'
                 },
                 password:{
                     required:'กรุณาป้อนรหัสผ่าน',

@@ -68,10 +68,10 @@ router.get('/:id', async (req, res) => {
 router.post('/postbook', upload.array('multiimg[]'), async (req, res) => {
     const length = Object.keys(req.files).length
 
-    await sharp(path.resolve(__dirname,'../public/images/' + req.files[length-1].filename)).resize({
+    await sharp(path.resolve(__dirname,'../public/images/' + req.files[0].filename)).resize({
         width: 450,
         height: 700,
-    }).toFile(path.resolve(__dirname,'../public/resize/' + req.files[length-1].filename))
+    }).toFile(path.resolve(__dirname,'../public/resize/' + req.files[0].filename))
     
     const postbook = new BookModel({
       book_name: req.body.book_name,
@@ -79,7 +79,7 @@ router.post('/postbook', upload.array('multiimg[]'), async (req, res) => {
       book_description: req.body.book_description,
       book_price: req.body.book_price,
       book_img: {
-            data: fs.readFileSync(path.join(__dirname,'../public/resize/' + req.files[length-1].filename)),
+            data: fs.readFileSync(path.join(__dirname,'../public/resize/' + req.files[0].filename)),
             contentType: 'image/png'
         }
     })
@@ -90,7 +90,7 @@ router.post('/postbook', upload.array('multiimg[]'), async (req, res) => {
             book_id: book._id,
             index: i,
             book_img:{
-                data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.files[length-i-1].filename)),
+                data: fs.readFileSync(path.join(__dirname,'../public/images/' + req.files[i].filename)),
                 contentType: 'image/png'
             }
         })
@@ -141,6 +141,7 @@ router.post('/rent', async (req, res) => {
             const createlibrary = new LibraryModel({
                 user_id: user._id,
                 book_id: book._id,
+                book_name: book.book_name,
                 book_img: {
                     data: book.book_img.data,
                     contentType: 'image/png'

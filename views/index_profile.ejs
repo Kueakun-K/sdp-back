@@ -97,7 +97,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Username เดิม</label>
-                                    <input type="text" class="form-control"  name="user_name" READONLY value="<%= user.user_name %>">
+                                    <input type="text" class="form-control"  name="user_name" READONLY value="<%= user.user_name %>" id="user_name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Username ใหม่</label>
@@ -129,7 +129,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Password ใหม่</label>
-                                    <input type="password" class="form-control"  name="newpassword">
+                                    <input type="password" class="form-control"  name="newpassword" id="newpassword">
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">ยืนยัน Password ใหม่</label>
@@ -160,7 +160,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Email เดิม</label>
-                                    <input type="text" class="form-control"  name="user_email" READONLY value="<%= user.user_email %>">
+                                    <input type="text" class="form-control"  name="user_email" READONLY value="<%= user.user_email %>" id="user_email">
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Email ใหม่</label>
@@ -233,12 +233,18 @@
                 <% for(var i = 0;i < read_on.length;i++){ %>
                 <div class="itembook">
                     <div class="picture">
+                        <a href="/read/<%= read_on[i].book_id %>">
+
                         <img src="data:read_on[i]/<%= read_on[i].book_img.contentType %>;base64,
                         <%= read_on[i].book_img.data.toString('base64') %>" style="width: 150px; height: 200px;">
-                    </div>
-                    <a href="/read/<%= read_on[i].book_id %>">
-                    <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
                     </a>
+                    </div>
+                    <div style="font-weight: bold;"><%= read_on[i].book_name %></div>
+                    <!-- <div>
+                    
+                    <button class="btn" id="butt0" style="width: 100px; background-color: green; color: white;">อ่านต่อ</button>
+                </div> -->
+                    <!-- </a> -->
                 </div>
                 <% } %>
             </div>

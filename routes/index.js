@@ -146,17 +146,34 @@ router.get('/read/:id', async (req, res) =>{
   const book_id = req.params.id
   if(req.session.user){
     var user = await UserModel.findOne({user_name: req.session.user})
+    var rent = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
+    if(rent){
+        if(rent.endAt < Date.now() && rent.isRent == true)
+          await LibraryModel.findByIdAndUpdate(rent._id, {isRent: false})
+    }
+    else{
+      return res.redirect('/')
+    }
+    const library = await LibraryModel.findOne({user_id: user._id, book_id: book_id})
+    if(library.isRent == true){
+      const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
+      const dayLeft = Math.floor((library.endAt - Date.now()) / ( 60 * 60 * 1000))
+      await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book_id},{lastread: Date.now()})
+      return res.render('read',{
+        user:user,
+        book:book,
+        scroll:library.readOn,
+        dayleft:dayLeft
+      })
+    }
+    else{
+      return res.redirect('/')
+    }
   }
-  const library = await LibraryModel.findOneAndUpdate({user_id: user._id, book_id: book_id},{lastread: Date.now()})
-  const book = await BookContentModel.find({book_id: book_id}).sort({index: 1})
-  const dayLeft = Math.floor((library.endAt - Date.now()) / ( 60 * 60 * 1000))
+  else{
+    return res.redirect('/')
+  }
 
-  res.render('read',{
-    user:user,
-    book:book,
-    scroll:library.readOn,
-    dayleft:dayLeft
-  })
 })
 
 

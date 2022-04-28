@@ -9,6 +9,7 @@ const LibrarySchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    book_name:String,
     isRent: {
         type:Boolean,
         default: true
